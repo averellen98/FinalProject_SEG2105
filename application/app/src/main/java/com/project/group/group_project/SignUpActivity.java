@@ -27,7 +27,10 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView lastName;
     private RadioGroup roleGroup;
 
-    public static List<User> users = new ArrayList<User>();;
+    public static List<User> users = new ArrayList<User>();
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    int x = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +65,17 @@ public class SignUpActivity extends AppCompatActivity {
             if (users.contains(user)){
                 Toast.makeText(this, "User is already a user, either log in or choose another email.", Toast.LENGTH_LONG).show();
             }
-            else {
+            else if (!user.getRole().equals("ADMIN")){
+                DatabaseReference dU = database.getReference();
+                DatabaseReference db = dU.child("users");
                 // implement creating user to the database
-                DatabaseReference dU = FirebaseDatabase.getInstance().getReference().child("users");
-                String id = dU.push().getKey();
-                String userID = u_email;
 
-                //the @ and . cause an invalid character so this will fix that
-                userID = id.replace("@", "-");
-                userID = id.replace(".", "-");
+                String id = db.push().getKey();
+                DatabaseReference dataSave = db.child(id);
 
-                User addUser = createUser(userID, u_password, role, u_firstName, u_lastName);
+                User addUser = createUser(u_email, u_password, role, u_firstName, u_lastName);
 
-                dU.setValue(addUser);
+                dataSave.setValue(addUser);
                 users.add(addUser);
 
                 //start the WelcomeActivity.class
@@ -83,6 +84,37 @@ public class SignUpActivity extends AppCompatActivity {
                 intent.putExtra(MainActivity.USER_FIRSTNAME_KEY, u_firstName);
 
                 startActivity(intent);
+            }
+            else if (user.getRole().equals("ADMIN")){
+                for (int i = 0; i < users.size(); i++){
+                    User lookUser = users.get(i);
+                    if (lookUser.getRole().equals("ADMIN")){
+                        x++;
+                    }
+                }
+                if (x >= 1){
+                    Toast.makeText(this, "Admin user already exists, please try again.", Toast.LENGTH_SHORT).show();
+                }
+                else if (x < 1){
+                    DatabaseReference dU = database.getReference();
+                    DatabaseReference db = dU.child("users");
+                    // implement creating user to the database
+
+                    String id = db.push().getKey();
+                    DatabaseReference dataSave = db.child(id);
+
+                    User addUser = createUser(u_email, u_password, role, u_firstName, u_lastName);
+
+                    dataSave.setValue(addUser);
+                    users.add(addUser);
+
+                    //start the WelcomeActivity.class
+                    Intent intent = new Intent(this, WelcomeActivity.class);
+                    intent.putExtra(MainActivity.USER_ROLE_KEY, role);
+                    intent.putExtra(MainActivity.USER_FIRSTNAME_KEY, u_firstName);
+
+                    startActivity(intent);
+                }
             }
 
         } else {
