@@ -11,7 +11,14 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void verifyUserCriteria_isCorrect() {
+    	SignUpActivity tester = new SignUpActivity();
+        assertFalse(tester.SignUpActivity(email, password1, password), false);
+        
+    }
+    
+    public void checksToSeeifUserExists() {
+    	SignUpActivity tester = new SignUpActivity();
+    	assertnotNull(tester.createuser(email, password, role, "John", "Smith"), user )
     }
 }
