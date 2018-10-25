@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -27,11 +28,16 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView lastName;
     private RadioGroup roleGroup;
 
-    public static List<User> users = new ArrayList<User>();
+    public static List<User> users;
+    public static ListView usersListView;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public boolean isThere = false;
 
     int x = 0;
 
+    public static List<User> getUsers(){
+        return users;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,11 +50,12 @@ public class SignUpActivity extends AppCompatActivity {
         firstName = findViewById(R.id.firstNameText);
         lastName = findViewById(R.id.lastNameText);
         roleGroup = findViewById(R.id.roleRadioGroup);
+        users = new ArrayList<>();
     }
 
     public void signUpOnClick(View view) {
 
-        String u_email = email.getText().toString();
+        final String u_email = email.getText().toString();
         String u_password = password.getText().toString();
         String u_confirmPassword = confirmPassword.getText().toString();
         String role = getRoleFromRadioButtonId(roleGroup.getCheckedRadioButtonId());
@@ -59,63 +66,55 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (canBeUser) {
 
-            User user = createUser(u_email, u_password, role, u_firstName, u_lastName);
-
             //want to check if the user is already a user, and if not then add it
-            if (users.contains(user)){
-                Toast.makeText(this, "User is already a user, either log in or choose another email.", Toast.LENGTH_LONG).show();
-            }
-            else if (!user.getRole().equals("ADMIN")){
-                DatabaseReference dU = database.getReference();
-                DatabaseReference db = dU.child("users");
-                // implement creating user to the database
 
-                String id = db.push().getKey();
-                DatabaseReference dataSave = db.child(id);
-
-                User addUser = createUser(u_email, u_password, role, u_firstName, u_lastName);
-
-                dataSave.setValue(addUser);
-                users.add(addUser);
-
-                //start the WelcomeActivity.class
-                Intent intent = new Intent(this, WelcomeActivity.class);
-                intent.putExtra(MainActivity.USER_ROLE_KEY, role);
-                intent.putExtra(MainActivity.USER_FIRSTNAME_KEY, u_firstName);
-
-                startActivity(intent);
-            }
-            else if (user.getRole().equals("ADMIN")){
-                for (int i = 0; i < users.size(); i++){
-                    User lookUser = users.get(i);
-                    if (lookUser.getRole().equals("ADMIN")){
-                        x++;
-                    }
-                }
-                if (x >= 1){
-                    Toast.makeText(this, "Admin user already exists, please try again.", Toast.LENGTH_SHORT).show();
-                }
-                else if (x < 1){
-                    DatabaseReference dU = database.getReference();
-                    DatabaseReference db = dU.child("users");
-                    // implement creating user to the database
-
-                    String id = db.push().getKey();
-                    DatabaseReference dataSave = db.child(id);
-
+            if (role.equals("ADMIN")){
+                if (u_email.equals("admin") && u_password.equals("admin")){
+                    //x++;
                     User addUser = createUser(u_email, u_password, role, u_firstName, u_lastName);
 
+                    // implement creating user to the database
+                    DatabaseReference dU = database.getReference();
+                    DatabaseReference db = dU.child("users");
+                    String id = db.push().getKey();
+                    DatabaseReference dataSave = db.child(id);
                     dataSave.setValue(addUser);
                     users.add(addUser);
 
                     //start the WelcomeActivity.class
                     Intent intent = new Intent(this, WelcomeActivity.class);
-                    intent.putExtra(MainActivity.USER_ROLE_KEY, role);
+                    intent.putExtra(MainActivity.USER_ROLE_KEY, role.toString());
                     intent.putExtra(MainActivity.USER_FIRSTNAME_KEY, u_firstName);
-
                     startActivity(intent);
+                    setContentView(R.layout.activity_welcome);
+                } else {
+                    Toast.makeText(this, "Admin user already exists, please try again.", Toast.LENGTH_SHORT).show();
+                    email.setText("");
+                    password.setText("");
+                    confirmPassword.setText("");
+                    firstName.setText("");
+                    lastName.setText("");
                 }
+            } else {
+                User addUser = createUser(u_email, u_password, role, u_firstName, u_lastName);
+
+                // implement creating user to the database
+                DatabaseReference dU = database.getReference();
+                DatabaseReference db = dU.child("users");
+
+                String id = db.push().getKey();
+                DatabaseReference dataSave = db.child(id);
+                dataSave.setValue(addUser);
+                users.add(addUser);
+
+                //start the WelcomeActivity.class
+                Intent intent = new Intent(this, WelcomeActivity.class);
+                intent.putExtra(MainActivity.USER_ROLE_KEY, role.toString());
+                intent.putExtra(MainActivity.USER_FIRSTNAME_KEY, u_firstName);
+                startActivity(intent);
+                setContentView(R.layout.activity_welcome);
             }
+
 
         } else {
             Toast.makeText(this, "Please input all required information.", Toast.LENGTH_LONG).show();
