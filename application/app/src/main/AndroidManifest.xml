@@ -18,7 +18,12 @@
         </activity>
         <activity android:name=".LogInActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".WelcomeActivity"></activity>
+        <activity android:name=".WelcomeActivity"/>
+        <activity android:name=".AdminView"/>
+        <activity android:name=".HomeOwnerView"/>
+        <activity android:name=".ServiceProviderView"/>
+        <activity android:name=".UsersList"/>
+        <activity android:name=".Services"/>
     </application>
 
 </manifest>
