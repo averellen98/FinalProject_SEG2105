@@ -5,25 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/usersRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/usersAvailable"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:text="" />
-
-        <TextView
-            android:id="@+id/userAccounts"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:text=""
-            tools:layout_editor_absoluteX="326dp" />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>

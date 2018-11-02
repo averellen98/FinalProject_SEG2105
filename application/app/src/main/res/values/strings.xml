@@ -11,4 +11,15 @@
     <string name="serviceProvider">Service Provider</string>
     <string name="homeOwner">Home Owner</string>
     <string name="role">Role</string>
+    <string name="continueButton">Continue</string>
+    <string name="username">Username</string>
+    <string name="viewServices">View Services</string>
+    <string name="element_text" />
+    <string name="title_activity_view_services">ViewServicesActivity</string>
+    <string name="createService">Create Service</string>
+    <string name="title_activity_create_or_edit_service">CreateOrEditServiceActivity</string>
+    <string name="serviceName">Service Name</string>
+    <string name="serviceDescription">Service Description</string>
+    <string name="ratePerHour">Rate per Hour</string>
+    <string name="rateHint">1.00</string>
 </resources>

@@ -9,25 +9,22 @@ import android.widget.Toast;
 import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity {
-    String userFirstName;
-    String userRole;
-    Button continueButton;
+
+    private String userFirstName;
+    private String userRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
         Intent intent = getIntent();
         userFirstName = intent.getStringExtra(MainActivity.USER_FIRSTNAME_KEY);
         userRole = intent.getStringExtra(MainActivity.USER_ROLE_KEY);
-        continueButton = (Button) findViewById(R.id.continueButton);
 
         String welcomeMessage = buildWelcomeMessage(userFirstName, userRole);
 
         setWelcomeText(welcomeMessage);
-
     }
 
     private String buildWelcomeMessage(String userFirstName, String userRole) {
@@ -48,22 +45,18 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void continueButtonOnClick(View view){
 
-        String role = userRole.toString();
-        Toast.makeText(this, role.toString(),Toast.LENGTH_SHORT).show();
+        String role = userRole;
+        Toast.makeText(this, role,Toast.LENGTH_SHORT).show();
 
-        if (role.toString().equals("Admin")){
-            Intent intent2 = new Intent(this, AdminView.class);
-            startActivity(intent2);
-            setContentView(R.layout.activity_admin_view);
-        } else if (role.toString().equals("Home Owner")){
-            Intent intent3 = new Intent(this, HomeOwnerView.class);
-            startActivity(intent3);
-            setContentView(R.layout.activity_not_implemented);
-        } else if (role.toString().equals("Service Provider")){
-            Intent intent4 = new Intent(this, ServiceProviderView.class);
-            startActivity(intent4);
-            setContentView(R.layout.activity_not_implemented);
+        if (role.equals("Admin")){
+            Intent intent = new Intent(this, AdminView.class);
+            startActivity(intent);
+        } else if (role.equals("Home Owner")){
+            Intent intent = new Intent(this, HomeOwnerView.class);
+            startActivity(intent);
+        } else if (role.equals("Service Provider")){
+            Intent intent = new Intent(this, ServiceProviderView.class);
+            startActivity(intent);
         }
-
     }
 }

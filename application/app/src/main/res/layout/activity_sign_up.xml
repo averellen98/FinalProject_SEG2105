@@ -16,15 +16,15 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email" />
+            android:text="@string/username" />
 
         <EditText
-            android:id="@+id/emailText"
+            android:id="@+id/usernameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress" />
+            android:hint="@string/username"
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/textView4"

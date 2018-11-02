@@ -2,7 +2,7 @@ package com.project.group.group_project;
 
 public class HomeOwner extends User {
 
-    public HomeOwner(String email, String password, UserRole role) {
-        super(email, password, role);
+    public HomeOwner(String id, String username, String password, UserRole role) {
+        super(id, username, password, role);
     }
 }

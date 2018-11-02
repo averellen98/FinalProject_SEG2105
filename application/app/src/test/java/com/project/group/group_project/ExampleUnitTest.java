@@ -2,6 +2,8 @@ package com.project.group.group_project;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -11,14 +13,24 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void verifyUserCriteria_isCorrect() {
-    	SignUpActivity tester = new SignUpActivity();
-        assertFalse(tester.SignUpActivity(email, password1, password), false);
-        
+    public void verifyUserGetsAddedToDatabaseWhenCreated() {
+        String email = "test@email";
+        String password = "test";
+        String role = "TEST_ROLE";
+
+        UserDatabase userDatabase = new UserDatabase();
+
+        userDatabase.addUser(email, password, role, null, null);
+
+        assertNotNull(userDatabase.getUsers());
     }
-    
-    public void checksToSeeifUserExists() {
-    	SignUpActivity tester = new SignUpActivity();
-    	assertnotNull(tester.createuser(email, password, role, "John", "Smith"), user )
+
+    @Test
+    public void verifyServiceDatabaseIsNotNull() {
+        ServiceDatabase db = new ServiceDatabase();
+
+        List<Service> services = db.getServices();
+
+        assertNotNull(services);
     }
 }

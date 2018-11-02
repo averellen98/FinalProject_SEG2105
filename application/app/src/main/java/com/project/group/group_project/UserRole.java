@@ -28,4 +28,17 @@ public enum UserRole {
     public static UserRole getRoleByName(String name) {
         return roleNameMap.get(name);
     }
+
+    public static UserRole getRoleByNameForFirebase(String name) {
+
+        if (name.equals("ADMIN")) {
+            return UserRole.ADMIN;
+        } else if (name.equals("HOME_OWNER")) {
+            return UserRole.HOME_OWNER;
+        } else if (name.equals("SERVICE_PROVIDER")) {
+            return UserRole.SERVICE_PROVIDER;
+        }
+
+        return null;
+    }
 }

@@ -6,12 +6,14 @@ public abstract class User {
     private String lastName;
     private UserRole role;
     private String password;
-    private String email;
+    private String username;
+    private String id;
 
-    public User(String email, String password, UserRole role) {
-        this.email = email;
+    public User(String id, String username, String password, UserRole role) {
+        this.username = username;
         this.password = password;
         this.role = role;
+        this.id = id;
     }
 
     public void setFirstName(String firstName) {
@@ -42,11 +44,15 @@ public abstract class User {
         return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getId() {
+        return id;
     }
 }

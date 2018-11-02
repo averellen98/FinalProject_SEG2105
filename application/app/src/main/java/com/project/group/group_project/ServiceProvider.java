@@ -2,7 +2,7 @@ package com.project.group.group_project;
 
 public class ServiceProvider extends User {
 
-    public ServiceProvider(String email, String password, UserRole role) {
-        super(email, password, role);
+    public ServiceProvider(String id, String username, String password, UserRole role) {
+        super(id, username, password, role);
     }
 }
