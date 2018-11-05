@@ -39,8 +39,9 @@ public class ServiceDatabase {
 
                     services.add(service);
 
-                    Log.i("INFO", name);
+                    //Log.i("INFO", name);
                 }
+
             }
 
             @Override
@@ -108,4 +109,5 @@ public class ServiceDatabase {
 
         return services;
     }
+
 }
