@@ -43,12 +43,16 @@ public class CreateOrEditServiceActivity extends Activity {
                 originalName = name;
             }
 
+            double act_rate = rate / 100;
+
             nameText.setText(name);
             descriptionText.setText(desc);
-            ratePerHourText.setText(rate / 100);
+            ratePerHourText.setText(Double.toString(act_rate));
 
-            Button createButton = findViewById(R.id.createButton);
-            createButton.setText("Update Service");
+            if (isEdit) {
+                Button createButton = findViewById(R.id.createButton);
+                createButton.setText("Update Service");
+            }
         } catch (Exception e) {
             //do nothing it may be a create
         }
