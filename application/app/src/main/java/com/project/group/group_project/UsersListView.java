@@ -13,7 +13,7 @@ import android.os.Bundle;
 
 public class UsersListView extends AppCompatActivity {
 
-    private UserDatabase userDatabase = new UserDatabase();
+    private UserDatabase userDatabase = UserDatabase.getInstance();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;

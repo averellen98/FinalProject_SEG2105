@@ -12,7 +12,7 @@ public class LogInActivity extends AppCompatActivity {
     private TextView username;
     private TextView password;
 
-    private UserDatabase userDatabase = new UserDatabase();
+    private UserDatabase userDatabase = UserDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

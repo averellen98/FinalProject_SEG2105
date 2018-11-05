@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/rateHint"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
 
         <Button
             android:id="@+id/createButton"

@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class CreateOrEditServiceActivity extends Activity {
 
-    private static final ServiceDatabase serviceDatabase = new ServiceDatabase();
+    private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
     public static final String SERVICE_NAME = "service_name";
     public static final String SERVICE_DESCRIPTION = "service_desc";
@@ -45,6 +46,9 @@ public class CreateOrEditServiceActivity extends Activity {
             nameText.setText(name);
             descriptionText.setText(desc);
             ratePerHourText.setText(rate / 100);
+
+            Button createButton = findViewById(R.id.createButton);
+            createButton.setText("Update Service");
         } catch (Exception e) {
             //do nothing it may be a create
         }

@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class ViewServicesActivity extends AppCompatActivity {
 
-    private static final ServiceDatabase serviceDatabase = new ServiceDatabase();
+    private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;

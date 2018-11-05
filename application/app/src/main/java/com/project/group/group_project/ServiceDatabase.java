@@ -18,6 +18,8 @@ public class ServiceDatabase {
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static final DatabaseReference databaseServices = database.getReference("services");
 
+    private static final ServiceDatabase instance = new ServiceDatabase();
+
     private static List<Service> services = new ArrayList<Service>();
 
     static {
@@ -38,8 +40,6 @@ public class ServiceDatabase {
                     Service service = new Service(id, name, description, ratePerHour);
 
                     services.add(service);
-
-                    //Log.i("INFO", name);
                 }
 
             }
@@ -49,6 +49,14 @@ public class ServiceDatabase {
 
             }
         });
+    }
+
+    private ServiceDatabase() {
+
+    }
+
+    public static ServiceDatabase getInstance() {
+        return instance;
     }
 
     public boolean isServiceAlreadyInDatabase(String name) {
@@ -109,5 +117,4 @@ public class ServiceDatabase {
 
         return services;
     }
-
 }

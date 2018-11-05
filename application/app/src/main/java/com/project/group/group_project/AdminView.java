@@ -12,8 +12,7 @@ import java.util.List;
 
 public class AdminView extends AppCompatActivity {
 
-    private static final ServiceDatabase serviceDatabase = new ServiceDatabase();
-
+    private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

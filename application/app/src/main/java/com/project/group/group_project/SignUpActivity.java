@@ -19,7 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView lastName;
     private RadioGroup roleGroup;
 
-    private UserDatabase userDatabase = new UserDatabase();
+    private UserDatabase userDatabase = UserDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

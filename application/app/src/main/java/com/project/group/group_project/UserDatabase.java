@@ -17,6 +17,8 @@ public class UserDatabase {
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static final DatabaseReference databaseUsers = database.getReference("users");
 
+    private static final UserDatabase instance = new UserDatabase();
+
     private static List<User> users = new ArrayList<User>();
 
     static {
@@ -47,6 +49,14 @@ public class UserDatabase {
 
             }
         });
+    }
+
+    private UserDatabase() {
+
+    }
+
+    public static UserDatabase getInstance() {
+        return instance;
     }
 
     public boolean isUserAlreadyPresentInDatabase(String username) {
