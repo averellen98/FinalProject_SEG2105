@@ -5,4 +5,8 @@ Link to project: https://github.com/averellen98/FinalProject_SEG2105/blob/master
 
 Group members:
   Kathryn Schonauer 8737496
-  Autumn Verellen
+  Autumn Verellen 8634212
+  
+  To sign in as Admin:
+  username: admin
+  password: admin
