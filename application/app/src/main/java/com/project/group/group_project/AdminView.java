@@ -7,9 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminView extends AppCompatActivity {
+
+    private static final ServiceDatabase serviceDatabase = new ServiceDatabase();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,4 +33,5 @@ public class AdminView extends AppCompatActivity {
         Intent intent = new Intent(this, ViewServicesActivity.class);
         startActivity(intent);
     }
+
 }
