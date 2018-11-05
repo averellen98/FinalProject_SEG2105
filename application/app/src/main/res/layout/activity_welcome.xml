@@ -15,7 +15,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="#97D6FC"
+        android:background="#628fb6"
         android:gravity="bottom|center_vertical|center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
