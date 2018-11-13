@@ -39,6 +39,7 @@ public class LogInActivity extends AppCompatActivity {
             if (user != null) {
 
                 Intent intent = new Intent(this, WelcomeActivity.class);
+                intent.putExtra("u_username", user.getUsername());
                 intent.putExtra(MainActivity.USER_FIRSTNAME_KEY, user.getFirstName());
                 intent.putExtra(MainActivity.USER_ROLE_KEY, user.getRole().getName());
 
