@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/companyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/please_enter_your_company_name" />
+
+        <EditText
+            android:id="@+id/companyNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/company_name" />
+
+        <Button
+            android:id="@+id/checkProfileExists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="checkProfileExistsOnClick"
+            android:text="@string/check_for_profile" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
