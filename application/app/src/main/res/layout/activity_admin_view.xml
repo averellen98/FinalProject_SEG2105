@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Hello Admin! You have 3 options:"
+            android:text="Hello Admin! You have 2 options:"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
