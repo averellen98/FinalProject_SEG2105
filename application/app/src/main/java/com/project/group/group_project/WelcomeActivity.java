@@ -12,6 +12,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private String userFirstName;
     private String userRole;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Intent intent = getIntent();
+        userName = intent.getStringExtra("u_username");
         userFirstName = intent.getStringExtra(MainActivity.USER_FIRSTNAME_KEY);
         userRole = intent.getStringExtra(MainActivity.USER_ROLE_KEY);
 
@@ -56,6 +58,7 @@ public class WelcomeActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (role.equals("Service Provider")){
             Intent intent = new Intent(this, ServiceProviderView.class);
+            intent.putExtra("username", userName);
             startActivity(intent);
         }
     }
