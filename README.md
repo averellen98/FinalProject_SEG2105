@@ -10,3 +10,8 @@ Group members:
   To sign in as Admin:
   username: admin
   password: admin
+
+  To sign in as Service Provider:
+  username:serviceProvider
+  password:serviceProvider
+  company name (to access profile):
