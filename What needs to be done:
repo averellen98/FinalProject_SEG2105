@@ -1,6 +1,0 @@
-The firebase won't allow to add new profile child to add profiles to, 
-service provider can add info to profile, and should be able to add/delete 
-services to profile once we fix the fact that the profiles aren't adding, 
-need to implement the add and edit availability function on profile.
-
-The unit test cases will be done once the code is functioning properly.
