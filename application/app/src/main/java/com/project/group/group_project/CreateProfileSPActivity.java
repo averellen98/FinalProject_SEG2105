@@ -3,6 +3,7 @@ package com.project.group.group_project;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -11,60 +12,80 @@ import android.widget.Toast;
 
 public class CreateProfileSPActivity extends Activity {
 
-    private static final ProfileDatabase profileDatabase = ProfileDatabase.getInstance();
+    public static final String USERNAME= "username";
+    public static final String PASSWORD = "password";
+    public static final String ROLE = "role";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
 
-    private boolean isEdit;
-    private String originalName;
+    private String username;
+    private String password;
+    private UserRole role;
+    private String firstName;
+    private String lastName;
 
-    private TextView nameText;
+    private TextView companyNameText;
     private TextView descriptionText;
     private TextView streetAddressText;
     private TextView postalCodeText;
-    private TextView cityProvinceText;
-    private TextView countryNameText;
+    private TextView cityText;
+    private TextView provinceText;
     private RadioGroup licensedRadioGroup;
     private TextView phoneNumText;
-    private Profile thisProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_serviceprovider_profile);
 
-        nameText = findViewById(R.id.serviceNameText);
-        descriptionText = findViewById(R.id.serviceDescriptionText);
+
+
+        Intent intent = getIntent();
+        username = intent.getStringExtra(USERNAME);
+        password = intent.getStringExtra(PASSWORD);
+        role = UserRole.getRoleByName(intent.getStringExtra(ROLE));
+        firstName = intent.getStringExtra(FIRST_NAME);
+        lastName = intent.getStringExtra(LAST_NAME);
+
+        companyNameText = findViewById(R.id.companyNameText);
+        descriptionText = findViewById(R.id.generalDescriptionText);
         streetAddressText = findViewById(R.id.streetAddressText);
         postalCodeText = findViewById(R.id.postalCodeText);
-        cityProvinceText = findViewById(R.id.cityProvinceText);
-        countryNameText = findViewById(R.id.countryNameText);
+        cityText = findViewById(R.id.cityText);
+        provinceText = findViewById(R.id.provinceText);
         phoneNumText = findViewById(R.id.phoneNumText);
         licensedRadioGroup = findViewById(R.id.licensedRadioGroup);
-
     }
 
     public void onClickCreateProfile(View view) {
 
-        String name = nameText.getText().toString();
+        String companyName = companyNameText.getText().toString();
         String description = descriptionText.getText().toString();
         String phoneNum = phoneNumText.getText().toString();
-        String address = streetAddressText.getText().toString() + ", " + postalCodeText.getText().toString() + ", " +
-                cityProvinceText.getText().toString() + ", " + countryNameText.getText().toString();
+        String street = streetAddressText.getText().toString();
+        String postalCode = postalCodeText.getText().toString();
+        String city = cityText.getText().toString();
+        String province = provinceText.getText().toString();
         String licensed = getRoleFromRadioButtonId(licensedRadioGroup.getCheckedRadioButtonId());
 
-        if (isProfileValid(name, description, address, phoneNum, licensed)) {
+        boolean isLicensed = false;
 
-            if (profileDatabase.isProfileAlreadyInDatabase(name)) {
+        if (licensed.equalsIgnoreCase("yes")) {
+            isLicensed = true;
+        }
 
-                Toast.makeText(this, "Profile has already been created with that company.", Toast.LENGTH_LONG);
+        if (isProfileValid(companyName, description, street, postalCode, city, province, phoneNum)) {
 
-            } else {
+            int phoneNumber = Integer.parseInt(phoneNum);
 
-                profileDatabase.addProfile(description, address, phoneNum, name, licensed, null);
+            UserDatabase userDatabase = UserDatabase.getInstance();
 
-                Intent intent = new Intent(this, ViewProfile.class);
+            User user = userDatabase.addServiceProvider(username, password, firstName, lastName, street, city, province, postalCode, phoneNumber, companyName, description, isLicensed);
 
-                startActivity(intent);
-            }
+            Intent intent = new Intent(this, ServiceProviderView.class);
+            intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, user.getId());
+
+            startActivity(intent);
         }
     }
 
@@ -75,7 +96,7 @@ public class CreateProfileSPActivity extends Activity {
         return rb.getText().toString();
     }
 
-    private boolean isProfileValid(String companyName, String description, String address, String phoneNum, String licensed) {
+    private boolean isProfileValid(String companyName, String description, String street, String postalCode, String city, String province, String phoneNum) {
 
         if  (companyName == null || companyName.isEmpty()) {
             Toast.makeText(this, "Please input company name.", Toast.LENGTH_LONG).show();
@@ -87,8 +108,23 @@ public class CreateProfileSPActivity extends Activity {
             return false;
         }
 
-        if (address == null || address.isEmpty()) {
-            Toast.makeText(this, "Please input an address.", Toast.LENGTH_LONG).show();
+        if (street == null || street.isEmpty()) {
+            Toast.makeText(this, "Please input a street.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (postalCode == null || postalCode.isEmpty()) {
+            Toast.makeText(this, "Please input a postal code.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (city == null || city.isEmpty()) {
+            Toast.makeText(this, "Please input a city.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (province == null || province.isEmpty()) {
+            Toast.makeText(this, "Please input a province.", Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -97,8 +133,21 @@ public class CreateProfileSPActivity extends Activity {
             return false;
         }
 
+        if (!Util.validatePhoneNumber(phoneNum)) {
+            Toast.makeText(this, "Please input a valid phone number.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (!Util.validateProvince(province)) {
+            Toast.makeText(this, "Please input a valid Canadian province. Use the full name.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (!Util.validatePostalCode(postalCode)) {
+            Toast.makeText(this, "Please input a valid postal code (eg. K1S4D8).", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         return true;
     }
-
 }

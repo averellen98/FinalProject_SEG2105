@@ -11,16 +11,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceDatabase {
 
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static final DatabaseReference databaseServices = database.getReference("services");
 
+    private static final DatabaseReference databaseServiceAndProvider = database.getReference("serviceAndProvider");
+
     private static final ServiceDatabase instance = new ServiceDatabase();
 
     private static List<Service> services = new ArrayList<Service>();
+
+    private static List<ServiceAndProviderTuple> serviceAndProviderTuples = new ArrayList<>();
+
+    private static Map<String, List<Service>> providerServicesMap = new HashMap<>();
 
     static {
 
@@ -49,6 +58,51 @@ public class ServiceDatabase {
 
             }
         });
+
+        databaseServiceAndProvider.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                serviceAndProviderTuples.clear();
+
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                    String id = ds.child("id").getValue(String.class);
+                    String serviceProviderId = ds.child("serviceProviderId").getValue(String.class);
+                    String serviceId = ds.child("serviceId").getValue(String.class);
+
+                    ServiceAndProviderTuple serviceAndProviderTuple = new ServiceAndProviderTuple(id, serviceProviderId, serviceId);
+
+                    serviceAndProviderTuples.add(serviceAndProviderTuple);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        providerServicesMap.clear();
+
+        for (ServiceAndProviderTuple serviceAndProviderTuple: serviceAndProviderTuples) {
+
+            for (Service service: services) {
+
+                if (service.getId().equals(serviceAndProviderTuple.serviceId)) {
+
+                    if (providerServicesMap.get(serviceAndProviderTuple.serviceProviderId) != null) {
+
+                        providerServicesMap.get(serviceAndProviderTuple.serviceProviderId).add(service);
+
+                    } else {
+
+                        providerServicesMap.put(serviceAndProviderTuple.serviceProviderId, Arrays.asList(service));
+                    }
+                    continue;
+                }
+            }
+        }
     }
 
     private ServiceDatabase() {
@@ -82,15 +136,29 @@ public class ServiceDatabase {
         return service;
     }
 
+    public ServiceAndProviderTuple addServiceToServiceProvider(String serviceProviderId, String serviceId) {
+
+        String id = databaseServiceAndProvider.push().getKey();
+
+        ServiceAndProviderTuple serviceAndProviderTuple = new ServiceAndProviderTuple(id, serviceProviderId, serviceId);
+
+        databaseServiceAndProvider.child(id).setValue(serviceAndProviderTuple);
+
+        return serviceAndProviderTuple;
+    }
+
     public void updateService(String originalName, String name, String description, int ratePerHour) {
 
         Service service = getService(originalName);
 
-        DatabaseReference tmpRef = databaseServices.child(service.getId());
+        if (service != null) {
 
-        tmpRef.child("name").setValue(name);
-        tmpRef.child("description").setValue(description);
-        tmpRef.child("ratePerHour").setValue(ratePerHour);
+            DatabaseReference tmpRef = databaseServices.child(service.getId());
+
+            tmpRef.child("name").setValue(name);
+            tmpRef.child("description").setValue(description);
+            tmpRef.child("ratePerHour").setValue(ratePerHour);
+        }
     }
 
     public Service getService(String name) {
@@ -113,8 +181,29 @@ public class ServiceDatabase {
         return true;
     }
 
+    public List<Service> getServiceForProvider(String serviceProviderId) {
+
+        List<Service> servicesToReturn = providerServicesMap.get(serviceProviderId);
+
+        return servicesToReturn;
+    }
+
     public List<Service> getServices() {
 
         return services;
+    }
+
+    private static class ServiceAndProviderTuple {
+
+        String serviceProviderId;
+        String serviceId;
+        String id;
+
+        ServiceAndProviderTuple(String id, String serviceProviderId, String serviceId) {
+
+            this.id = id;
+            this.serviceId = serviceId;
+            this.serviceProviderId = serviceProviderId;
+        }
     }
 }

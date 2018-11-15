@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 public class ServiceProviderView extends AppCompatActivity {
-    private String userName;
+
+    public static final String SERVICE_PROVIDER_ID = "service_provider_id";
+
+    private String serviceProviderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,20 +17,14 @@ public class ServiceProviderView extends AppCompatActivity {
         setContentView(R.layout.activity_serviceprovider_view);
 
         Intent intent = getIntent();
-        userName = intent.getStringExtra("username");
+        serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
     }
 
-    public void viewProfileOnClick(View view) {
+    public void viewAvailabilitiesOnClick(View view) {
 
-        Intent intent = new Intent(this, ServiceProviderProfileExist.class);
-        intent.putExtra("username", userName);
-        startActivity(intent);
-    }
+        Intent intent = new Intent(this, AvailabilityActivity.class);
+        intent.putExtra(AvailabilityActivity.SERVICE_PROVIDER_ID, serviceProviderId);
 
-    public void createProfileOnClick(View view) {
-
-        Intent intent = new Intent(this, CreateProfileSPActivity.class);
-        intent.putExtra("username", userName);
         startActivity(intent);
     }
 }

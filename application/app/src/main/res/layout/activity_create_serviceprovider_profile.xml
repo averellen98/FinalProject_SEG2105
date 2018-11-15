@@ -17,28 +17,28 @@
             android:id="@+id/companyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/company_name" />
+            android:text="@string/companyName" />
 
         <EditText
             android:id="@+id/companyNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Company Name Edit"
+            android:hint="Company Name"
             android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/profileDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/profile_description" />
+            android:text="@string/generalDescription" />
 
         <EditText
-            android:id="@+id/profileDescriptionText"
+            android:id="@+id/generalDescriptionText"
             android:layout_width="match_parent"
             android:layout_height="150px"
             android:ems="10"
-            android:hint="Profile Description Edit"
+            android:hint="e.g. I have 20 years experience fixing washers."
             android:inputType="textMultiLine" />
 
         <TextView
@@ -46,27 +46,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="@string/phone_number" />
+            android:text="@string/phoneNumber" />
 
         <EditText
             android:id="@+id/phoneNumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/xxx_xxx_xxxx"
-            android:inputType="phone" />
+            android:hint="XXXXXXXXXX"
+            android:inputType="number" />
 
         <TextView
             android:id="@+id/streetAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/street_address" />
+            android:text="Street" />
 
         <EditText
             android:id="@+id/streetAddressText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/xx_street_name"
+            android:hint="e.g. 123 Main St"
             android:inputType="textPersonName" />
 
         <LinearLayout
@@ -79,7 +79,7 @@
                 android:layout_width="182dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/postal_code" />
+                android:text="Postal Code" />
 
             <EditText
                 android:id="@+id/postalCodeText"
@@ -87,8 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/axa_xax"
-                android:inputType="textPersonName" />
+                android:hint="XXXXXX"
+                android:inputType="textCapCharacters" />
 
         </LinearLayout>
 
@@ -102,15 +102,15 @@
                 android:layout_width="182dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/city_province" />
+                android:text="Province" />
 
             <EditText
-                android:id="@+id/cityProvinceText"
+                android:id="@+id/provinceText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/city_province_text"
+                android:hint="e.g. Ontario"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -125,15 +125,15 @@
                 android:layout_width="182dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/countryname" />
+                android:text="City" />
 
             <EditText
-                android:id="@+id/countryNameText"
+                android:id="@+id/cityText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/country_name"
+                android:hint="e.g. Ottawa"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -143,7 +143,7 @@
             android:layout_width="182dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Licensed" />
+            android:text="Are You Licensed?" />
 
         <RadioGroup
             android:id="@+id/licensedRadioGroup"
@@ -171,6 +171,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickCreateProfile"
-            android:text="@string/create_profile" />
+            android:text="Create Profile" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

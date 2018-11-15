@@ -40,7 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
         String u_username = username.getText().toString();
         String u_password = password.getText().toString();
         String u_confirmPassword = confirmPassword.getText().toString();
-        String role = getRoleFromRadioButtonId(roleGroup.getCheckedRadioButtonId());
+        String roleString = getRoleFromRadioButtonId(roleGroup.getCheckedRadioButtonId());
         String u_firstName = firstName.getText().toString();
         String u_lastName = lastName.getText().toString();
 
@@ -53,13 +53,29 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(this, "User has already been created with this username.", Toast.LENGTH_LONG).show();
             } else {
 
-                User user = userDatabase.addUser(u_username, u_password, role, u_firstName, u_lastName);
+                if (UserRole.getRoleByName(roleString).equals(UserRole.SERVICE_PROVIDER)) {
 
-                Intent intent = new Intent(this, WelcomeActivity.class);
-                intent.putExtra(MainActivity.USER_FIRSTNAME_KEY, user.getFirstName());
-                intent.putExtra(MainActivity.USER_ROLE_KEY, user.getRole().getName());
+                    Intent intent = new Intent(this, CreateProfileSPActivity.class);
+                    intent.putExtra(CreateProfileSPActivity.LAST_NAME, u_lastName);
+                    intent.putExtra(CreateProfileSPActivity.FIRST_NAME, u_firstName);
+                    intent.putExtra(CreateProfileSPActivity.PASSWORD, u_password);
+                    intent.putExtra(CreateProfileSPActivity.USERNAME, u_username);
+                    intent.putExtra(CreateProfileSPActivity.ROLE, roleString);
 
-                startActivity(intent);
+                    startActivity(intent);
+
+                } else {
+
+                    UserRole role = UserRole.getRoleByName(roleString);
+
+                    User user = userDatabase.addUser(u_username, u_password, role, u_firstName, u_lastName);
+
+                    Intent intent = new Intent(this, WelcomeActivity.class);
+                    intent.putExtra(MainActivity.USER_FIRSTNAME_KEY, user.getFirstName());
+                    intent.putExtra(MainActivity.USER_ROLE_KEY, user.getRole().getName());
+
+                    startActivity(intent);
+                }
             }
 
         } else {

@@ -31,14 +31,41 @@ public class UserDatabase {
 
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
 
-                    String role = ds.child("role").getValue(String.class);
+                    String roleString = ds.child("role").getValue(String.class);
                     String id = ds.child("id").getValue(String.class);
                     String username = ds.child("username").getValue(String.class);
                     String password = ds.child("password").getValue(String.class);
                     String firstName = ds.child("firstName").getValue(String.class);
                     String lastName = ds.child("lastName").getValue(String.class);
 
-                    User user = createUserFromFirebase(id, username, password, role, firstName, lastName);
+                    UserRole role = UserRole.getRoleByNameForFirebase(roleString);
+
+                    User user = createUser(id, username, password, role, firstName, lastName);
+
+                    if (role.equals(UserRole.SERVICE_PROVIDER)) {
+
+                        String companyName = ds.child("companyName").getValue(String.class);
+                        String generalDescription = ds.child("generalDescription").getValue(String.class);
+                        int phoneNumber = ds.child("phoneNumber").getValue(Integer.class);
+                        boolean isLicensed = ds.child("isLicensed").getValue(Boolean.class);
+
+                        AddressDatabase addressDatabase = AddressDatabase.getInstance();
+                        Address address = addressDatabase.getAddress(id);
+
+                        AvailabilityDatabase availabilityDatabase = AvailabilityDatabase.getInstance();
+                        List<Availability> availabilities = availabilityDatabase.getAvailabilitiesByServiceProvider(id);
+
+                        ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
+                        List<Service> services = serviceDatabase.getServiceForProvider(id);
+
+                        ((ServiceProvider) user).setAddress(address);
+                        ((ServiceProvider) user).setAvailabilities(availabilities);
+                        ((ServiceProvider) user).setCompanyName(companyName);
+                        ((ServiceProvider) user).setGeneralDescription(generalDescription);
+                        ((ServiceProvider) user).setLicensed(isLicensed);
+                        ((ServiceProvider) user).setPhoneNumber(phoneNumber);
+                        ((ServiceProvider) user).setServices(services);
+                    }
 
                     users.add(user);
                 }
@@ -97,13 +124,29 @@ public class UserDatabase {
         return null;
     }
 
-    public User addUser(String username, String password, String role, String firstName, String lastName) {
+    public User addUser(String username, String password, UserRole role, String firstName, String lastName) {
 
         String id = databaseUsers.push().getKey();
 
         User user = createUser(id, username, password, role, firstName, lastName);
 
+        return user;
+    }
+
+    public User addServiceProvider(String username, String password, String firstName, String lastName, String street, String city, String province, String postalCode, int phoneNumber, String companyName, String generalDescription, boolean isLicensed) {
+
+        String id = databaseUsers.push().getKey();
+
+        User user = createUser(id, username, password, UserRole.SERVICE_PROVIDER, firstName, lastName);
+
         databaseUsers.child(id).setValue(user);
+        databaseUsers.child(id).child("phoneNumber").setValue(phoneNumber);
+        databaseUsers.child(id).child("companyName").setValue(companyName);
+        databaseUsers.child(id).child("generalDescription").setValue(generalDescription);
+        databaseUsers.child(id).child("isLicensed").setValue(isLicensed);
+
+        AddressDatabase addressDatabase = AddressDatabase.getInstance();
+        addressDatabase.addAddress(id, street, city, province, postalCode);
 
         return user;
     }
@@ -112,45 +155,41 @@ public class UserDatabase {
         return users;
     }
 
-    private static User createUser(String id, String username, String password, String role, String firstName, String lastName) {
+    public void addServiceProviderProfileInformation(String id, String street, String city, String province, String postalCode, int phoneNumber, String companyName, String generalDescription, boolean isLicensed) {
 
-        UserRole userRole = UserRole.getRoleByName(role);
+        User user = getUserById(id);
 
-        User user = null;
+        if (user.getRole() == UserRole.SERVICE_PROVIDER) {
 
-        switch (userRole) {
-            case ADMIN:
-                user = new Admin(id, username, password, userRole);
-                break;
-            case HOME_OWNER:
-                user = new HomeOwner(id, username, password, userRole);
-                break;
-            case SERVICE_PROVIDER:
-                user = new ServiceProvider(id, username, password, userRole);
-                break;
+
         }
-
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-
-        return user;
     }
 
-    private static User createUserFromFirebase(String id, String username, String password, String role, String firstName, String lastName) {
+    private User getUserById(String id) {
 
-        UserRole userRole = UserRole.getRoleByNameForFirebase(role);
+        for (User user: users) {
+
+            if (user.getId().equals(id)) {
+                return user;
+            }
+        }
+
+        return null;
+    }
+
+    private static User createUser(String id, String username, String password, UserRole role, String firstName, String lastName) {
 
         User user = null;
 
-        switch (userRole) {
+        switch (role) {
             case ADMIN:
-                user = new Admin(id, username, password, userRole);
+                user = new Admin(id, username, password, role);
                 break;
             case HOME_OWNER:
-                user = new HomeOwner(id, username, password, userRole);
+                user = new HomeOwner(id, username, password, role);
                 break;
             case SERVICE_PROVIDER:
-                user = new ServiceProvider(id, username, password, userRole);
+                user = new ServiceProvider(id, username, password, role);
                 break;
         }
 

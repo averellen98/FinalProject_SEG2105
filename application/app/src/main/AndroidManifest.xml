@@ -28,7 +28,17 @@
             android:label="@string/title_activity_view_services" />
         <activity
             android:name=".CreateOrEditServiceActivity"
-            android:label="@string/title_activity_create_or_edit_service"></activity>
+            android:label="@string/title_activity_create_or_edit_service" />
+        <activity android:name=".CreateProfileSPActivity" />
+        <activity
+            android:name=".AvailabilityActivity"
+            android:label="@string/title_activity_availability" />
+        <activity
+            android:name=".SPAvailableServiceActivity"
+            android:label="@string/title_activity_spavailable_service" />
+        <activity
+            android:name=".SPViewServicesActivity"
+            android:label="@string/title_activity_spview_services"></activity>
     </application>
 
 </manifest>
