@@ -155,17 +155,7 @@ public class UserDatabase {
         return users;
     }
 
-    public void addServiceProviderProfileInformation(String id, String street, String city, String province, String postalCode, int phoneNumber, String companyName, String generalDescription, boolean isLicensed) {
-
-        User user = getUserById(id);
-
-        if (user.getRole() == UserRole.SERVICE_PROVIDER) {
-
-
-        }
-    }
-
-    private User getUserById(String id) {
+    public User getUserById(String id) {
 
         for (User user: users) {
 

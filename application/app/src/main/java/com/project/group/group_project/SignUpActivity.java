@@ -71,8 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
                     User user = userDatabase.addUser(u_username, u_password, role, u_firstName, u_lastName);
 
                     Intent intent = new Intent(this, WelcomeActivity.class);
-                    intent.putExtra(MainActivity.USER_FIRSTNAME_KEY, user.getFirstName());
-                    intent.putExtra(MainActivity.USER_ROLE_KEY, user.getRole().getName());
+                    intent.putExtra(WelcomeActivity.USER_ID, user.getId());
 
                     startActivity(intent);
                 }

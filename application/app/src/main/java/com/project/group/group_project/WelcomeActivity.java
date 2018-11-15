@@ -10,9 +10,11 @@ import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private String userFirstName;
-    private String userRole;
-    private String userName;
+    public static final String USER_ID = "user_id";
+    private static final UserDatabase userDatabase = UserDatabase.getInstance();
+
+    private User currentUser;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,21 +22,20 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Intent intent = getIntent();
-        userName = intent.getStringExtra("u_username");
-        userFirstName = intent.getStringExtra(MainActivity.USER_FIRSTNAME_KEY);
-        userRole = intent.getStringExtra(MainActivity.USER_ROLE_KEY);
+        userId = intent.getStringExtra(USER_ID);
+        currentUser = userDatabase.getUserById(userId);
 
-        String welcomeMessage = buildWelcomeMessage(userFirstName, userRole);
+        String welcomeMessage = buildWelcomeMessage();
 
         setWelcomeText(welcomeMessage);
     }
 
-    private String buildWelcomeMessage(String userFirstName, String userRole) {
+    private String buildWelcomeMessage() {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Welcome " + userFirstName + "!\r\n");
-        sb.append("You are logged in as " + userRole);
+        sb.append("Welcome " + currentUser.getFirstName() + "!\r\n");
+        sb.append("You are logged in as " + currentUser.getRole().getName());
 
         return sb.toString();
     }
@@ -47,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void continueButtonOnClick(View view){
 
-        String role = userRole;
+        String role = currentUser.getRole().getName();
         Toast.makeText(this, role,Toast.LENGTH_SHORT).show();
 
         if (role.equals("Admin")){
@@ -58,7 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (role.equals("Service Provider")){
             Intent intent = new Intent(this, ServiceProviderView.class);
-            intent.putExtra("username", userName);
+            intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, userId);
             startActivity(intent);
         }
     }

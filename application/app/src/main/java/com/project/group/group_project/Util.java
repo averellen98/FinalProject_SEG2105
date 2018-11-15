@@ -97,6 +97,16 @@ public class Util {
         return true;
     }
 
+    public static boolean startIsBeforeEnd(int startHour, int startMinute, int endHour, int endMinute) {
+
+        if (startHour > endHour) {
+            return false;
+        } else if (startHour == endHour && startMinute < endMinute) {
+            return true;
+        }
+        return true;
+    }
+
     public enum WeekDay {
         SUNDAY {
             @Override

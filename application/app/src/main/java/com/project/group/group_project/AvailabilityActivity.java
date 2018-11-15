@@ -30,8 +30,53 @@ public class AvailabilityActivity extends Activity {
 
         if (!availabilityList.isEmpty()) {
 
-            // TODO
-            // the availability list is not empty, therefore we need to use the Availability objects to fill in the activity's values.
+            for (Availability availability: availabilityList) {
+
+                switch (availability.getWeekDay()) {
+                    case SUNDAY:
+                        ((TextView) findViewById(R.id.sunStartHourText)).setText(availability.getStartHour());
+                        ((TextView) findViewById(R.id.sunStartMinuteText)).setText(availability.getStartMinute());
+                        ((TextView) findViewById(R.id.sunEndHourText)).setText(availability.getEndHour());
+                        ((TextView) findViewById(R.id.sunEndMinuteText)).setText(availability.getEndMinute());
+                        break;
+                    case MONDAY:
+                        ((TextView) findViewById(R.id.mondayStartHourText)).setText(availability.getStartHour());
+                        ((TextView) findViewById(R.id.mondayStartMinuteText)).setText(availability.getStartMinute());
+                        ((TextView) findViewById(R.id.mondayEndHour)).setText(availability.getEndHour());
+                        ((TextView) findViewById(R.id.mondayEndMinute)).setText(availability.getEndMinute());
+                        break;
+                    case TUESDAY:
+                        ((TextView) findViewById(R.id.tuesStartHour)).setText(availability.getStartHour());
+                        ((TextView) findViewById(R.id.tuesStartMinute)).setText(availability.getStartMinute());
+                        ((TextView) findViewById(R.id.tuesEndHour)).setText(availability.getEndHour());
+                        ((TextView) findViewById(R.id.tuesEndMinute)).setText(availability.getEndMinute());
+                        break;
+                    case WEDNESDAY:
+                        ((TextView) findViewById(R.id.wedStartHour)).setText(availability.getStartHour());
+                        ((TextView) findViewById(R.id.wedStartMinute)).setText(availability.getStartMinute());
+                        ((TextView) findViewById(R.id.wedEndHour)).setText(availability.getEndHour());
+                        ((TextView) findViewById(R.id.wedEndMinute)).setText(availability.getEndMinute());
+                        break;
+                    case THURSDAY:
+                        ((TextView) findViewById(R.id.thursStartHour)).setText(availability.getStartHour());
+                        ((TextView) findViewById(R.id.thursStartMinute)).setText(availability.getStartMinute());
+                        ((TextView) findViewById(R.id.thursEndHour)).setText(availability.getEndHour());
+                        ((TextView) findViewById(R.id.thursEndMinute)).setText(availability.getEndMinute());
+                        break;
+                    case FRIDAY:
+                        ((TextView) findViewById(R.id.friStartHour)).setText(availability.getStartHour());
+                        ((TextView) findViewById(R.id.friStartMinute)).setText(availability.getStartMinute());
+                        ((TextView) findViewById(R.id.friEndHour)).setText(availability.getEndHour());
+                        ((TextView) findViewById(R.id.friEndMinute)).setText(availability.getEndMinute());
+                        break;
+                    case SATURDAY:
+                        ((TextView) findViewById(R.id.satStartHour)).setText(availability.getStartHour());
+                        ((TextView) findViewById(R.id.satStartMinute)).setText(availability.getStartMinute());
+                        ((TextView) findViewById(R.id.satEndHour)).setText(availability.getEndHour());
+                        ((TextView) findViewById(R.id.satEndMinute)).setText(availability.getEndMinute());
+                        break;
+                }
+            }
         }
     }
 
@@ -85,6 +130,10 @@ public class AvailabilityActivity extends Activity {
         int satEndMin = validateAndRetrieveMinute(R.id.satEndMinute);
 
         availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.SATURDAY, satStartHour, satStartMin, satEndHour, satEndMin);
+
+        Intent intent = new Intent(this, ServiceProviderView.class);
+        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+        startActivity(intent);
     }
 
     private int validateAndRetrieveHour(int id) {
@@ -95,7 +144,7 @@ public class AvailabilityActivity extends Activity {
             return Integer.parseInt(hour);
         }
 
-        Toast.makeText(this, "Hour is out of bounds", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Hour is out of bounds, will be replaced with 0.", Toast.LENGTH_LONG).show();
 
         return 0;
     }
@@ -104,11 +153,11 @@ public class AvailabilityActivity extends Activity {
 
         String minute = ((TextView) findViewById(id)).getText().toString();
 
-        if (Util.validateHour(minute)) {
+        if (Util.validateMinute(minute)) {
             return Integer.parseInt(minute);
         }
 
-        Toast.makeText(this, "Minute is out of bounds", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Minute is out of bounds, will be replaced with 0.", Toast.LENGTH_LONG).show();
 
         return 0;
     }
