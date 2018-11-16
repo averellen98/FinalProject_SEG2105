@@ -66,9 +66,9 @@ public class ApplicationTesting {
         String password = "admin";
         UserRole role = UserRole.getRoleByName("ADMIN");
         Admin admin = new Admin(id, username, password, role);
-        boolean result = admin.canBeAdmin(id, username, password, role);
+        boolean result = admin.canBeAdmin(username, password, role);
 
-        assertNotEquals(false, result);
+        assertEquals(false, result);
     }
 
 }
