@@ -20,7 +20,7 @@ public class SPViewServicesActivity extends Activity {
     public static final String SERVICE_PROVIDER_ID = "service_provider_id";
 
     private String serviceProviderId;
-    private List<Service> services = serviceDatabase.getServices();;
+    private List<Service> services = serviceDatabase.getServices();
     private List<Service> theseServices;
 
     private RecyclerView recyclerView;
@@ -34,6 +34,7 @@ public class SPViewServicesActivity extends Activity {
 
         Intent intent = getIntent();
         serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
+        theseServices  = serviceDatabase.getServiceForProvider(serviceProviderId);
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
@@ -46,11 +47,6 @@ public class SPViewServicesActivity extends Activity {
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
-
-        //TODO
-        //this activity should gather all services connected to the user an display them.
-        //each service should have a delete button that when pressed remove the service from the user,
-        // removes the relationship from the db, and removes it from the view.
     }
 
     private String buildServiceView(int index) {
@@ -84,8 +80,8 @@ public class SPViewServicesActivity extends Activity {
         public void onBindViewHolder(SPViewServiceViewHolder viewHolder, final int position) {
 
             final Service service = theseServices.get(position);
-            theseServices  = serviceDatabase.getServiceForProvider(serviceProviderId);
 
+            
             if (theseServices.contains(service)){
                 viewHolder.getTextView().setText(buildServiceView(position));
             }
