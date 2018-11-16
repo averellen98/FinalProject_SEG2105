@@ -20,6 +20,7 @@ public class SPViewServicesActivity extends Activity {
     public static final String SERVICE_PROVIDER_ID = "service_provider_id";
 
     private String serviceProviderId;
+    private List<Service> services = serviceDatabase.getServices();
     private List<Service> theseServices;
 
     private RecyclerView recyclerView;
@@ -33,7 +34,7 @@ public class SPViewServicesActivity extends Activity {
 
         Intent intent = getIntent();
         serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
-        //theseServices  = serviceDatabase.getServiceForProvider(serviceProviderId);
+        theseServices  = serviceDatabase.getServiceForProvider(serviceProviderId);
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
