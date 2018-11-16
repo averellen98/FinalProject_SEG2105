@@ -29,31 +29,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="You have 3 options"
+            android:text="You have 3 options:"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/viewAvailableServicesButton"
-            android:layout_width="129dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:onClick="viewAvailableServicesOnClick"
             android:text="View Available Services"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/viewServicesButton"
-            android:layout_width="129dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:onClick="viewOfferedServicesOnClick"
             android:text="View Your Offered Services"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/viewAvailabilitiesButton"
-            android:layout_width="129dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:onClick="viewAvailabilitiesOnClick"
-            android:text="View Your Availabilities" />
+            android:text="View Your Availabilities"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
