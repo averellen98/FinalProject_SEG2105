@@ -23,8 +23,6 @@ public class SPAvailableServiceActivity extends Activity {
     public static final String SERVICE_PROVIDER_ID = "service_provider_id";
 
     private String serviceProviderId;
-    private List<Service> servicesAvail;
-
     private List<Service> services = serviceDatabase.getServices();
 
 
@@ -39,7 +37,6 @@ public class SPAvailableServiceActivity extends Activity {
 
         Intent intent = getIntent();
         serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
-        servicesAvail = serviceDatabase.getServiceForProvider(serviceProviderId);
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
