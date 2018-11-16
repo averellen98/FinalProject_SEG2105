@@ -23,7 +23,23 @@ public class ServiceProviderView extends AppCompatActivity {
     public void viewAvailabilitiesOnClick(View view) {
 
         Intent intent = new Intent(this, AvailabilityActivity.class);
-        intent.putExtra(AvailabilityActivity.SERVICE_PROVIDER_ID, serviceProviderId);
+        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+
+        startActivity(intent);
+    }
+
+    public void viewAvailableServicesOnClick(View view) {
+
+        Intent intent = new Intent(this, SPAvailableServiceActivity.class);
+        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+
+        startActivity(intent);
+    }
+
+    public void viewOfferedServicesOnClick(View view) {
+
+        Intent intent = new Intent(this, SPViewServicesActivity.class);
+        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
 
         startActivity(intent);
     }
