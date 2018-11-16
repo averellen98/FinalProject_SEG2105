@@ -19,7 +19,13 @@
 
         </android.support.v7.widget.RecyclerView>
 
-     
+        <Button
+            android:id="@+id/logOutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickDone"
+            android:text="Done"
+            tools:layout_editor_absoluteY="567dp" />
 
     </LinearLayout>
 
