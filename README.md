@@ -12,6 +12,5 @@ Group members:
   password: admin
 
   To sign in as Service Provider:
-  username:serviceProvider
-  password:serviceProvider
-  company name (to access profile):
+  username:sp
+  password:sp
