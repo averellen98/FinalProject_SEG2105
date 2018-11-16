@@ -24,7 +24,8 @@ public class SPAvailableServiceActivity extends Activity {
 
     private String serviceProviderId;
     private List<Service> services = serviceDatabase.getServices();
-    
+    private List<Service> theseServices;
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -36,6 +37,14 @@ public class SPAvailableServiceActivity extends Activity {
 
         Intent intent = getIntent();
         serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
+        theseServices  = serviceDatabase.getServiceForProvider(serviceProviderId);
+
+        for (int i = 0; i < theseServices.size(); i++){
+            Service service = theseServices.get(i);
+            if (services.contains(service)){
+                services.remove(service);
+            }
+        }
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
@@ -123,6 +132,13 @@ public class SPAvailableServiceActivity extends Activity {
         public Button getAddButton() {
             return addButton;
         }
+    }
+
+    public void onClickDone(View view) {
+
+        Intent intent = new Intent(this, SPViewServicesActivity.class);
+        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+        startActivity(intent);
     }
 
 }
