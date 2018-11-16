@@ -194,10 +194,6 @@ public class ServiceDatabase {
         return servicesToReturn;
     }
 
-    public List<ServiceAndProviderTuple> getServiceTuples(){
-        return serviceAndProviderTuples;
-    }
-
     public List<Service> getServices() {
 
         return services;
