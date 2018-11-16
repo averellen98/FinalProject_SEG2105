@@ -147,6 +147,12 @@ public class ServiceDatabase {
         return serviceAndProviderTuple;
     }
 
+    public boolean deleteServiceFromProvider(String serviceProviderId, String serviceId){
+        DatabaseReference tmpRef = databaseServiceAndProvider.child(serviceId);
+        tmpRef.removeValue();
+        return true;
+    }
+
     public void updateService(String originalName, String name, String description, int ratePerHour) {
 
         Service service = getService(originalName);
@@ -186,6 +192,10 @@ public class ServiceDatabase {
         List<Service> servicesToReturn = providerServicesMap.get(serviceProviderId);
 
         return servicesToReturn;
+    }
+
+    public List<ServiceAndProviderTuple> getServiceTuples(){
+        return serviceAndProviderTuples;
     }
 
     public List<Service> getServices() {
