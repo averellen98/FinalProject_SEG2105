@@ -18,6 +18,7 @@ public class SPViewServicesActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
     public static final String SERVICE_PROVIDER_ID = "service_provider_id";
+    private static final UserDatabase userDatabase = UserDatabase.getInstance();
 
     private String serviceProviderId;
     private List<Service> services = serviceDatabase.getServices();
