@@ -20,7 +20,6 @@ public class SPViewServicesActivity extends Activity {
     public static final String SERVICE_PROVIDER_ID = "service_provider_id";
 
     private String serviceProviderId;
-    private List<Service> services = serviceDatabase.getServices();
     private List<Service> theseServices;
 
     private RecyclerView recyclerView;
@@ -34,7 +33,7 @@ public class SPViewServicesActivity extends Activity {
 
         Intent intent = getIntent();
         serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
-        theseServices  = serviceDatabase.getServiceForProvider(serviceProviderId);
+        //theseServices  = serviceDatabase.getServiceForProvider(serviceProviderId);
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
@@ -55,7 +54,7 @@ public class SPViewServicesActivity extends Activity {
 
         String n = "\r\n";
 
-        Service service = services.get(index);
+        Service service = serviceDatabase.getServices().get(index);
 
         String rate = "$" + (service.getRatePerHour() / 100);
 
@@ -79,10 +78,9 @@ public class SPViewServicesActivity extends Activity {
         @Override
         public void onBindViewHolder(SPViewServiceViewHolder viewHolder, final int position) {
 
-            final Service service = theseServices.get(position);
+            final Service service = serviceDatabase.getServices().get(position);
 
-            
-            if (theseServices.contains(service)){
+            if (!theseServices.contains(service)){
                 viewHolder.getTextView().setText(buildServiceView(position));
             }
 
@@ -90,7 +88,6 @@ public class SPViewServicesActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     serviceDatabase.deleteServiceFromProvider(serviceProviderId,service.getId());
-                    theseServices.remove(service);
                     Intent intent = new Intent(getApplicationContext(), SPViewServicesActivity.class);
                     startActivity(intent);
                 }
