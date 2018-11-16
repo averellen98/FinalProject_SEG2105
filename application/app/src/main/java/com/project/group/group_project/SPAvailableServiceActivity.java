@@ -24,8 +24,7 @@ public class SPAvailableServiceActivity extends Activity {
 
     private String serviceProviderId;
     private List<Service> services = serviceDatabase.getServices();
-
-
+    
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
