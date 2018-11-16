@@ -39,6 +39,7 @@ public class SPAvailableServiceActivity extends Activity {
 
         Intent intent = getIntent();
         serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
+        servicesAvail = serviceDatabase.getServiceForProvider(serviceProviderId);
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
@@ -51,11 +52,6 @@ public class SPAvailableServiceActivity extends Activity {
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
-
-        // TODO
-        // this activity gathers all services not already attached to this user and displays them.
-        // each service should have an add button that when pressed, adds the service to the user,
-        // adds the relationship to the database, and removes that services from the view.
     }
 
     private String buildServiceView(int index) {
@@ -89,9 +85,8 @@ public class SPAvailableServiceActivity extends Activity {
         public void onBindViewHolder(SPServiceViewHolder viewHolder, final int position) {
 
             final Service service = serviceDatabase.getServices().get(position);
-            servicesAvail = serviceDatabase.getServiceForProvider(serviceProviderId);
 
-            if (!services.contains(service)){
+            if (services.contains(service)){
                 viewHolder.getTextView().setText(buildServiceView(position));
             }
 
