@@ -123,10 +123,10 @@ public class SPViewServicesActivity extends Activity {
         }
     }
 
-    public void onClickLogOut(View view) {
+    public void onClickDone(View view) {
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ServiceProviderView.class);
+        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
         startActivity(intent);
     }
-
 }

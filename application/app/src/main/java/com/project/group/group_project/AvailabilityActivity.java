@@ -34,46 +34,46 @@ public class AvailabilityActivity extends Activity {
 
                 switch (availability.getWeekDay()) {
                     case SUNDAY:
-                        ((TextView) findViewById(R.id.sunStartHourText)).setText(availability.getStartHour());
-                        ((TextView) findViewById(R.id.sunStartMinuteText)).setText(availability.getStartMinute());
-                        ((TextView) findViewById(R.id.sunEndHourText)).setText(availability.getEndHour());
-                        ((TextView) findViewById(R.id.sunEndMinuteText)).setText(availability.getEndMinute());
+                        ((TextView) findViewById(R.id.sunStartHourText)).setText(String.valueOf(availability.getStartHour()));
+                        ((TextView) findViewById(R.id.sunStartMinuteText)).setText(String.valueOf(availability.getStartMinute()));
+                        ((TextView) findViewById(R.id.sunEndHourText)).setText(String.valueOf(availability.getEndHour()));
+                        ((TextView) findViewById(R.id.sunEndMinuteText)).setText(String.valueOf(availability.getEndMinute()));
                         break;
                     case MONDAY:
-                        ((TextView) findViewById(R.id.mondayStartHourText)).setText(availability.getStartHour());
-                        ((TextView) findViewById(R.id.mondayStartMinuteText)).setText(availability.getStartMinute());
-                        ((TextView) findViewById(R.id.mondayEndHour)).setText(availability.getEndHour());
-                        ((TextView) findViewById(R.id.mondayEndMinute)).setText(availability.getEndMinute());
+                        ((TextView) findViewById(R.id.mondayStartHourText)).setText(String.valueOf(availability.getStartHour()));
+                        ((TextView) findViewById(R.id.mondayStartMinuteText)).setText(String.valueOf(availability.getStartMinute()));
+                        ((TextView) findViewById(R.id.mondayEndHour)).setText(String.valueOf(availability.getEndHour()));
+                        ((TextView) findViewById(R.id.mondayEndMinute)).setText(String.valueOf(availability.getEndMinute()));
                         break;
                     case TUESDAY:
-                        ((TextView) findViewById(R.id.tuesStartHour)).setText(availability.getStartHour());
-                        ((TextView) findViewById(R.id.tuesStartMinute)).setText(availability.getStartMinute());
-                        ((TextView) findViewById(R.id.tuesEndHour)).setText(availability.getEndHour());
-                        ((TextView) findViewById(R.id.tuesEndMinute)).setText(availability.getEndMinute());
+                        ((TextView) findViewById(R.id.tuesStartHour)).setText(String.valueOf(availability.getStartHour()));
+                        ((TextView) findViewById(R.id.tuesStartMinute)).setText(String.valueOf(availability.getStartMinute()));
+                        ((TextView) findViewById(R.id.tuesEndHour)).setText(String.valueOf(availability.getEndHour()));
+                        ((TextView) findViewById(R.id.tuesEndMinute)).setText(String.valueOf(availability.getEndMinute()));
                         break;
                     case WEDNESDAY:
-                        ((TextView) findViewById(R.id.wedStartHour)).setText(availability.getStartHour());
-                        ((TextView) findViewById(R.id.wedStartMinute)).setText(availability.getStartMinute());
-                        ((TextView) findViewById(R.id.wedEndHour)).setText(availability.getEndHour());
-                        ((TextView) findViewById(R.id.wedEndMinute)).setText(availability.getEndMinute());
+                        ((TextView) findViewById(R.id.wedStartHour)).setText(String.valueOf(availability.getStartHour()));
+                        ((TextView) findViewById(R.id.wedStartMinute)).setText(String.valueOf(availability.getStartMinute()));
+                        ((TextView) findViewById(R.id.wedEndHour)).setText(String.valueOf(availability.getEndHour()));
+                        ((TextView) findViewById(R.id.wedEndMinute)).setText(String.valueOf(availability.getEndMinute()));
                         break;
                     case THURSDAY:
-                        ((TextView) findViewById(R.id.thursStartHour)).setText(availability.getStartHour());
-                        ((TextView) findViewById(R.id.thursStartMinute)).setText(availability.getStartMinute());
-                        ((TextView) findViewById(R.id.thursEndHour)).setText(availability.getEndHour());
-                        ((TextView) findViewById(R.id.thursEndMinute)).setText(availability.getEndMinute());
+                        ((TextView) findViewById(R.id.thursStartHour)).setText(String.valueOf(availability.getStartHour()));
+                        ((TextView) findViewById(R.id.thursStartMinute)).setText(String.valueOf(availability.getStartMinute()));
+                        ((TextView) findViewById(R.id.thursEndHour)).setText(String.valueOf(availability.getEndHour()));
+                        ((TextView) findViewById(R.id.thursEndMinute)).setText(String.valueOf(availability.getEndMinute()));
                         break;
                     case FRIDAY:
-                        ((TextView) findViewById(R.id.friStartHour)).setText(availability.getStartHour());
-                        ((TextView) findViewById(R.id.friStartMinute)).setText(availability.getStartMinute());
-                        ((TextView) findViewById(R.id.friEndHour)).setText(availability.getEndHour());
-                        ((TextView) findViewById(R.id.friEndMinute)).setText(availability.getEndMinute());
+                        ((TextView) findViewById(R.id.friStartHour)).setText(String.valueOf(availability.getStartHour()));
+                        ((TextView) findViewById(R.id.friStartMinute)).setText(String.valueOf(availability.getStartMinute()));
+                        ((TextView) findViewById(R.id.friEndHour)).setText(String.valueOf(availability.getEndHour()));
+                        ((TextView) findViewById(R.id.friEndMinute)).setText(String.valueOf(availability.getEndMinute()));
                         break;
                     case SATURDAY:
-                        ((TextView) findViewById(R.id.satStartHour)).setText(availability.getStartHour());
-                        ((TextView) findViewById(R.id.satStartMinute)).setText(availability.getStartMinute());
-                        ((TextView) findViewById(R.id.satEndHour)).setText(availability.getEndHour());
-                        ((TextView) findViewById(R.id.satEndMinute)).setText(availability.getEndMinute());
+                        ((TextView) findViewById(R.id.satStartHour)).setText(String.valueOf(availability.getStartHour()));
+                        ((TextView) findViewById(R.id.satStartMinute)).setText(String.valueOf(availability.getStartMinute()));
+                        ((TextView) findViewById(R.id.satEndHour)).setText(String.valueOf(availability.getEndHour()));
+                        ((TextView) findViewById(R.id.satEndMinute)).setText(String.valueOf(availability.getEndMinute()));
                         break;
                 }
             }

@@ -23,8 +23,8 @@
             android:id="@+id/logOutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClickLogOut"
-            android:text="@string/log_out"
+            android:onClick="onClickDone"
+            android:text="Done"
             tools:layout_editor_absoluteY="567dp" />
 
     </LinearLayout>
