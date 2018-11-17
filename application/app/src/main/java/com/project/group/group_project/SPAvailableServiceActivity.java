@@ -3,7 +3,6 @@ package com.project.group.group_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +18,10 @@ public class SPAvailableServiceActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
     public static final String SERVICE_PROVIDER_ID = "service_provider_id";
-    private static final UserDatabase userDatabase = UserDatabase.getInstance();
 
     private String serviceProviderId;
-    private List<Service> services = serviceDatabase.getServices();
-    private List<Service> theseServices;
+    private List<Service> allServices = serviceDatabase.getServices();
+    private List<Service> serviceProviderAvailableServices;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -38,14 +34,7 @@ public class SPAvailableServiceActivity extends Activity {
 
         Intent intent = getIntent();
         serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
-        theseServices  = serviceDatabase.getServiceForProvider(serviceProviderId);
-
-        /**for (int i = 0; i < theseServices.size(); i++){
-            Service service = theseServices.get(i);
-            if (services.contains(service)){
-                services.remove(service);
-            }
-        }*/
+        serviceProviderAvailableServices = getServicesServiceProviderDoesNotHave();
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
@@ -60,13 +49,32 @@ public class SPAvailableServiceActivity extends Activity {
         recyclerView.setAdapter(adapter);
     }
 
-    private String buildServiceView(int index) {
+    private List<Service> getServicesServiceProviderDoesNotHave() {
+
+        List<Service> serviceListToReturn = new ArrayList<>();
+
+        List<Service> takenServices = serviceDatabase.getServiceForProvider(serviceProviderId);
+
+        if (takenServices != null && !takenServices.isEmpty()) {
+
+            for (Service service: allServices) {
+
+                if (!takenServices.contains(service)) {
+                    serviceListToReturn.add(service);
+                }
+            }
+        } else {
+            serviceListToReturn = allServices;
+        }
+
+        return serviceListToReturn;
+    }
+
+    private String buildServiceView(Service service) {
 
         StringBuilder sb = new StringBuilder();
 
         String n = "\r\n";
-
-        Service service = serviceDatabase.getServices().get(index);
 
         String rate = "$" + (service.getRatePerHour() / 100);
 
@@ -81,6 +89,7 @@ public class SPAvailableServiceActivity extends Activity {
 
         @Override
         public SPServiceViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+
             View v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.sp_service_add_row, viewGroup, false);
 
@@ -90,28 +99,25 @@ public class SPAvailableServiceActivity extends Activity {
         @Override
         public void onBindViewHolder(SPServiceViewHolder viewHolder, final int position) {
 
-            final Service service = serviceDatabase.getServices().get(position);
+            final Service service = serviceProviderAvailableServices.get(position);
 
-            if (services.contains(service)){
-                viewHolder.getTextView().setText(buildServiceView(position));
-            }
+            viewHolder.getTextView().setText(buildServiceView(service));
 
             viewHolder.getAddButton().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //currentUser.addServicesSP(service);
-                    serviceDatabase.addServiceToServiceProvider(serviceProviderId, service.getId());
-                    services.remove(service);
-                    Intent intent = new Intent(getApplicationContext(), SPAvailableServiceActivity.class);
-                    startActivity(intent);
 
+                    serviceDatabase.addServiceToServiceProvider(serviceProviderId, service.getId());
+                    serviceProviderAvailableServices.remove(service);
+
+                    notifyDataSetChanged();
                 }
             });
         }
 
         @Override
         public int getItemCount() {
-            return serviceDatabase.getServices().size();
+            return serviceProviderAvailableServices.size();
         }
     }
 
@@ -123,7 +129,7 @@ public class SPAvailableServiceActivity extends Activity {
         public SPServiceViewHolder(View v) {
             super(v);
 
-            textView = (TextView) v.findViewById(R.id.textView);
+            textView = v.findViewById(R.id.textView);
             addButton = v.findViewById(R.id.addOrDeleteButton);
         }
 
@@ -138,9 +144,9 @@ public class SPAvailableServiceActivity extends Activity {
 
     public void onClickDone(View view) {
 
-        Intent intent = new Intent(this, SPViewServicesActivity.class);
+        Intent intent = new Intent(this, ServiceProviderView.class);
         intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+
         startActivity(intent);
     }
-
 }

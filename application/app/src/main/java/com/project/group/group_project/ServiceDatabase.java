@@ -29,8 +29,6 @@ public class ServiceDatabase {
 
     private static List<ServiceAndProviderTuple> serviceAndProviderTuples = new ArrayList<>();
 
-    private static Map<String, List<Service>> providerServicesMap = new HashMap<>();
-
     static {
 
         databaseServices.addValueEventListener(new ValueEventListener() {
@@ -82,27 +80,6 @@ public class ServiceDatabase {
 
             }
         });
-
-        providerServicesMap.clear();
-
-        for (ServiceAndProviderTuple serviceAndProviderTuple: serviceAndProviderTuples) {
-
-            for (Service service: services) {
-
-                if (service.getId().equals(serviceAndProviderTuple.serviceId)) {
-
-                    if (providerServicesMap.get(serviceAndProviderTuple.serviceProviderId) != null) {
-
-                        providerServicesMap.get(serviceAndProviderTuple.serviceProviderId).add(service);
-
-                    } else {
-
-                        providerServicesMap.put(serviceAndProviderTuple.serviceProviderId, Arrays.asList(service));
-                    }
-                    continue;
-                }
-            }
-        }
     }
 
     private ServiceDatabase() {
@@ -148,9 +125,27 @@ public class ServiceDatabase {
     }
 
     public boolean deleteServiceFromProvider(String serviceProviderId, String serviceId){
-        DatabaseReference tmpRef = databaseServiceAndProvider.child(serviceId);
+
+        ServiceAndProviderTuple tupleToDelete = getServiceAndProviderTuple(serviceProviderId, serviceId);
+
+        DatabaseReference tmpRef = databaseServiceAndProvider.child(tupleToDelete.id);
         tmpRef.removeValue();
+
         return true;
+    }
+
+    private ServiceAndProviderTuple getServiceAndProviderTuple(String serviceProviderId, String serviceId) {
+
+        ServiceAndProviderTuple tupleToReturn = null;
+
+        for (ServiceAndProviderTuple serviceAndProviderTuple: serviceAndProviderTuples) {
+
+            if (serviceAndProviderTuple.serviceId.equals(serviceId) && serviceAndProviderTuple.serviceProviderId.equals(serviceProviderId)) {
+                tupleToReturn = serviceAndProviderTuple;
+            }
+        }
+
+        return tupleToReturn;
     }
 
     public void updateService(String originalName, String name, String description, int ratePerHour) {
@@ -189,7 +184,18 @@ public class ServiceDatabase {
 
     public List<Service> getServiceForProvider(String serviceProviderId) {
 
-        List<Service> servicesToReturn = providerServicesMap.get(serviceProviderId);
+        List<Service> servicesToReturn = new ArrayList<>();
+
+        for (Service service: services) {
+
+            for (ServiceAndProviderTuple tuple: serviceAndProviderTuples) {
+
+                if (service.getId().equals(tuple.serviceId) && serviceProviderId.equals(tuple.serviceProviderId)) {
+
+                    servicesToReturn.add(service);
+                }
+            }
+        }
 
         return servicesToReturn;
     }
