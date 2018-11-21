@@ -1,8 +1,6 @@
 package com.project.group.group_project;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,21 +9,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ServiceDatabase {
 
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private static final DatabaseReference databaseServices = database.getReference("services");
+    private static final DatabaseReference databaseServices = database.getReference("serviceList");
 
     private static final DatabaseReference databaseServiceAndProvider = database.getReference("serviceAndProvider");
 
     private static final ServiceDatabase instance = new ServiceDatabase();
 
-    private static List<Service> services = new ArrayList<Service>();
+    private static List<Service> serviceList = new ArrayList<Service>();
 
     private static List<ServiceAndProviderTuple> serviceAndProviderTuples = new ArrayList<>();
 
@@ -35,7 +30,7 @@ public class ServiceDatabase {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                services.clear();
+                serviceList.clear();
 
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
 
@@ -46,7 +41,7 @@ public class ServiceDatabase {
 
                     Service service = new Service(id, name, description, ratePerHour);
 
-                    services.add(service);
+                    serviceList.add(service);
                 }
 
             }
@@ -92,7 +87,7 @@ public class ServiceDatabase {
 
     public boolean isServiceAlreadyInDatabase(String name) {
 
-        for (Service service: services) {
+        for (Service service: serviceList) {
 
             if (service.getName().equals(name)) {
                 return true;
@@ -164,7 +159,7 @@ public class ServiceDatabase {
 
     public Service getService(String name) {
 
-        for (Service service: services) {
+        for (Service service: serviceList) {
             if (service.getName().equals(name)) {
                 return service;
             }
@@ -186,7 +181,7 @@ public class ServiceDatabase {
 
         List<Service> servicesToReturn = new ArrayList<>();
 
-        for (Service service: services) {
+        for (Service service: serviceList) {
 
             for (ServiceAndProviderTuple tuple: serviceAndProviderTuples) {
 
@@ -200,9 +195,9 @@ public class ServiceDatabase {
         return servicesToReturn;
     }
 
-    public List<Service> getServices() {
+    public List<Service> getAllServices() {
 
-        return services;
+        return serviceList;
     }
 
     private static class ServiceAndProviderTuple {

@@ -16,8 +16,6 @@ import java.util.List;
 public class SPViewServicesActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
-    public static final String SERVICE_PROVIDER_ID = "service_provider_id";
-    private static final UserDatabase userDatabase = UserDatabase.getInstance();
 
     private String serviceProviderId;
 
@@ -34,7 +32,7 @@ public class SPViewServicesActivity extends Activity {
         setContentView(R.layout.activity_spview_services);
 
         Intent intent = getIntent();
-        serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
+        serviceProviderId = intent.getStringExtra(Util.USER_ID);
         serviceProviderServices = serviceDatabase.getServiceForProvider(serviceProviderId);
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
@@ -127,7 +125,7 @@ public class SPViewServicesActivity extends Activity {
     public void onClickDone(View view) {
 
         Intent intent = new Intent(this, ServiceProviderView.class);
-        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+        intent.putExtra(Util.USER_ID, serviceProviderId);
         startActivity(intent);
     }
 }

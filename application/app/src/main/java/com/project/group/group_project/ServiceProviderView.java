@@ -7,8 +7,6 @@ import android.view.View;
 
 public class ServiceProviderView extends AppCompatActivity {
 
-    public static final String SERVICE_PROVIDER_ID = "service_provider_id";
-
     private String serviceProviderId;
 
     @Override
@@ -17,13 +15,13 @@ public class ServiceProviderView extends AppCompatActivity {
         setContentView(R.layout.activity_serviceprovider_view);
 
         Intent intent = getIntent();
-        serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
+        serviceProviderId = intent.getStringExtra(Util.USER_ID);
     }
 
     public void viewAvailabilitiesOnClick(View view) {
 
         Intent intent = new Intent(this, AvailabilityActivity.class);
-        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+        intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);
     }
@@ -31,7 +29,7 @@ public class ServiceProviderView extends AppCompatActivity {
     public void viewAvailableServicesOnClick(View view) {
 
         Intent intent = new Intent(this, SPAvailableServiceActivity.class);
-        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+        intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);
     }
@@ -39,7 +37,7 @@ public class ServiceProviderView extends AppCompatActivity {
     public void viewOfferedServicesOnClick(View view) {
 
         Intent intent = new Intent(this, SPViewServicesActivity.class);
-        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+        intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);
     }

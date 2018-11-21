@@ -39,7 +39,7 @@ public class LogInActivity extends AppCompatActivity {
             if (user != null) {
 
                 Intent intent = new Intent(this, WelcomeActivity.class);
-                intent.putExtra(WelcomeActivity.USER_ID, user.getId());
+                intent.putExtra(Util.USER_ID, user.getId());
 
                 startActivity(intent);
             }

@@ -12,10 +12,6 @@ public class CreateOrEditServiceActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
-    public static final String SERVICE_NAME = "service_name";
-    public static final String SERVICE_DESCRIPTION = "service_desc";
-    public static final String SERVICE_RATE = "service_rate";
-
     private boolean isEdit;
     private String originalName;
 
@@ -34,9 +30,9 @@ public class CreateOrEditServiceActivity extends Activity {
 
         try {
             Intent intent = getIntent();
-            String name = intent.getStringExtra(SERVICE_NAME);
-            String desc = intent.getStringExtra(SERVICE_DESCRIPTION);
-            int rate = intent.getIntExtra(SERVICE_RATE, 0);
+            String name = intent.getStringExtra(Util.SERVICE_NAME);
+            String desc = intent.getStringExtra(Util.SERVICE_DESCRIPTION);
+            int rate = intent.getIntExtra(Util.SERVICE_RATE, 0);
 
             if (name != null && !name.isEmpty()) {
                 isEdit = true;

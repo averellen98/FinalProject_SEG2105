@@ -10,7 +10,6 @@ import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    public static final String USER_ID = "user_id";
     private static final UserDatabase userDatabase = UserDatabase.getInstance();
 
     private User currentUser;
@@ -22,8 +21,12 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Intent intent = getIntent();
-        userId = intent.getStringExtra(USER_ID);
+        userId = intent.getStringExtra(Util.USER_ID);
         currentUser = userDatabase.getUserById(userId);
+
+        if (currentUser == null) {
+            throw new IllegalStateException();
+        }
 
         String welcomeMessage = buildWelcomeMessage();
 
@@ -56,10 +59,11 @@ public class WelcomeActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (role.equals("Home Owner")){
             Intent intent = new Intent(this, HomeOwnerView.class);
+            intent.putExtra(Util.USER_ID, userId);
             startActivity(intent);
         } else if (role.equals("Service Provider")){
             Intent intent = new Intent(this, ServiceProviderView.class);
-            intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, userId);
+            intent.putExtra(Util.USER_ID, userId);
             startActivity(intent);
         }
     }

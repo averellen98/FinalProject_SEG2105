@@ -7,9 +7,6 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String USER_FIRSTNAME_KEY = "com.project.group.userFirstNameKey";
-    public static final String USER_ROLE_KEY = "com.project.group.userRoleKey";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

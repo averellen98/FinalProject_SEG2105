@@ -12,12 +12,6 @@ import android.widget.Toast;
 
 public class CreateProfileSPActivity extends Activity {
 
-    public static final String USERNAME= "username";
-    public static final String PASSWORD = "password";
-    public static final String ROLE = "role";
-    public static final String FIRST_NAME = "first_name";
-    public static final String LAST_NAME = "last_name";
-
     private String username;
     private String password;
     private UserRole role;
@@ -41,11 +35,11 @@ public class CreateProfileSPActivity extends Activity {
 
 
         Intent intent = getIntent();
-        username = intent.getStringExtra(USERNAME);
-        password = intent.getStringExtra(PASSWORD);
-        role = UserRole.getRoleByName(intent.getStringExtra(ROLE));
-        firstName = intent.getStringExtra(FIRST_NAME);
-        lastName = intent.getStringExtra(LAST_NAME);
+        username = intent.getStringExtra(Util.USERNAME);
+        password = intent.getStringExtra(Util.PASSWORD);
+        role = UserRole.getRoleByName(intent.getStringExtra(Util.ROLE));
+        firstName = intent.getStringExtra(Util.FIRST_NAME);
+        lastName = intent.getStringExtra(Util.LAST_NAME);
 
         companyNameText = findViewById(R.id.companyNameText);
         descriptionText = findViewById(R.id.generalDescriptionText);
@@ -83,7 +77,7 @@ public class CreateProfileSPActivity extends Activity {
             User user = userDatabase.addServiceProvider(username, password, firstName, lastName, street, city, province, postalCode, phoneNumber, companyName, description, isLicensed);
 
             Intent intent = new Intent(this, ServiceProviderView.class);
-            intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, user.getId());
+            intent.putExtra(Util.USER_ID, user.getId());
 
             startActivity(intent);
         }

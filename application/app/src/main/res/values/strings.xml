@@ -30,4 +30,6 @@
     <string name="title_activity_availability">AvailabilityActivity</string>
     <string name="title_activity_spavailable_service">SPAvailableServiceActivity</string>
     <string name="title_activity_spview_services">SPViewServicesActivity</string>
+    <string name="title_activity_home_owner_search_services">HomeOwnerSearchServices</string>
+    <string name="title_activity_home_owner_bookings">HomeOwnerBookings</string>
 </resources>

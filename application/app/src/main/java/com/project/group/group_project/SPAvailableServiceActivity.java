@@ -17,10 +17,9 @@ import java.util.List;
 public class SPAvailableServiceActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
-    public static final String SERVICE_PROVIDER_ID = "service_provider_id";
 
     private String serviceProviderId;
-    private List<Service> allServices = serviceDatabase.getServices();
+    private List<Service> allServices = serviceDatabase.getAllServices();
     private List<Service> serviceProviderAvailableServices;
 
     private RecyclerView recyclerView;
@@ -33,7 +32,7 @@ public class SPAvailableServiceActivity extends Activity {
         setContentView(R.layout.activity_spavailable_service);
 
         Intent intent = getIntent();
-        serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
+        serviceProviderId = intent.getStringExtra(Util.USER_ID);
         serviceProviderAvailableServices = getServicesServiceProviderDoesNotHave();
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
@@ -145,7 +144,7 @@ public class SPAvailableServiceActivity extends Activity {
     public void onClickDone(View view) {
 
         Intent intent = new Intent(this, ServiceProviderView.class);
-        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+        intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);
     }

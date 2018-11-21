@@ -130,6 +130,8 @@ public class UserDatabase {
 
         User user = createUser(id, username, password, role, firstName, lastName);
 
+        databaseUsers.child(id).setValue(user);
+
         return user;
     }
 

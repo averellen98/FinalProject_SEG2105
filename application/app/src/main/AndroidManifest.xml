@@ -38,7 +38,13 @@
             android:label="@string/title_activity_spavailable_service" />
         <activity
             android:name=".SPViewServicesActivity"
-            android:label="@string/title_activity_spview_services"></activity>
+            android:label="@string/title_activity_spview_services" />
+        <activity
+            android:name=".HomeOwnerSearchServices"
+            android:label="@string/title_activity_home_owner_search_services" />
+        <activity
+            android:name=".HomeOwnerBookings"
+            android:label="@string/title_activity_home_owner_bookings"></activity>
     </application>
 
 </manifest>

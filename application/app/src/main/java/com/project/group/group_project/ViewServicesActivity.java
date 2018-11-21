@@ -45,7 +45,7 @@ public class ViewServicesActivity extends AppCompatActivity {
 
         String n = "\r\n";
 
-        Service service = serviceDatabase.getServices().get(index);
+        Service service = serviceDatabase.getAllServices().get(index);
 
         String rate = "$" + (service.getRatePerHour() / 100);
 
@@ -70,7 +70,7 @@ public class ViewServicesActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(ServiceViewHolder viewHolder, final int position) {
 
-            final Service service = serviceDatabase.getServices().get(position);
+            final Service service = serviceDatabase.getAllServices().get(position);
 
             viewHolder.getTextView().setText(buildServiceView(position));
 
@@ -94,16 +94,16 @@ public class ViewServicesActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return serviceDatabase.getServices().size();
+            return serviceDatabase.getAllServices().size();
         }
     }
 
     private void doEdit(Service service) {
 
         Intent intent = new Intent(this, CreateOrEditServiceActivity.class);
-        intent.putExtra(CreateOrEditServiceActivity.SERVICE_NAME, service.getName());
-        intent.putExtra(CreateOrEditServiceActivity.SERVICE_DESCRIPTION, service.getDescription());
-        intent.putExtra(CreateOrEditServiceActivity.SERVICE_RATE, service.getRatePerHour());
+        intent.putExtra(Util.SERVICE_NAME, service.getName());
+        intent.putExtra(Util.SERVICE_DESCRIPTION, service.getDescription());
+        intent.putExtra(Util.SERVICE_RATE, service.getRatePerHour());
 
         startActivity(intent);
     }

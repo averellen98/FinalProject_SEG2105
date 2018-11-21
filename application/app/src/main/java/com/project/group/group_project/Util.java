@@ -1,8 +1,17 @@
 package com.project.group.group_project;
 
-import android.content.Intent;
-
 public class Util {
+
+    // Constants
+    public static final String USER_ID = "com.project.group.util_user_id";
+    public static final String SERVICE_NAME = "com.project.group.util_service_name";
+    public static final String SERVICE_DESCRIPTION = "com.project.group.util_service_Description";
+    public static final String SERVICE_RATE = "com.project.group.util_service_rate";
+    public static final String USERNAME = "com.project.group.util_user_name";
+    public static final String PASSWORD = "com.project.group.util_password";
+    public static final String ROLE = "com.project.group.util_role";
+    public static final String FIRST_NAME = "com.project.group.util_first_name";
+    public static final String LAST_NAME = "com.project.group.util_last_name";
 
     public static boolean validatePhoneNumber(String phoneNumber) {
 

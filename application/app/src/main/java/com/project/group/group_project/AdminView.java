@@ -12,8 +12,6 @@ import java.util.List;
 
 public class AdminView extends AppCompatActivity {
 
-    private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -32,5 +30,4 @@ public class AdminView extends AppCompatActivity {
         Intent intent = new Intent(this, ViewServicesActivity.class);
         startActivity(intent);
     }
-
 }

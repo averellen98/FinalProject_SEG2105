@@ -56,11 +56,11 @@ public class SignUpActivity extends AppCompatActivity {
                 if (UserRole.getRoleByName(roleString).equals(UserRole.SERVICE_PROVIDER)) {
 
                     Intent intent = new Intent(this, CreateProfileSPActivity.class);
-                    intent.putExtra(CreateProfileSPActivity.LAST_NAME, u_lastName);
-                    intent.putExtra(CreateProfileSPActivity.FIRST_NAME, u_firstName);
-                    intent.putExtra(CreateProfileSPActivity.PASSWORD, u_password);
-                    intent.putExtra(CreateProfileSPActivity.USERNAME, u_username);
-                    intent.putExtra(CreateProfileSPActivity.ROLE, roleString);
+                    intent.putExtra(Util.LAST_NAME, u_lastName);
+                    intent.putExtra(Util.FIRST_NAME, u_firstName);
+                    intent.putExtra(Util.PASSWORD, u_password);
+                    intent.putExtra(Util.USERNAME, u_username);
+                    intent.putExtra(Util.ROLE, roleString);
 
                     startActivity(intent);
 
@@ -70,8 +70,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                     User user = userDatabase.addUser(u_username, u_password, role, u_firstName, u_lastName);
 
+                    Log.e("ERROR", user.getId());
+
                     Intent intent = new Intent(this, WelcomeActivity.class);
-                    intent.putExtra(WelcomeActivity.USER_ID, user.getId());
+                    intent.putExtra(Util.USER_ID, user.getId());
 
                     startActivity(intent);
                 }

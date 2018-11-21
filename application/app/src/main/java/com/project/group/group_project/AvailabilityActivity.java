@@ -13,8 +13,6 @@ public class AvailabilityActivity extends Activity {
 
     private static final AvailabilityDatabase availabilityDatabase = AvailabilityDatabase.getInstance();
 
-    public static final String SERVICE_PROVIDER_ID = "service_provider_id";
-
     private String serviceProviderId;
 
     @Override
@@ -24,7 +22,7 @@ public class AvailabilityActivity extends Activity {
         setContentView(R.layout.activity_availability);
 
         Intent intent = getIntent();
-        serviceProviderId = intent.getStringExtra(SERVICE_PROVIDER_ID);
+        serviceProviderId = intent.getStringExtra(Util.USER_ID);
 
         List<Availability> availabilityList = availabilityDatabase.getAvailabilitiesByServiceProvider(serviceProviderId);
 
@@ -132,7 +130,7 @@ public class AvailabilityActivity extends Activity {
         availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.SATURDAY, satStartHour, satStartMin, satEndHour, satEndMin);
 
         Intent intent = new Intent(this, ServiceProviderView.class);
-        intent.putExtra(ServiceProviderView.SERVICE_PROVIDER_ID, serviceProviderId);
+        intent.putExtra(Util.USER_ID, serviceProviderId);
         startActivity(intent);
     }
 
