@@ -85,49 +85,83 @@ public class AvailabilityActivity extends Activity {
         int sunEndHour = validateAndRetrieveHour(R.id.sunEndHourText);
         int sunEndMin = validateAndRetrieveMinute(R.id.sunEndMinuteText);
 
-        availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.SUNDAY, sunStartHour, sunStartMin, sunEndHour, sunEndMin);
+        if (Util.startIsBeforeEnd(sunStartHour, sunStartMin, sunEndHour, sunEndMin)) {
+
+            availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.SUNDAY, sunStartHour, sunStartMin, sunEndHour, sunEndMin);
+        } else {
+            Toast.makeText(this, "Sunday start time is after end time, availability will not be updated for this day.", Toast.LENGTH_LONG).show();
+        }
 
         int monStartHour = validateAndRetrieveHour(R.id.mondayStartHourText);
         int monStartMin = validateAndRetrieveMinute(R.id.mondayStartMinuteText);
         int monEndHour = validateAndRetrieveHour(R.id.mondayEndHour);
         int monEndMin = validateAndRetrieveMinute(R.id.mondayEndMinute);
 
-        availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.MONDAY, monStartHour, monStartMin, monEndHour, monEndMin);
+        if (Util.startIsBeforeEnd(monStartHour, monStartMin, monEndHour, monEndMin)) {
+
+            availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.MONDAY, monStartHour, monStartMin, monEndHour, monEndMin);
+        } else {
+            Toast.makeText(this, "Monday start time is after end time, availability will not be updated for this day.", Toast.LENGTH_LONG).show();
+        }
 
         int tuesStartHour = validateAndRetrieveHour(R.id.tuesStartHour);
         int tuesStartMin = validateAndRetrieveMinute(R.id.tuesStartMinute);
         int tuesEndHour = validateAndRetrieveHour(R.id.tuesEndHour);
         int tuesEndMin = validateAndRetrieveMinute(R.id.tuesEndMinute);
 
-        availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.TUESDAY, tuesStartHour, tuesStartMin, tuesEndHour, tuesEndMin);
+        if (Util.startIsBeforeEnd(tuesStartHour, tuesStartMin, tuesEndHour, tuesEndMin)) {
+
+            availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.TUESDAY, tuesStartHour, tuesStartMin, tuesEndHour, tuesEndMin);
+        } else {
+            Toast.makeText(this, "Tuesday start time is after end time, availability will not be updated for this day.", Toast.LENGTH_LONG).show();
+        }
 
         int wedStartHour = validateAndRetrieveHour(R.id.wedStartHour);
         int wedStartMin = validateAndRetrieveMinute(R.id.wedStartMinute);
         int wedEndHour = validateAndRetrieveHour(R.id.wedEndHour);
         int wedEndMin = validateAndRetrieveMinute(R.id.wedEndMinute);
 
-        availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.WEDNESDAY, wedStartHour, wedStartMin, wedEndHour, wedEndMin);
+        if (Util.startIsBeforeEnd(wedStartHour, wedStartMin, wedEndHour, wedEndMin)) {
+
+            availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.WEDNESDAY, wedStartHour, wedStartMin, wedEndHour, wedEndMin);
+        } else {
+            Toast.makeText(this, "Wednesday start time is after end time, availability will not be updated for this day.", Toast.LENGTH_LONG).show();
+        }
 
         int thursStartHour = validateAndRetrieveHour(R.id.thursStartHour);
         int thursStartMin = validateAndRetrieveMinute(R.id.thursStartMinute);
         int thursEndHour = validateAndRetrieveHour(R.id.thursEndHour);
         int thursEndMin = validateAndRetrieveMinute(R.id.thursEndMinute);
 
-        availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.THURSDAY, thursStartHour, thursStartMin, thursEndHour, thursEndMin);
+        if (Util.startIsBeforeEnd(thursStartHour, thursStartMin, thursEndHour, thursEndMin)) {
+
+            availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.THURSDAY, thursStartHour, thursStartMin, thursEndHour, thursEndMin);
+        } else {
+            Toast.makeText(this, "Wednesday start time is after end time, availability will not be updated for this day.", Toast.LENGTH_LONG).show();
+        }
 
         int friStartHour = validateAndRetrieveHour(R.id.friStartHour);
         int friStartMin = validateAndRetrieveMinute(R.id.friStartMinute);
         int friEndHour = validateAndRetrieveHour(R.id.friEndHour);
         int friEndMin = validateAndRetrieveMinute(R.id.friEndMinute);
 
-        availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.FRIDAY, friStartHour, friStartMin, friEndHour, friEndMin);
+        if (Util.startIsBeforeEnd(friStartHour, friStartMin, friEndHour, friEndMin)) {
+
+            availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.FRIDAY, friStartHour, friStartMin, friEndHour, friEndMin);
+        } else {
+            Toast.makeText(this, "Wednesday start time is after end time, availability will not be updated for this day.", Toast.LENGTH_LONG).show();
+        }
 
         int satStartHour = validateAndRetrieveHour(R.id.satStartHour);
         int satStartMin = validateAndRetrieveMinute(R.id.satStartMinute);
         int satEndHour = validateAndRetrieveHour(R.id.satEndHour);
         int satEndMin = validateAndRetrieveMinute(R.id.satEndMinute);
 
-        availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.SATURDAY, satStartHour, satStartMin, satEndHour, satEndMin);
+        if (Util.startIsBeforeEnd(satStartHour, satStartMin, satEndHour, satEndMin)) {
+            availabilityDatabase.addAvailability(serviceProviderId, Util.WeekDay.SATURDAY, satStartHour, satStartMin, satEndHour, satEndMin);
+        } else {
+            Toast.makeText(this, "Saturday start time is after end time, availability will not be updated for this day.", Toast.LENGTH_LONG).show();
+        }
 
         Intent intent = new Intent(this, ServiceProviderView.class);
         intent.putExtra(Util.USER_ID, serviceProviderId);

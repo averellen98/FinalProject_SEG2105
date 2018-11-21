@@ -1,6 +1,12 @@
 package com.project.group.group_project;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Util {
+
+    private Util() {}
 
     // Constants
     public static final String USER_ID = "com.project.group.util_user_id";
@@ -74,9 +80,7 @@ public class Util {
 
     public static boolean validateHour(String hour) {
 
-        try {
-            Integer.parseInt(hour);
-        } catch (Exception e) {
+        if (!validateInteger(hour)) {
             return false;
         }
 
@@ -89,11 +93,20 @@ public class Util {
         return true;
     }
 
-    public static boolean validateMinute(String minute) {
+    public static boolean validateInteger(String integer) {
 
         try {
-            Integer.parseInt(minute);
+            Integer.parseInt(integer);
         } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean validateMinute(String minute) {
+
+        if (!validateInteger(minute)) {
             return false;
         }
 
@@ -114,6 +127,63 @@ public class Util {
             return true;
         }
         return true;
+    }
+
+    public static boolean validateMonth(int month) {
+
+        return month >= 1 && month <= 12;
+    }
+
+    public static boolean validateDay(int day, int month, int year) {
+
+        if (year % 4 == 0) {
+
+            if (month == 2) {
+
+                return day >= 1 && day <= 29;
+            }
+        } else {
+
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+
+                return day >= 1 && day <= 31;
+
+            } else if (month == 2) {
+
+                return day >= 1 && day <= 28;
+
+            } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+
+                return day >= 1 && day <= 30;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean validateDateHasNotPassed(int day, int month, int year) {
+
+        Calendar currentDate = Calendar.getInstance();
+
+        if (currentDate.get(Calendar.YEAR) > year) {
+
+            return true;
+
+        } else if (currentDate.get(Calendar.YEAR) == year) {
+
+            if (currentDate.get(Calendar.MONTH) > month - 1) {
+
+                return true;
+
+            } else if (currentDate.get(Calendar.MONTH) == month - 1) {
+
+                if (currentDate.get(Calendar.DAY_OF_MONTH) > day) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public enum WeekDay {

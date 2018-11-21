@@ -32,4 +32,6 @@
     <string name="title_activity_spview_services">SPViewServicesActivity</string>
     <string name="title_activity_home_owner_search_services">HomeOwnerSearchServices</string>
     <string name="title_activity_home_owner_bookings">HomeOwnerBookings</string>
+    <string name="title_activity_home_owner_found_service_list">HomeOwnerFoundServiceList</string>
+    <string name="title_activity_create_booking">CreateBooking</string>
 </resources>

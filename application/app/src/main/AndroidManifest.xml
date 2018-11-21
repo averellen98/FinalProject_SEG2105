@@ -44,7 +44,13 @@
             android:label="@string/title_activity_home_owner_search_services" />
         <activity
             android:name=".HomeOwnerBookings"
-            android:label="@string/title_activity_home_owner_bookings"></activity>
+            android:label="@string/title_activity_home_owner_bookings" />
+        <activity
+            android:name=".HomeOwnerFoundServiceList"
+            android:label="@string/title_activity_home_owner_found_service_list" />
+        <activity
+            android:name=".CreateBooking"
+            android:label="@string/title_activity_create_booking"></activity>
     </application>
 
 </manifest>

@@ -11,4 +11,6 @@ public class HomeOwnerBookings extends Activity {
         setContentView(R.layout.activity_home_owner_bookings);
     }
 
+    //TODO for this activity we simply display the bookings for the currently logged in user.
+
 }
