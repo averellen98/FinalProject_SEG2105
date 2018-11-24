@@ -195,12 +195,16 @@ public class ServiceDatabase {
         return servicesToReturn;
     }
 
+    public List<ServiceAndProviderTuple> getServiceAndProviderTuples(){
+        return serviceAndProviderTuples;
+    }
+
     public List<Service> getAllServices() {
 
         return serviceList;
     }
 
-    private static class ServiceAndProviderTuple {
+    public static class ServiceAndProviderTuple {
 
         String serviceProviderId;
         String serviceId;
