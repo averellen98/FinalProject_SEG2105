@@ -24,6 +24,7 @@
             android:id="@+id/bookButton"
             android:layout_width="200px"
             android:layout_height="wrap_content"
+            android:onClick="bookOnClick"
             android:text="Book" />
     </LinearLayout>
 
