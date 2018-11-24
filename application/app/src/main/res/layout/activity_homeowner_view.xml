@@ -8,11 +8,20 @@
         android:id="@+id/searchForServiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="searchForServiceOnClick"
         android:text="Search for Service" />
 
     <Button
         android:id="@+id/viewBookingsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="viewBookingsOnClick"
         android:text="View Current Bookings" />
+
+    <Button
+        android:id="@+id/rateServicesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="rateServicesOnClick"
+        android:text="Rate Services" />
 </LinearLayout>
