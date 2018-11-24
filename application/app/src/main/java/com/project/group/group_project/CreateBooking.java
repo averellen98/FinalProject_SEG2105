@@ -1,17 +1,32 @@
 package com.project.group.group_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class CreateBooking extends Activity {
+    private String serviceName;
+    private String userId;
+    private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
+    private static final BookingDatabase bookingDatabase = BookingDatabase.getInstance();
+    private List<Service> allServices = serviceDatabase.getAllServices();
+    //private List<Booking> allBookings = bookingDatabase.getAllBookings();
+    private List<ServiceDatabase.ServiceAndProviderTuple> serviceAndProviderTuples = serviceDatabase.getServiceAndProviderTuples();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_booking);
+
+        Intent intent = getIntent();
+        serviceName = intent.getStringExtra(Util.SERVICE_NAME);
+        userId = intent.getStringExtra(Util.USER_ID);
+
     }
 
     private boolean validateComponents() {
