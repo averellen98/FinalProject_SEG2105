@@ -12,13 +12,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView35"
+            android:id="@+id/searchServices"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Search for Services!" />
 
         <TextView
-            android:id="@+id/textView33"
+            android:id="@+id/typeService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Type of Service" />
@@ -88,6 +88,7 @@
             android:id="@+id/searchButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="searchForServicesOnClick"
             android:text="Search" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
