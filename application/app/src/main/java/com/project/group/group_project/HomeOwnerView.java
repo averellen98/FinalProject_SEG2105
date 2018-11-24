@@ -21,11 +21,25 @@ public class HomeOwnerView extends AppCompatActivity {
 
     public void searchForServiceOnClick(View view) {
 
-        // TODO implement this opening the next intent
+        Intent intent = new Intent(this, HomeOwnerSearchServices.class);
+        intent.putExtra(Util.USER_ID, userId);
+
+        startActivity(intent);
     }
 
     public void viewBookingsOnClick(View view) {
 
-        // TODO implement this opening the next intent
+        Intent intent = new Intent(this, HomeOwnerBookings.class);
+        intent.putExtra(Util.USER_ID, userId);
+
+        startActivity(intent);
+    }
+
+    public void rateServicesOnClick(View view) {
+
+        Intent intent = new Intent(this, HomeOwnerRateService.class);
+        intent.putExtra(Util.USER_ID, userId);
+
+        startActivity(intent);
     }
 }
