@@ -10,16 +10,30 @@ public class Service {
     private String id;
 
     /**
+     * rating must be between 1 and 5.
+     */
+    private int rating;
+
+    /**
      * We represent money as an integer, the last two digits will be the decimal value.
      * Therefore 1$ is 100.
      */
     private int ratePerHour;
 
-    public Service(String id, String name, String description, int ratePerHour) {
+    public Service(String id, String name, String description, int ratePerHour, int rating) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.ratePerHour = ratePerHour;
+        this.rating = rating;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getName() {

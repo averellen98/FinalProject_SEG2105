@@ -63,7 +63,7 @@ public class RatingDatabase {
         return rating;
     }
 
-    public List<Rating> getRatingByService(String serviceId) {
+    public List<Rating> getRatingsByService(String serviceId) {
 
         List<Rating> ratings = new ArrayList<>();
 
@@ -75,6 +75,25 @@ public class RatingDatabase {
         }
 
         return ratings;
+    }
+
+    public int getRatingForService(String serviceId) {
+
+        List<Rating> ratings = getRatingsByService(serviceId);
+
+        if (ratings.isEmpty()) {
+            return 0;
+        }
+
+        int ratingInt = 0;
+
+        for (Rating rating: ratings) {
+            ratingInt += rating.getRate();
+        }
+
+        ratingInt = ratingInt / ratings.size();
+
+        return ratingInt;
     }
 
     public Rating getRatingById(String id) {

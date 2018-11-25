@@ -15,7 +15,6 @@ import android.widget.Toast;
 import java.util.List;
 
 public class HomeOwnerRateService extends Activity{
-    //TODO this class will list all services to rate
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
@@ -43,19 +42,18 @@ public class HomeOwnerRateService extends Activity{
         recyclerView.setAdapter(adapter);
     }
 
-    private String buildServiceView(int index) {
+    private String buildServiceView(Service service) {
 
         StringBuilder sb = new StringBuilder();
 
         String n = "\r\n";
-
-        Service service = serviceDatabase.getAllServices().get(index);
 
         String rate = "$" + (service.getRatePerHour() / 100);
 
         sb.append("Name: " + service.getName() + n);
         sb.append("Description: " + service.getDescription() + n);
         sb.append("Rate per hour: " + rate + n);
+        sb.append("Rating: " + service.getRating());
 
         return sb.toString();
     }
@@ -75,7 +73,7 @@ public class HomeOwnerRateService extends Activity{
 
             final Service service = serviceDatabase.getAllServices().get(position);
 
-            viewHolder.getTextView().setText(buildServiceView(position));
+            viewHolder.getTextView().setText(buildServiceView(service));
 
             viewHolder.getRateButton().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -95,10 +93,7 @@ public class HomeOwnerRateService extends Activity{
     private void doRate(Service service) {
 
         Intent intent = new Intent(this, CreateServiceRating.class);
-        intent.putExtra(Util.SERVICE_NAME, service.getName());
         intent.putExtra("serviceID", service.getId());
-        intent.putExtra(Util.SERVICE_DESCRIPTION, service.getDescription());
-        intent.putExtra(Util.SERVICE_RATE, service.getRatePerHour());
 
         startActivity(intent);
     }

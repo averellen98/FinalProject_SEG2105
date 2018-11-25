@@ -180,7 +180,7 @@ public class HomeOwnerFoundServiceList extends Activity {
         List<Service> searchedServices = new ArrayList<>();
 
         for (Service service: services){
-            List<Rating> ratings = ratingDatabase.getRatingByService(service.getId());
+            List<Rating> ratings = ratingDatabase.getRatingsByService(service.getId());
             int totalRate = 0;
             double avgRate = 0.0;
             for (Rating rating: ratings){

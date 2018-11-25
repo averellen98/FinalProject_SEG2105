@@ -14,7 +14,7 @@ import java.util.List;
 public class ServiceDatabase {
 
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private static final DatabaseReference databaseServices = database.getReference("serviceList");
+    private static final DatabaseReference databaseServices = database.getReference("services");
 
     private static final DatabaseReference databaseServiceAndProvider = database.getReference("serviceAndProvider");
 
@@ -39,7 +39,11 @@ public class ServiceDatabase {
                     int ratePerHour = ds.child("ratePerHour").getValue(Integer.class);
                     String id = ds.child("id").getValue(String.class);
 
-                    Service service = new Service(id, name, description, ratePerHour);
+                    int rating = RatingDatabase.getInstance().getRatingForService(id);
+
+                    databaseServices.child(id).child("rating").setValue(rating);
+
+                    Service service = new Service(id, name, description, ratePerHour, rating);
 
                     serviceList.add(service);
                 }
@@ -101,7 +105,7 @@ public class ServiceDatabase {
 
         String id = databaseServices.push().getKey();
 
-        Service service = new Service(id, name, description, ratePerHour);
+        Service service = new Service(id, name, description, ratePerHour, 0);
 
         databaseServices.child(id).setValue(service);
 
@@ -145,7 +149,7 @@ public class ServiceDatabase {
 
     public void updateService(String originalName, String name, String description, int ratePerHour) {
 
-        Service service = getService(originalName);
+        Service service = getServiceByName(originalName);
 
         if (service != null) {
 
@@ -154,13 +158,30 @@ public class ServiceDatabase {
             tmpRef.child("name").setValue(name);
             tmpRef.child("description").setValue(description);
             tmpRef.child("ratePerHour").setValue(ratePerHour);
+
+            int rating = RatingDatabase.getInstance().getRatingForService(service.getId());
+
+            tmpRef.child("rating").setValue(rating);
         }
     }
 
-    public Service getService(String name) {
+    public Service getServiceByName(String name) {
 
         for (Service service: serviceList) {
+
             if (service.getName().equals(name)) {
+                return service;
+            }
+        }
+
+        return null;
+    }
+
+    public Service getServiceById(String id) {
+
+        for (Service service: serviceList) {
+
+            if (service.getId().equals(id)) {
                 return service;
             }
         }
