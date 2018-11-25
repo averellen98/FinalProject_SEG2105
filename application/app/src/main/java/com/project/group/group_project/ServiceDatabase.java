@@ -9,7 +9,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ServiceDatabase {
 
@@ -200,6 +203,206 @@ public class ServiceDatabase {
         }
 
         return null;
+    }
+
+    /**
+     * @param serviceName if null don't use in query.
+     * @param startHour if -1 don't use in query.
+     * @param endHour if -1 don't use in query.
+     * @param rating if -1 don't use in query.
+     * @return
+     */
+    public Collection<Service> queryDatabaseForHomeOwner(String serviceName, int startHour, int endHour, int rating) {
+
+        Collection<Service> currentlyOfferedServices = getAllCurrentlyOfferedServices();
+
+        if (serviceName == null) {
+
+            if (startHour == -1) {
+
+                if (endHour == -1) {
+
+                    if (rating == -1) {
+                        return currentlyOfferedServices;
+                    }
+
+                    return getServicesWithRating(currentlyOfferedServices, rating);
+                }
+
+                currentlyOfferedServices = getServicesWithEndHour(currentlyOfferedServices, endHour);
+
+                if (rating == -1) {
+                    return currentlyOfferedServices;
+                }
+
+                return getServicesWithEndHour(currentlyOfferedServices, endHour);
+            }
+
+            // startHour is not -1
+
+            currentlyOfferedServices = getServicesWithStartHour(currentlyOfferedServices, startHour);
+
+            if (endHour == -1) {
+
+                if (rating == -1) {
+                    return currentlyOfferedServices;
+                }
+
+                return getServicesWithRating(currentlyOfferedServices, rating);
+            }
+
+            currentlyOfferedServices = getServicesWithEndHour(currentlyOfferedServices, endHour);
+
+            if (rating == -1) {
+                return currentlyOfferedServices;
+            }
+
+            return getServicesWithEndHour(currentlyOfferedServices, endHour);
+        }
+
+        currentlyOfferedServices = getServicesContainingName(currentlyOfferedServices, serviceName);
+
+        if (startHour == -1) {
+
+            if (endHour == -1) {
+
+                if (rating == -1) {
+                    return currentlyOfferedServices;
+                }
+
+                return getServicesWithRating(currentlyOfferedServices, rating);
+            }
+
+            currentlyOfferedServices = getServicesWithEndHour(currentlyOfferedServices, endHour);
+
+            if (rating == -1) {
+                return currentlyOfferedServices;
+            }
+
+            return getServicesWithEndHour(currentlyOfferedServices, endHour);
+        }
+
+        // startHour is not -1
+
+        currentlyOfferedServices = getServicesWithStartHour(currentlyOfferedServices, startHour);
+
+        if (endHour == -1) {
+
+            if (rating == -1) {
+                return currentlyOfferedServices;
+            }
+
+            return getServicesWithRating(currentlyOfferedServices, rating);
+        }
+
+        currentlyOfferedServices = getServicesWithEndHour(currentlyOfferedServices, endHour);
+
+        if (rating == -1) {
+            return currentlyOfferedServices;
+        }
+
+        return getServicesWithEndHour(currentlyOfferedServices, endHour);
+    }
+
+    private List<Service> getServicesContainingName(Collection<Service> services, String name) {
+
+        List<Service> list = new ArrayList<>();
+
+        for (Service service: services) {
+
+            if (service.getName().contains(name)) {
+                list.add(service);
+            } else if (service.getDescription().contains(name)) {
+                list.add(service);
+            }
+        }
+
+        return list;
+    }
+
+    private List<Service> getServicesWithRating(Collection<Service> services, int rating) {
+
+        List<Service> listToReturn = new ArrayList<Service>();
+
+        for (Service service: services) {
+
+            if (rating == service.getRating()){
+                listToReturn.add(service);
+            }
+        }
+
+        return listToReturn;
+    }
+
+    private Collection<Service> getServicesWithEndHour(Collection<Service> services, int endHour) {
+
+        Set<Service> listToReturn = new HashSet<>();
+
+        for (Service service: services) {
+
+            for (ServiceAndProviderTuple spt: serviceAndProviderTuples) {
+
+                if (service.getId().equals(spt.serviceId)) {
+
+                    List<Availability> availabilities = AvailabilityDatabase.getInstance().getAvailabilitiesByServiceProvider(spt.serviceProviderId);
+
+                    for (Availability availability: availabilities) {
+
+                        if (availability.getEndHour() >= endHour) {
+                            listToReturn.add(service);
+                            continue;
+                        }
+                    }
+                    continue;
+                }
+            }
+        }
+
+        return listToReturn;
+    }
+
+    private Collection<Service> getServicesWithStartHour(Collection<Service> services, int startHour) {
+
+        Set<Service> listToReturn = new HashSet<>();
+
+        for (Service service: services) {
+
+            for (ServiceAndProviderTuple spt: serviceAndProviderTuples) {
+
+                if (service.getId().equals(spt.serviceId)) {
+
+                    List<Availability> availabilities = AvailabilityDatabase.getInstance().getAvailabilitiesByServiceProvider(spt.serviceProviderId);
+
+                    for (Availability availability: availabilities) {
+
+                        if (availability.getStartHour() <= startHour) {
+                            listToReturn.add(service);
+                            continue;
+                        }
+                    }
+                    continue;
+                }
+            }
+        }
+
+        return listToReturn;
+    }
+
+    private List<Service> getAllCurrentlyOfferedServices() {
+
+        List<Service> offered = new ArrayList<Service>();
+
+        for (Service service: serviceList) {
+
+            for (ServiceAndProviderTuple spt: serviceAndProviderTuples) {
+
+                if (service.getId().equals(spt.serviceId)) {
+                    offered.add(service);
+                }
+            }
+        }
+
+        return offered;
     }
 
     public boolean deleteService(Service service) {

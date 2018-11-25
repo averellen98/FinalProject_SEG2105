@@ -22,6 +22,11 @@ public class Util {
     public static final String FIRST_NAME = "com.project.group.util_first_name";
     public static final String LAST_NAME = "com.project.group.util_last_name";
 
+    public static boolean validateRating(int rating) {
+
+        return rating > 0 && rating <= 5;
+    }
+
     public static boolean validatePhoneNumber(String phoneNumber) {
 
         //checking the length of phoneNumber, should be 10
