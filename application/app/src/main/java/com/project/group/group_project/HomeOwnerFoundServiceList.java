@@ -12,25 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class HomeOwnerFoundServiceList extends Activity {
-    //TODO this will display the services found in HomeOwnerSearchServices
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
-    private static final BookingDatabase bookingDatabase = BookingDatabase.getInstance();
-    private static final RatingDatabase ratingDatabase = RatingDatabase.getInstance();
 
-    private List<Service> allServices = serviceDatabase.getAllServices();
-    private List<Service> searchedServices;
+    private List<Service> foundServices;
 
     private String userId;
-    private String searchType;
-    private String serviceName;
-    private String serviceId;
-    private String serviceStartHour;
-    private String serviceEndHour;
-    private String serviceRating;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -43,26 +34,12 @@ public class HomeOwnerFoundServiceList extends Activity {
 
         Intent intent = getIntent();
         userId = intent.getStringExtra(Util.USER_ID);
-        searchType = intent.getStringExtra("searchType");
+        String searchName = intent.getStringExtra(Util.SEARCH_NAME);
+        int searchStartHour = intent.getIntExtra(Util.SEARCH_START_HOUR, -1);
+        int searchEndHour = intent.getIntExtra(Util.SEARCH_END_HOUR, -1);
+        int searchRating = intent.getIntExtra(Util.SEARCH_RATING, -1);
 
-        if (searchType.equalsIgnoreCase("allServices")){
-            searchedServices = allServices;
-        }
-
-        if (searchType.equalsIgnoreCase("serviceNameAndTime")){
-            serviceName = intent.getStringExtra("serviceName");
-            serviceStartHour = intent.getStringExtra("serviceStart");
-            serviceEndHour = intent.getStringExtra("serviceEnd");
-            //TODO unsure how to find services in a certain time range
-            //will have to look at all the Availabilities in the database, and once and
-            //service is booked, the availability must not include the booked time
-        }
-
-        if (searchType.equalsIgnoreCase("serviceNameAndRating")){
-            serviceName = intent.getStringExtra("serviceName");
-            serviceRating = intent.getStringExtra("serviceRate");
-            searchedServices = getServicesByRating(serviceName, serviceRating);
-        }
+        foundServices = serviceDatabase.queryDatabaseForHomeOwner(searchName, searchStartHour, searchEndHour, searchRating);
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
@@ -75,23 +52,6 @@ public class HomeOwnerFoundServiceList extends Activity {
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
-    }
-
-    private String buildServiceView(int index) {
-
-        StringBuilder sb = new StringBuilder();
-
-        String n = "\r\n";
-
-        Service service = searchedServices.get(index);
-
-        String rate = "$" + (service.getRatePerHour() / 100);
-
-        sb.append("Name: " + service.getName() + n);
-        sb.append("Description: " + service.getDescription() + n);
-        sb.append("Rate per hour: " + rate + n);
-
-        return sb.toString();
     }
 
     private class CustomAdapter extends RecyclerView.Adapter<HomeOwnerFoundServiceHolder> {
@@ -108,9 +68,9 @@ public class HomeOwnerFoundServiceList extends Activity {
         @Override
         public void onBindViewHolder(HomeOwnerFoundServiceHolder viewHolder, final int position) {
 
-            final Service service = searchedServices.get(position);
+            final Service service = foundServices.get(position);
 
-            viewHolder.getTextView().setText(buildServiceView(position));
+            viewHolder.getTextView().setText(Util.buildServiceView(service));
 
             viewHolder.getBookButton().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,7 +82,7 @@ public class HomeOwnerFoundServiceList extends Activity {
 
         @Override
         public int getItemCount() {
-            return searchedServices.size();
+            return foundServices.size();
         }
     }
 
@@ -163,46 +123,4 @@ public class HomeOwnerFoundServiceList extends Activity {
             return bookButton;
         }
     }
-
-    private List<Service> getServicesByNames(String serviceName) {
-        serviceName = serviceName.toLowerCase();
-
-        List<Service> serviceListToReturn = new ArrayList<>();
-
-        List<Service> allServices = serviceDatabase.getAllServices();
-
-        if (allServices != null && !allServices.isEmpty()) {
-
-            for (Service service: allServices) {
-                if (service.getName() == serviceName || service.getName().equalsIgnoreCase(serviceName) || service.getName().contains(serviceName)){
-                    serviceListToReturn.add(service);
-                }
-            }
-        } else {
-            serviceListToReturn = null;
-        }
-
-        return serviceListToReturn;
-    }
-
-    private List<Service> getServicesByRating(String serviceName, String serviceRating){
-        List<Service> services = getServicesByNames(serviceName);
-        List<Service> searchedServices = new ArrayList<>();
-
-        for (Service service: services){
-            List<Rating> ratings = ratingDatabase.getRatingsByService(service.getId());
-            int totalRate = 0;
-            double avgRate = 0.0;
-            for (Rating rating: ratings){
-                totalRate = totalRate + rating.getRate();
-            }
-            avgRate = totalRate / ratings.size();
-            if (avgRate >= Integer.parseInt(serviceRating)){
-                searchedServices.add(service);
-            }
-        }
-
-        return  searchedServices;
-    }
-
 }

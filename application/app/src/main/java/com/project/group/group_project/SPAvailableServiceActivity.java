@@ -69,21 +69,6 @@ public class SPAvailableServiceActivity extends Activity {
         return serviceListToReturn;
     }
 
-    private String buildServiceView(Service service) {
-
-        StringBuilder sb = new StringBuilder();
-
-        String n = "\r\n";
-
-        String rate = "$" + (service.getRatePerHour() / 100);
-
-        sb.append("Name: " + service.getName() + n);
-        sb.append("Description: " + service.getDescription() + n);
-        sb.append("Rate per hour: " + rate + n);
-
-        return sb.toString();
-    }
-
     private class CustomAdapter extends RecyclerView.Adapter<SPServiceViewHolder> {
 
         @Override
@@ -100,7 +85,7 @@ public class SPAvailableServiceActivity extends Activity {
 
             final Service service = serviceProviderAvailableServices.get(position);
 
-            viewHolder.getTextView().setText(buildServiceView(service));
+            viewHolder.getTextView().setText(Util.buildServiceView(service));
 
             viewHolder.getAddButton().setOnClickListener(new View.OnClickListener() {
                 @Override

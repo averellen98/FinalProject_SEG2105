@@ -39,7 +39,19 @@ public class HomeOwnerSearchServices extends Activity {
 
         if (validateComponents()) {
 
-            // TODO implement this
+            String serviceName = (serviceNameText.getText().toString().isEmpty() ? null : serviceNameText.getText().toString());
+            int serviceStartHour = Integer.parseInt((serviceStartHourText.getText().toString().isEmpty() ? "-1" : serviceStartHourText.getText().toString()));
+            int serviceEndHour = Integer.parseInt((serviceEndHourText.getText().toString().isEmpty() ? "-1" : serviceEndHourText.getText().toString()));
+            int serviceRating = Integer.parseInt(serviceRatingText.getText().toString().isEmpty() ? "-1" : serviceRatingText.getText().toString());
+
+            Intent intent = new Intent(this, HomeOwnerFoundServiceList.class);
+            intent.putExtra(Util.USER_ID, userId);
+            intent.putExtra(Util.SEARCH_NAME, serviceName);
+            intent.putExtra(Util.SEARCH_START_HOUR, serviceStartHour);
+            intent.putExtra(Util.SEARCH_END_HOUR, serviceEndHour);
+            intent.putExtra(Util.SEARCH_RATING, serviceRating);
+
+            startActivity(intent);
         }
 
         // if none of the fields are filled, show all services that are currently offered
@@ -58,36 +70,45 @@ public class HomeOwnerSearchServices extends Activity {
         String serviceEndHour = serviceEndHourText.getText().toString();
         String serviceRating = serviceRatingText.getText().toString();
 
-        if (!Util.validateInteger(serviceStartHour)) {
-            Toast.makeText(this, "Enter a valid integer start hour.", Toast.LENGTH_LONG).show();
-            return false;
+        if (!serviceEndHour.isEmpty()) {
+
+            if (!Util.validateInteger(serviceStartHour)) {
+                Toast.makeText(this, "Enter a valid integer start hour.", Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            if (!Util.validateHour(serviceStartHour)) {
+                Toast.makeText(this, "Enter a valid start hour between 0 and 23.", Toast.LENGTH_LONG).show();
+                return false;
+            }
         }
 
-        if (!Util.validateHour(serviceStartHour)) {
-            Toast.makeText(this, "Enter a valid start hour between 0 and 23.", Toast.LENGTH_LONG).show();
-            return false;
+        if (!serviceEndHour.isEmpty()) {
+
+            if (!Util.validateInteger(serviceEndHour)) {
+                Toast.makeText(this, "Enter a valid integer end hour.", Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            if (!Util.validateHour(serviceEndHour)) {
+                Toast.makeText(this, "Enter a valid end hour between 0 and 23.", Toast.LENGTH_LONG).show();
+                return false;
+            }
         }
 
-        if (!Util.validateInteger(serviceEndHour)) {
-            Toast.makeText(this, "Enter a valid integer end hour.", Toast.LENGTH_LONG).show();
-            return false;
-        }
+        if (!serviceRating.isEmpty()) {
 
-        if (!Util.validateHour(serviceEndHour)) {
-            Toast.makeText(this, "Enter a valid end hour between 0 and 23.", Toast.LENGTH_LONG).show();
-            return false;
-        }
+            if (!Util.validateInteger(serviceRating)) {
+                Toast.makeText(this, "Enter a valid integer rating.", Toast.LENGTH_LONG).show();
+                return false;
+            }
 
-        if (!Util.validateInteger(serviceRating)) {
-            Toast.makeText(this, "Enter a valid integer rating.", Toast.LENGTH_LONG).show();
-            return false;
-        }
+            int rating = Integer.parseInt(serviceRating);
 
-        int rating = Integer.parseInt(serviceRating);
-
-        if (!Util.validateRating(rating)) {
-            Toast.makeText(this, "Enter a valid rating between 1 and 5.", Toast.LENGTH_LONG).show();
-            return false;
+            if (!Util.validateRating(rating)) {
+                Toast.makeText(this, "Enter a valid rating between 1 and 5.", Toast.LENGTH_LONG).show();
+                return false;
+            }
         }
 
         return true;

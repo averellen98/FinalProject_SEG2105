@@ -1,10 +1,7 @@
 package com.project.group.group_project;
 
-import android.content.Intent;
-
-import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 public class Util {
 
@@ -21,6 +18,89 @@ public class Util {
     public static final String ROLE = "com.project.group.util_role";
     public static final String FIRST_NAME = "com.project.group.util_first_name";
     public static final String LAST_NAME = "com.project.group.util_last_name";
+    public static final String SEARCH_NAME = "com.project.group.util_search_name";
+    public static final String SEARCH_START_HOUR = "com.project.group.util_search_start_hour";
+    public static final String SEARCH_END_HOUR = "com.project.group.util_search_end_hour";
+    public static final String SEARCH_RATING = "com.project.group.util_search_rating";
+
+    private static String n = "\r\n";
+
+    public static String buildServiceView(Service service) {
+
+        StringBuilder sb = new StringBuilder();
+
+        String rate = "$" + (service.getRatePerHour() / 100);
+
+        sb.append("Name: " + service.getName() + n);
+        sb.append("Description: " + service.getDescription() + n);
+        sb.append("Rate per hour: " + rate + n);
+        sb.append("Rating: " + service.getRating());
+
+        return sb.toString();
+    }
+
+    public static String buildUserView(User user) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Username: " + user.getUsername() + n);
+        sb.append("Password: " + user.getPassword() + n);
+        sb.append("Role: " + user.getRole().getName() + n);
+        sb.append("First name: " + user.getFirstName() + n);
+        sb.append("Last name: " + user.getLastName());
+
+        return sb.toString();
+    }
+
+    public static String buildAvailabilityString(List<Availability> availabilityList) {
+
+        StringBuilder sb = new StringBuilder();
+
+        int counter = 0;
+
+        for (Availability availability: availabilityList) {
+
+            switch (availability.getWeekDay()) {
+                case MONDAY:
+                    sb.append("MON: " + availability.getStartHour() + ":" + availability.getStartMinute() + "-");
+                    sb.append(availability.getEndHour() + ":" + availability.getEndMinute() + ", ");
+                    break;
+                case TUESDAY:
+                    sb.append("TUE: " + availability.getStartHour() + ":" + availability.getStartMinute() + "-");
+                    sb.append(availability.getEndHour() + ":" + availability.getEndMinute() + ", ");
+                    break;
+                case WEDNESDAY:
+                    sb.append("WED: " + availability.getStartHour() + ":" + availability.getStartMinute() + "-");
+                    sb.append(availability.getEndHour() + ":" + availability.getEndMinute() + ", ");
+                    break;
+                case THURSDAY:
+                    sb.append("THU: " + availability.getStartHour() + ":" + availability.getStartMinute() + "-");
+                    sb.append(availability.getEndHour() + ":" + availability.getEndMinute() + ", ");
+                    break;
+                case FRIDAY:
+                    sb.append("FRI: " + availability.getStartHour() + ":" + availability.getStartMinute() + "-");
+                    sb.append(availability.getEndHour() + ":" + availability.getEndMinute() + ", ");
+                    break;
+                case SATURDAY:
+                    sb.append("SAT: " + availability.getStartHour() + ":" + availability.getStartMinute() + "-");
+                    sb.append(availability.getEndHour() + ":" + availability.getEndMinute() + ". ");
+                    break;
+                case SUNDAY:
+                    sb.append("SUN: " + availability.getStartHour() + ":" + availability.getStartMinute() + "-");
+                    sb.append(availability.getEndHour() + ":" + availability.getEndMinute() + ", ");
+                    break;
+            }
+
+            counter ++;
+
+            if (counter == 7) {
+                sb.append(n);
+                counter = 0;
+            }
+        }
+
+        return sb.toString();
+    }
 
     public static boolean validateRating(int rating) {
 
@@ -167,6 +247,30 @@ public class Util {
         }
 
         return false;
+    }
+
+    public static WeekDay getWeekDayForDate(int day, int month, int year) {
+
+        Calendar date = Calendar.getInstance();
+        date.set(year, month - 1, day);
+
+        int dayOfWeek = date.get(Calendar.DAY_OF_WEEK);
+
+        if (dayOfWeek == 1) {
+            return WeekDay.SUNDAY;
+        } else if (dayOfWeek == 2) {
+            return WeekDay.MONDAY;
+        } else if (dayOfWeek == 3) {
+            return WeekDay.TUESDAY;
+        } else if (dayOfWeek == 4) {
+            return WeekDay.WEDNESDAY;
+        } else if (dayOfWeek == 5) {
+            return WeekDay.THURSDAY;
+        } else if (dayOfWeek == 6) {
+            return WeekDay.FRIDAY;
+        } else {
+            return WeekDay.SATURDAY;
+        }
     }
 
     public static boolean validateDateHasNotPassed(int day, int month, int year) {

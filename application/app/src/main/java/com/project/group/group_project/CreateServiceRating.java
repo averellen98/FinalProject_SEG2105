@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CreateServiceRating extends Activity {
-    //TODO this is the class that actually implements the rating portion
 
     private ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
     private RatingDatabase ratingDatabase = RatingDatabase.getInstance();

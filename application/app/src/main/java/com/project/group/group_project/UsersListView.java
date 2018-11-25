@@ -45,24 +45,6 @@ public class UsersListView extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private String buildUserView(int index) {
-
-        StringBuilder sb = new StringBuilder();
-
-        String n = "\r\n";
-
-        User user = userDatabase.getUsers().get(index);
-
-        sb.append("Id: " + user.getId() + n);
-        sb.append("Username: " + user.getUsername() + n);
-        sb.append("Password: " + user.getPassword() + n);
-        sb.append("Role: " + user.getRole().getName() + n);
-        sb.append("First name: " + user.getFirstName() + n);
-        sb.append("Last name: " + user.getLastName());
-
-        return sb.toString();
-    }
-
     private class CustomAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
         @Override
@@ -75,7 +57,10 @@ public class UsersListView extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(UserViewHolder viewHolder, final int position) {
-            viewHolder.getTextView().setText(buildUserView(position));
+
+            User user = userDatabase.getUsers().get(position);
+
+            viewHolder.getTextView().setText(Util.buildUserView(user));
         }
 
         @Override

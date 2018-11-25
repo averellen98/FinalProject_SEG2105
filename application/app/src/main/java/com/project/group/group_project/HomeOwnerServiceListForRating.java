@@ -40,22 +40,6 @@ public class HomeOwnerServiceListForRating extends Activity{
         recyclerView.setAdapter(adapter);
     }
 
-    private String buildServiceView(Service service) {
-
-        StringBuilder sb = new StringBuilder();
-
-        String n = "\r\n";
-
-        String rate = "$" + (service.getRatePerHour() / 100);
-
-        sb.append("Name: " + service.getName() + n);
-        sb.append("Description: " + service.getDescription() + n);
-        sb.append("Rate per hour: " + rate + n);
-        sb.append("Rating: " + service.getRating());
-
-        return sb.toString();
-    }
-
     private class CustomAdapter extends RecyclerView.Adapter<HomeOwnerRateServiceViewHolder> {
 
         @Override
@@ -71,7 +55,7 @@ public class HomeOwnerServiceListForRating extends Activity{
 
             final Service service = serviceDatabase.getAllServices().get(position);
 
-            viewHolder.getTextView().setText(buildServiceView(service));
+            viewHolder.getTextView().setText(Util.buildServiceView(service));
 
             viewHolder.getRateButton().setOnClickListener(new View.OnClickListener() {
                 @Override

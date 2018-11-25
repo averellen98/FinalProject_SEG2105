@@ -10,6 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -205,6 +206,21 @@ public class ServiceDatabase {
         return null;
     }
 
+    public List<Availability> getAvailabilitiesForService(String serviceId) {
+
+        List<Availability> availabilities = new ArrayList<>();
+
+        for (ServiceAndProviderTuple stp: serviceAndProviderTuples) {
+
+            if (stp.serviceId.equals(serviceId)) {
+
+                availabilities.addAll(AvailabilityDatabase.getInstance().getAvailabilitiesByServiceProvider(stp.serviceProviderId));
+            }
+        }
+
+        return availabilities;
+    }
+
     /**
      * @param serviceName if null don't use in query.
      * @param startHour if -1 don't use in query.
@@ -212,9 +228,9 @@ public class ServiceDatabase {
      * @param rating if -1 don't use in query.
      * @return
      */
-    public Collection<Service> queryDatabaseForHomeOwner(String serviceName, int startHour, int endHour, int rating) {
+    public List<Service> queryDatabaseForHomeOwner(String serviceName, int startHour, int endHour, int rating) {
 
-        Collection<Service> currentlyOfferedServices = getAllCurrentlyOfferedServices();
+        List<Service> currentlyOfferedServices = getAllCurrentlyOfferedServices();
 
         if (serviceName == null) {
 
@@ -334,7 +350,7 @@ public class ServiceDatabase {
         return listToReturn;
     }
 
-    private Collection<Service> getServicesWithEndHour(Collection<Service> services, int endHour) {
+    private List<Service> getServicesWithEndHour(Collection<Service> services, int endHour) {
 
         Set<Service> listToReturn = new HashSet<>();
 
@@ -358,10 +374,13 @@ public class ServiceDatabase {
             }
         }
 
-        return listToReturn;
+        List<Service> list = new ArrayList<>();
+        list.addAll(listToReturn);
+
+        return list;
     }
 
-    private Collection<Service> getServicesWithStartHour(Collection<Service> services, int startHour) {
+    private List<Service> getServicesWithStartHour(Collection<Service> services, int startHour) {
 
         Set<Service> listToReturn = new HashSet<>();
 
@@ -385,7 +404,10 @@ public class ServiceDatabase {
             }
         }
 
-        return listToReturn;
+        List<Service> list = new ArrayList<>();
+        list.addAll(listToReturn);
+
+        return list;
     }
 
     private List<Service> getAllCurrentlyOfferedServices() {

@@ -17,7 +17,7 @@ public class CreateBooking extends Activity {
     private String serviceId;
     private String userId;
 
-    private List<ServiceDatabase.ServiceAndProviderTuple> serviceAndProviderTuples = serviceDatabase.getServiceAndProviderTuples();
+    private List<Availability> serviceAvailabilities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,12 @@ public class CreateBooking extends Activity {
         Intent intent = getIntent();
         serviceId = intent.getStringExtra(Util.SERVICE_ID);
         userId = intent.getStringExtra(Util.USER_ID);
+
+        serviceAvailabilities = serviceDatabase.getAvailabilitiesForService(serviceId);
+
+        String availabilityString = Util.buildAvailabilityString(serviceAvailabilities);
+
+        ((TextView) findViewById(R.id.serviceProviderAvailabilityText)).setText(availabilityString);
     }
 
     public void cancelCreateBookingOnClick(View view) {
@@ -41,8 +47,6 @@ public class CreateBooking extends Activity {
     public void createBookingOnClick(View view) {
 
         // TODO implement this
-
-        // TODO need to get service provider availabilities that are connected to this service
     }
 
     private boolean validateComponents() {
@@ -135,7 +139,42 @@ public class CreateBooking extends Activity {
             return false;
         }
 
-        // TODO implement validation of start time and end time with service provider availabilities for the selected service.
+        Util.WeekDay weekDayOfBooking = Util.getWeekDayForDate(day, month, year);
+
+        boolean availableSlotFound = false;
+
+        for (Availability availability: serviceAvailabilities) {
+
+            if (availability.getWeekDay().equals(weekDayOfBooking)) {
+
+                if (availability.getStartHour() < startHH) {
+
+                    if (availability.getEndHour() > endHH) {
+                        availableSlotFound = true;
+                    }
+
+                    if (availability.getEndHour() == endHH && availability.getEndMinute() > endMM) {
+                        availableSlotFound = true;
+                    }
+                }
+
+                if (availability.getStartHour() == startHH && availability.getStartMinute() < startMM) {
+
+                    if (availability.getEndHour() > endHH) {
+                        availableSlotFound = true;
+                    }
+
+                    if (availability.getEndHour() == endHH && availability.getEndMinute() > endMM) {
+                        availableSlotFound = true;
+                    }
+                }
+            }
+        }
+
+        if (!availableSlotFound) {
+            Toast.makeText(this, "There is not a service provider with that that time available, please enter a different time slot.", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         return true;
     }

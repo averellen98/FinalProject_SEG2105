@@ -46,24 +46,6 @@ public class ViewServicesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private String buildServiceView(int index) {
-
-        StringBuilder sb = new StringBuilder();
-
-        String n = "\r\n";
-
-        Service service = serviceDatabase.getAllServices().get(index);
-
-        String rate = "$" + (service.getRatePerHour() / 100);
-
-        sb.append("Id: " + service.getId() + n);
-        sb.append("Name: " + service.getName() + n);
-        sb.append("Description: " + service.getDescription() + n);
-        sb.append("Rate per hour: " + rate + n);
-
-        return sb.toString();
-    }
-
     private class CustomAdapter extends RecyclerView.Adapter<ServiceViewHolder> {
 
         @Override
@@ -79,7 +61,7 @@ public class ViewServicesActivity extends AppCompatActivity {
 
             final Service service = serviceDatabase.getAllServices().get(position);
 
-            viewHolder.getTextView().setText(buildServiceView(position));
+            viewHolder.getTextView().setText(Util.buildServiceView(service));
 
             viewHolder.getEditButton().setOnClickListener(new View.OnClickListener() {
                 @Override

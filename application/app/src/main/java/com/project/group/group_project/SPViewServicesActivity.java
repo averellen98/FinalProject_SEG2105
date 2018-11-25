@@ -48,23 +48,6 @@ public class SPViewServicesActivity extends Activity {
         recyclerView.setAdapter(adapter);
     }
 
-    private String buildServiceView(int index) {
-
-        StringBuilder sb = new StringBuilder();
-
-        String n = "\r\n";
-
-        Service service = serviceProviderServices.get(index);
-
-        String rate = "$" + (service.getRatePerHour() / 100);
-
-        sb.append("Name: " + service.getName() + n);
-        sb.append("Description: " + service.getDescription() + n);
-        sb.append("Rate per hour: " + rate + n);
-
-        return sb.toString();
-    }
-
     private class CustomAdapter extends RecyclerView.Adapter<SPViewServiceViewHolder> {
 
         @Override
@@ -81,7 +64,7 @@ public class SPViewServicesActivity extends Activity {
 
             final Service service = serviceProviderServices.get(position);
 
-            viewHolder.getTextView().setText(buildServiceView(position));
+            viewHolder.getTextView().setText(Util.buildServiceView(service));
 
             viewHolder.getDeleteButton().setOnClickListener(new View.OnClickListener() {
                 @Override
