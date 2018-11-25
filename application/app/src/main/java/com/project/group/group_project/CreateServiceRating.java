@@ -27,7 +27,7 @@ public class CreateServiceRating extends Activity {
         setContentView(R.layout.activity_home_owner_rate_service);
 
         Intent intent = getIntent();
-        serviceID = intent.getStringExtra("serviceID");
+        serviceID = intent.getStringExtra(Util.SERVICE_ID);
 
         serviceToBeRated = serviceDatabase.getServiceById(serviceID);
 
@@ -49,7 +49,9 @@ public class CreateServiceRating extends Activity {
 
             ratingDatabase.addRating(serviceID, serviceComment, rateInteger);
 
-            Intent intent = new Intent(this, HomeOwnerRateService.class);
+            serviceDatabase.updateServiceRatings();
+
+            Intent intent = new Intent(this, HomeOwnerServiceListForRating.class);
             startActivity(intent);
         }
     }

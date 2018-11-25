@@ -3,18 +3,20 @@ package com.project.group.group_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
 public class CreateBooking extends Activity {
-    private String serviceName;
-    private String userId;
+
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
     private static final BookingDatabase bookingDatabase = BookingDatabase.getInstance();
-    private List<Service> allServices = serviceDatabase.getAllServices();
-    //private List<Booking> allBookings = bookingDatabase.getAllBookings();
+
+    private String serviceId;
+    private String userId;
+
     private List<ServiceDatabase.ServiceAndProviderTuple> serviceAndProviderTuples = serviceDatabase.getServiceAndProviderTuples();
 
     @Override
@@ -24,9 +26,22 @@ public class CreateBooking extends Activity {
         setContentView(R.layout.activity_create_booking);
 
         Intent intent = getIntent();
-        serviceName = intent.getStringExtra(Util.SERVICE_NAME);
+        serviceId = intent.getStringExtra(Util.SERVICE_ID);
         userId = intent.getStringExtra(Util.USER_ID);
+    }
 
+    public void cancelCreateBookingOnClick(View view) {
+
+        Intent intent = new Intent(this, HomeOwnerSearchServices.class);
+
+        startActivity(intent);
+    }
+
+    public void createBookingOnClick(View view) {
+
+        // TODO implement this
+
+        // TODO need to get service provider availabilities that are connected to this service
     }
 
     private boolean validateComponents() {

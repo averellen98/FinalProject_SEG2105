@@ -37,7 +37,7 @@ public class HomeOwnerView extends AppCompatActivity {
 
     public void rateServicesOnClick(View view) {
 
-        Intent intent = new Intent(this, HomeOwnerRateService.class);
+        Intent intent = new Intent(this, HomeOwnerServiceListForRating.class);
         intent.putExtra(Util.USER_ID, userId);
 
         startActivity(intent);

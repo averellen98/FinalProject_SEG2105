@@ -15,6 +15,7 @@ public class Util {
     public static final String SERVICE_NAME = "com.project.group.util_service_name";
     public static final String SERVICE_DESCRIPTION = "com.project.group.util_service_Description";
     public static final String SERVICE_RATE = "com.project.group.util_service_rate";
+    public static final String SERVICE_ID = "com.project.group.util_service_id";
     public static final String USERNAME = "com.project.group.util_user_name";
     public static final String PASSWORD = "com.project.group.util_password";
     public static final String ROLE = "com.project.group.util_role";

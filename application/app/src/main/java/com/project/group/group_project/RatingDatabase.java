@@ -91,7 +91,7 @@ public class RatingDatabase {
             ratingInt += rating.getRate();
         }
 
-        ratingInt = ratingInt / ratings.size();
+        ratingInt = (Integer) (ratingInt / ratings.size());
 
         return ratingInt;
     }

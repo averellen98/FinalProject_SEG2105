@@ -18,6 +18,8 @@ public class ServiceDatabase {
 
     private static final DatabaseReference databaseServiceAndProvider = database.getReference("serviceAndProvider");
 
+    private static final RatingDatabase ratingDatabase = RatingDatabase.getInstance();
+
     private static final ServiceDatabase instance = new ServiceDatabase();
 
     private static List<Service> serviceList = new ArrayList<Service>();
@@ -39,7 +41,7 @@ public class ServiceDatabase {
                     int ratePerHour = ds.child("ratePerHour").getValue(Integer.class);
                     String id = ds.child("id").getValue(String.class);
 
-                    int rating = RatingDatabase.getInstance().getRatingForService(id);
+                    int rating = ratingDatabase.getRatingForService(id);
 
                     databaseServices.child(id).child("rating").setValue(rating);
 
@@ -47,7 +49,6 @@ public class ServiceDatabase {
 
                     serviceList.add(service);
                 }
-
             }
 
             @Override
@@ -131,6 +132,18 @@ public class ServiceDatabase {
         tmpRef.removeValue();
 
         return true;
+    }
+
+    public void updateServiceRatings() {
+
+        for (Service service: serviceList) {
+
+            int rating = RatingDatabase.getInstance().getRatingForService(service.getId());
+
+            service.setRating(rating);
+
+            databaseServices.child(service.getId()).child("rating").setValue(rating);
+        }
     }
 
     private ServiceAndProviderTuple getServiceAndProviderTuple(String serviceProviderId, String serviceId) {

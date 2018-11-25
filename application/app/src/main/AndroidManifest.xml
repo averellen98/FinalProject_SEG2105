@@ -52,7 +52,8 @@
             android:name=".CreateBooking"
             android:label="@string/title_activity_create_booking"></activity>
         <activity
-            android:name=".HomeOwnerRateService"/>
+            android:name=".HomeOwnerServiceListForRating"/>
+        <activity android:name=".CreateServiceRating"/>
     </application>
 
 </manifest>

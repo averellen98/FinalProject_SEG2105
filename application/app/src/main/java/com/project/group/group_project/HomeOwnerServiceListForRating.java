@@ -12,9 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
-public class HomeOwnerRateService extends Activity{
+public class HomeOwnerServiceListForRating extends Activity{
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
@@ -36,7 +34,7 @@ public class HomeOwnerRateService extends Activity{
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new HomeOwnerRateService.CustomAdapter();
+        adapter = new HomeOwnerServiceListForRating.CustomAdapter();
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
@@ -93,7 +91,7 @@ public class HomeOwnerRateService extends Activity{
     private void doRate(Service service) {
 
         Intent intent = new Intent(this, CreateServiceRating.class);
-        intent.putExtra("serviceID", service.getId());
+        intent.putExtra(Util.SERVICE_ID, service.getId());
 
         startActivity(intent);
     }

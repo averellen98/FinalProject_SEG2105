@@ -152,11 +152,27 @@
             android:hint="e.g. 2019"
             android:inputType="number" />
 
-        <Button
-            android:id="@+id/createBookingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create Booking" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="cancelCreateBookingOnClick"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/createBookingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="createBookingOnClick"
+                android:text="Create Booking" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
