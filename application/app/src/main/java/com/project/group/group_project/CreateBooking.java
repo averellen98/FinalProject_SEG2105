@@ -33,6 +33,7 @@ public class CreateBooking extends Activity {
     public void cancelCreateBookingOnClick(View view) {
 
         Intent intent = new Intent(this, HomeOwnerSearchServices.class);
+        intent.putExtra(Util.USER_ID, userId);
 
         startActivity(intent);
     }

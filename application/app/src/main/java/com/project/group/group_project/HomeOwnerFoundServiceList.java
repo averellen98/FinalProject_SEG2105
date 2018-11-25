@@ -126,10 +126,20 @@ public class HomeOwnerFoundServiceList extends Activity {
         }
     }
 
-    public void bookOnClick(Service service){
-        Intent intent = new Intent(this, CreateBooking.class);
-        intent.putExtra(Util.SERVICE_NAME, serviceName);
+    public void returnToSearchServicesOnClick(View view) {
+
+        Intent intent = new Intent(this, HomeOwnerSearchServices.class);
         intent.putExtra(Util.USER_ID, userId);
+
+        startActivity(intent);
+    }
+
+    public void bookOnClick(Service service){
+
+        Intent intent = new Intent(this, CreateBooking.class);
+        intent.putExtra(Util.SERVICE_ID, service.getId());
+        intent.putExtra(Util.USER_ID, userId);
+
         startActivity(intent);
     }
 

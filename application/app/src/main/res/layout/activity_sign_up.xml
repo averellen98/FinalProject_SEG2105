@@ -120,12 +120,27 @@
 
         </RadioGroup>
 
-        <Button
-            android:id="@+id/signUpButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="signUpOnClick"
-            android:text="@string/signUp" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="cancelSignUpOnCLick"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/signUpButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="signUpOnClick"
+                android:text="@string/signUp" />
+        </LinearLayout>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

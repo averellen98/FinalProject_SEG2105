@@ -39,6 +39,13 @@ public class ViewServicesActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    public void returnToAdminViewOnClick(View view) {
+
+        Intent intent = new Intent(this, AdminView.class);
+
+        startActivity(intent);
+    }
+
     private String buildServiceView(int index) {
 
         StringBuilder sb = new StringBuilder();

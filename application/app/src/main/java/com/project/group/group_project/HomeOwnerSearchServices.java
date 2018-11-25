@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeOwnerSearchServices extends Activity {
+
     private TextView serviceNameText;
     private TextView serviceStartHourText;
     private TextView serviceEndHourText;
     private TextView serviceRatingText;
+
     private String userId;
 
     private String searchByType;

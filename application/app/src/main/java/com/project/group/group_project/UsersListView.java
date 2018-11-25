@@ -1,5 +1,6 @@
 package com.project.group.group_project;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,13 @@ public class UsersListView extends AppCompatActivity {
         adapter = new CustomAdapter();
 
         recyclerView.setAdapter(adapter);
+    }
+
+    public void returnTOAdminViewOnClick(View view) {
+
+        Intent intent = new Intent(this, AdminView.class);
+
+        startActivity(intent);
     }
 
     private String buildUserView(int index) {

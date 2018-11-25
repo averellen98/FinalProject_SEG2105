@@ -35,6 +35,13 @@ public class SignUpActivity extends AppCompatActivity {
         roleGroup = findViewById(R.id.roleRadioGroup);
     }
 
+    public void cancelSignUpOnCLick(View view) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+
+        startActivity(intent);
+    }
+
     public void signUpOnClick(View view) {
 
         String u_username = username.getText().toString();

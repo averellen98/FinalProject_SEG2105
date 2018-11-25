@@ -78,6 +78,14 @@ public class AvailabilityActivity extends Activity {
         }
     }
 
+    public void cancelAvailabilitiesOnClick(View view) {
+
+        Intent intent = new Intent(this, ServiceProviderView.class);
+        intent.putExtra(Util.USER_ID, serviceProviderId);
+
+        startActivity(intent);
+    }
+
     public void saveAvailabilitiesOnClick(View view) {
 
         int sunStartHour = validateAndRetrieveHour(R.id.sunStartHourText);
