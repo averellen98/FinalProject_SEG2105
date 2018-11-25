@@ -30,4 +30,10 @@ public class AdminView extends AppCompatActivity {
         Intent intent = new Intent(this, ViewServicesActivity.class);
         startActivity(intent);
     }
+
+    public void logOutAdminOnClick(View view) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

@@ -41,4 +41,10 @@ public class ServiceProviderView extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void logOutOfServicePOnClick(View view) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

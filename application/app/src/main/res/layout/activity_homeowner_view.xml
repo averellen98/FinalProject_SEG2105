@@ -24,4 +24,11 @@
         android:layout_height="wrap_content"
         android:onClick="rateServicesOnClick"
         android:text="Rate Services" />
+
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="logOutHOOnClick"
+        android:text="Log Out" />
 </LinearLayout>

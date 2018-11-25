@@ -42,4 +42,10 @@ public class HomeOwnerView extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void logOutHOOnClick(View view) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }
