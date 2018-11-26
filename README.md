@@ -15,5 +15,9 @@ Group members:
   password: admin
 
   To sign in as Service Provider:
-  username:sp
-  password:sp
+  username: sp
+  password: sp
+
+  To sign in as Home Owner:
+  username: homeOwner
+  password: homeOwner
