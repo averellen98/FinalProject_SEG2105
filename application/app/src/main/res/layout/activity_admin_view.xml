@@ -29,14 +29,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Hello Admin! You have 2 options:"
+            android:text="Hello Admin! Here are your options:"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/viewUsers"
-            android:layout_width="129dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="viewUsersOnClick"
             android:text="View Users"
@@ -44,20 +44,20 @@
 
         <Button
             android:id="@+id/editServices"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="editServicesOnClick"
             android:text="View Services"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/logOutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="logOutAdminOnClick"
+            android:text="Log Out"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/logOutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="logOutAdminOnClick"
-        android:text="Log Out"
-        android:textStyle="bold"
-        />
 </android.support.constraint.ConstraintLayout>
