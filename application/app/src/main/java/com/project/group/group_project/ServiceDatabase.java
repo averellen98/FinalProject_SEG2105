@@ -458,6 +458,21 @@ public class ServiceDatabase {
         return serviceAndProviderTuples;
     }
 
+    public String getSPIDByServiceID(String serviceId){
+        ServiceAndProviderTuple tupleToReturn;
+        String serviceIdToReturn = null;
+
+        for (ServiceAndProviderTuple serviceAndProviderTuple: serviceAndProviderTuples) {
+
+            if (serviceAndProviderTuple.getServiceId().equals(serviceId)) {
+                tupleToReturn = serviceAndProviderTuple;
+                serviceIdToReturn = tupleToReturn.getSPId();
+            }
+        }
+
+        return serviceIdToReturn;
+    }
+
     public List<Service> getAllServices() {
 
         return serviceList;
@@ -474,6 +489,16 @@ public class ServiceDatabase {
             this.id = id;
             this.serviceId = serviceId;
             this.serviceProviderId = serviceProviderId;
+        }
+
+        public String getSPId(){
+            return serviceProviderId;
+        }
+        public String getServiceId(){
+            return serviceId;
+        }
+        public String getId(){
+            return id;
         }
     }
 }
