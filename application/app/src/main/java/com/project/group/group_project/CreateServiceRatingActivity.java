@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CreateServiceRating extends Activity {
+public class CreateServiceRatingActivity extends Activity {
 
     private ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
     private RatingDatabase ratingDatabase = RatingDatabase.getInstance();
@@ -50,7 +50,7 @@ public class CreateServiceRating extends Activity {
 
             serviceDatabase.updateServiceRatings();
 
-            Intent intent = new Intent(this, HomeOwnerServiceListForRating.class);
+            Intent intent = new Intent(this, HomeOwnerServiceListForRatingActivity.class);
             startActivity(intent);
         }
     }

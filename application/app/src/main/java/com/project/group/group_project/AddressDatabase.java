@@ -1,6 +1,5 @@
 package com.project.group.group_project;
 
-import android.provider.Telephony;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,7 +18,7 @@ public class AddressDatabase {
 
     private static final AddressDatabase instance = new AddressDatabase();
 
-    private static List<Address> addresses = new ArrayList<Address>();
+    private static List<Address> addressList = new ArrayList<Address>();
 
     static {
 
@@ -27,7 +26,7 @@ public class AddressDatabase {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                addresses.clear();
+                addressList.clear();
 
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
 
@@ -40,7 +39,7 @@ public class AddressDatabase {
 
                     Address address = new Address(id, serviceProviderId, street, city, province, postalCode);
 
-                    addresses.add(address);
+                    addressList.add(address);
                 }
             }
 
@@ -70,16 +69,12 @@ public class AddressDatabase {
 
     public Address getAddress(String serviceProviderId) {
 
-        for (Address address: addresses) {
+        for (Address address: addressList) {
             if (address.getServiceProviderId().equals(serviceProviderId)) {
                 return address;
             }
         }
 
         return null;
-    }
-
-    public List<Address> getAddresses() {
-        return addresses;
     }
 }

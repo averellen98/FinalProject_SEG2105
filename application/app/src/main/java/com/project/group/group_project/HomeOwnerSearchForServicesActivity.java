@@ -7,10 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class HomeOwnerSearchServices extends Activity {
+public class HomeOwnerSearchForServicesActivity extends Activity {
 
     private TextView serviceNameText;
     private TextView serviceStartHourText;
@@ -44,7 +41,7 @@ public class HomeOwnerSearchServices extends Activity {
             int serviceEndHour = Integer.parseInt((serviceEndHourText.getText().toString().isEmpty() ? "-1" : serviceEndHourText.getText().toString()));
             int serviceRating = Integer.parseInt(serviceRatingText.getText().toString().isEmpty() ? "-1" : serviceRatingText.getText().toString());
 
-            Intent intent = new Intent(this, HomeOwnerFoundServiceList.class);
+            Intent intent = new Intent(this, HomeOwnerFoundServicesActivity.class);
             intent.putExtra(Util.USER_ID, userId);
             intent.putExtra(Util.SEARCH_NAME, serviceName);
             intent.putExtra(Util.SEARCH_START_HOUR, serviceStartHour);

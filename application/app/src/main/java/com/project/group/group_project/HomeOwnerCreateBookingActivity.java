@@ -7,11 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-public class CreateBooking extends Activity {
+public class HomeOwnerCreateBookingActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
     private static final BookingDatabase bookingDatabase = BookingDatabase.getInstance();
@@ -39,6 +37,14 @@ public class CreateBooking extends Activity {
         serviceId = intent.getStringExtra(Util.SERVICE_ID);
         userId = intent.getStringExtra(Util.USER_ID);
 
+        bookingStartHourText = findViewById(R.id.bookingStartHourText);
+        bookingStartMinuteText = findViewById(R.id.bookingStartMinuteText);
+        bookingEndHourText = findViewById(R.id.bookingEndHourText);
+        bookingEndMinuteText = findViewById(R.id.bookingEndMinuteText);
+        bookingDayText = findViewById(R.id.bookingDayText);
+        bookingMonthText = findViewById(R.id.bookingMonthText);
+        bookingYearText = findViewById(R.id.bookingYearText);
+
         serviceAvailabilities = serviceDatabase.getAvailabilitiesForService(serviceId);
 
         String availabilityString = Util.buildAvailabilityString(serviceAvailabilities);
@@ -48,7 +54,7 @@ public class CreateBooking extends Activity {
 
     public void cancelCreateBookingOnClick(View view) {
 
-        Intent intent = new Intent(this, HomeOwnerSearchServices.class);
+        Intent intent = new Intent(this, HomeOwnerSearchForServicesActivity.class);
         intent.putExtra(Util.USER_ID, userId);
 
         startActivity(intent);
@@ -56,13 +62,6 @@ public class CreateBooking extends Activity {
 
     public void createBookingOnClick(View view) {
 
-        bookingStartHourText = findViewById(R.id.bookingStartHourText);
-        bookingStartMinuteText = findViewById(R.id.bookingStartMinuteText);
-        bookingEndHourText = findViewById(R.id.bookingEndHourText);
-        bookingEndMinuteText = findViewById(R.id.bookingEndMinuteText);
-        bookingDayText = findViewById(R.id.bookingDayText);
-        bookingMonthText = findViewById(R.id.bookingMonthText);
-        bookingYearText = findViewById(R.id.bookingYearText);
         boolean isValidBooking = validateComponents();
 
         if (isValidBooking) {
@@ -78,7 +77,7 @@ public class CreateBooking extends Activity {
             int year = Integer.parseInt(bookingYearText.getText().toString());
 
             bookingDatabase.addBooking(userId, serviceId, serviceProviderId, startHour, startMinute, endHour, endMinute, day, month, year);
-            Intent intent = new Intent(this, HomeOwnerBookings.class);
+            Intent intent = new Intent(this, HomeOwnerViewBookingsActivity.class);
             intent.putExtra(Util.USER_ID, userId);
             startActivity(intent);
         }

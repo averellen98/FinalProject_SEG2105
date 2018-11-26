@@ -11,11 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-public class HomeOwnerFoundServiceList extends Activity {
+public class HomeOwnerFoundServicesActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
@@ -48,7 +46,7 @@ public class HomeOwnerFoundServiceList extends Activity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new HomeOwnerFoundServiceList.CustomAdapter();
+        adapter = new HomeOwnerFoundServicesActivity.CustomAdapter();
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
@@ -88,7 +86,7 @@ public class HomeOwnerFoundServiceList extends Activity {
 
     public void returnToSearchServicesOnClick(View view) {
 
-        Intent intent = new Intent(this, HomeOwnerSearchServices.class);
+        Intent intent = new Intent(this, HomeOwnerSearchForServicesActivity.class);
         intent.putExtra(Util.USER_ID, userId);
 
         startActivity(intent);
@@ -96,7 +94,7 @@ public class HomeOwnerFoundServiceList extends Activity {
 
     public void bookOnClick(Service service){
 
-        Intent intent = new Intent(this, CreateBooking.class);
+        Intent intent = new Intent(this, HomeOwnerCreateBookingActivity.class);
         intent.putExtra(Util.SERVICE_ID, service.getId());
         intent.putExtra(Util.USER_ID, userId);
 

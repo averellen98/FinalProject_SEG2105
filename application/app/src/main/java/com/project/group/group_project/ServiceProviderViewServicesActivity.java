@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class SPViewServicesActivity extends Activity {
+public class ServiceProviderViewServicesActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
@@ -42,7 +42,7 @@ public class SPViewServicesActivity extends Activity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new SPViewServicesActivity.CustomAdapter();
+        adapter = new ServiceProviderViewServicesActivity.CustomAdapter();
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
@@ -107,7 +107,7 @@ public class SPViewServicesActivity extends Activity {
 
     public void onClickDone(View view) {
 
-        Intent intent = new Intent(this, ServiceProviderView.class);
+        Intent intent = new Intent(this, ServiceProviderMainActivity.class);
         intent.putExtra(Util.USER_ID, serviceProviderId);
         startActivity(intent);
     }

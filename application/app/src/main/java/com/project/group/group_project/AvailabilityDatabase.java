@@ -18,7 +18,7 @@ public class AvailabilityDatabase {
 
     private static final AvailabilityDatabase instance = new AvailabilityDatabase();
 
-    private static List<Availability> availabilities = new ArrayList<Availability>();
+    private static List<Availability> availabilityList = new ArrayList<Availability>();
 
     static {
 
@@ -26,7 +26,7 @@ public class AvailabilityDatabase {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                availabilities.clear();
+                availabilityList.clear();
 
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
 
@@ -42,7 +42,7 @@ public class AvailabilityDatabase {
 
                     Availability availability = new Availability(id, serviceProviderId, weekDay, startHour, startMinute, endHour, endMinute);
 
-                    availabilities.add(availability);
+                    availabilityList.add(availability);
                 }
             }
 
@@ -102,14 +102,14 @@ public class AvailabilityDatabase {
     }
 
     public List<Availability> getAvailabilities() {
-        return availabilities;
+        return availabilityList;
     }
 
     public List<Availability> getAvailabilitiesByServiceProvider(String serviceProviderId) {
 
         List<Availability> serviceProviderAvailabilities = new ArrayList<Availability>();
 
-        for (Availability availability: availabilities) {
+        for (Availability availability: availabilityList) {
 
             if (availability.getServiceProviderId().equals(serviceProviderId)) {
                 serviceProviderAvailabilities.add(availability);
@@ -121,7 +121,7 @@ public class AvailabilityDatabase {
 
     private Availability getAvailability(String serviceProviderId, Util.WeekDay weekDay) {
 
-        for (Availability availability: availabilities) {
+        for (Availability availability: availabilityList) {
 
             if (availability.getServiceProviderId().equals(serviceProviderId) && availability.getWeekDay().equals(weekDay)) {
                 return availability;
@@ -133,7 +133,7 @@ public class AvailabilityDatabase {
 
     private boolean isAvailabilityAlreadyInDatabase(Util.WeekDay weekDay, int startHour, int startMinute, int endHour, int endMinute) {
 
-        for (Availability availability: availabilities) {
+        for (Availability availability: availabilityList) {
 
             if (availability.getWeekDay().equals(weekDay) && availability.getStartHour() == startHour && availability.getStartMinute() == startMinute && availability.getEndHour() == endHour && availability.getEndMinute() == endMinute) {
                 return true;

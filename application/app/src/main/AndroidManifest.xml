@@ -20,40 +20,40 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".AdminView" />
-        <activity android:name=".HomeOwnerView" />
-        <activity android:name=".ServiceProviderView" />
-        <activity android:name=".UsersListView" />
+        <activity android:name=".HomeOwnerMainActivity" />
+        <activity android:name=".ServiceProviderMainActivity" />
+        <activity android:name=".AdminViewUsersActivity" />
         <activity
-            android:name=".ViewServicesActivity"
+            android:name=".AdminViewServicesActivity"
             android:label="@string/title_activity_view_services" />
         <activity
-            android:name=".CreateOrEditServiceActivity"
+            android:name=".AdminCreateOrEditServiceActivity"
             android:label="@string/title_activity_create_or_edit_service" />
-        <activity android:name=".CreateProfileSPActivity" />
+        <activity android:name=".CreateServiceProviderActivity" />
         <activity
-            android:name=".AvailabilityActivity"
+            android:name=".ServiceProviderAvailabilityActivity"
             android:label="@string/title_activity_availability" />
         <activity
-            android:name=".SPAvailableServiceActivity"
+            android:name=".ServiceProviderAvailableServiceActivity"
             android:label="@string/title_activity_spavailable_service" />
         <activity
-            android:name=".SPViewServicesActivity"
+            android:name=".ServiceProviderViewServicesActivity"
             android:label="@string/title_activity_spview_services" />
         <activity
-            android:name=".HomeOwnerSearchServices"
+            android:name=".HomeOwnerSearchForServicesActivity"
             android:label="@string/title_activity_home_owner_search_services" />
         <activity
-            android:name=".HomeOwnerBookings"
+            android:name=".HomeOwnerViewBookingsActivity"
             android:label="@string/title_activity_home_owner_bookings" />
         <activity
-            android:name=".HomeOwnerFoundServiceList"
+            android:name=".HomeOwnerFoundServicesActivity"
             android:label="@string/title_activity_home_owner_found_service_list" />
         <activity
-            android:name=".CreateBooking"
+            android:name=".HomeOwnerCreateBookingActivity"
             android:label="@string/title_activity_create_booking"></activity>
         <activity
-            android:name=".HomeOwnerServiceListForRating"/>
-        <activity android:name=".CreateServiceRating"/>
+            android:name=".HomeOwnerServiceListForRatingActivity"/>
+        <activity android:name=".CreateServiceRatingActivity"/>
     </application>
 
 </manifest>

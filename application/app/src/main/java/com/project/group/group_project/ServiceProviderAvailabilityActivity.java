@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class AvailabilityActivity extends Activity {
+public class ServiceProviderAvailabilityActivity extends Activity {
 
     private static final AvailabilityDatabase availabilityDatabase = AvailabilityDatabase.getInstance();
 
@@ -80,7 +80,7 @@ public class AvailabilityActivity extends Activity {
 
     public void cancelAvailabilitiesOnClick(View view) {
 
-        Intent intent = new Intent(this, ServiceProviderView.class);
+        Intent intent = new Intent(this, ServiceProviderMainActivity.class);
         intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);
@@ -171,7 +171,7 @@ public class AvailabilityActivity extends Activity {
             Toast.makeText(this, "Saturday start time is after end time, availability will not be updated for this day.", Toast.LENGTH_LONG).show();
         }
 
-        Intent intent = new Intent(this, ServiceProviderView.class);
+        Intent intent = new Intent(this, ServiceProviderMainActivity.class);
         intent.putExtra(Util.USER_ID, serviceProviderId);
         startActivity(intent);
     }

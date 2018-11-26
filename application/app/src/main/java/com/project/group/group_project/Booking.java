@@ -18,6 +18,8 @@ public class Booking {
     public Booking(String id, String homeOwnerId, String serviceId, String serviceProviderId, int startHour, int startMinute, int endHour, int endMinute, int day, int month, int year) {
 
         this.id = id;
+        this.serviceId = serviceId;
+        this.serviceProviderId = serviceProviderId;
         this.homeOwnerId = homeOwnerId;
         this.startHour = startHour;
         this.startMinute = startMinute;

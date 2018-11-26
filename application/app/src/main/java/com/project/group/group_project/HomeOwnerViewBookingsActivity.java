@@ -8,12 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class HomeOwnerBookings extends Activity {
+public class HomeOwnerViewBookingsActivity extends Activity {
     private static final BookingDatabase bookingDatabase = BookingDatabase.getInstance();
 
     private String userId;
@@ -39,7 +38,7 @@ public class HomeOwnerBookings extends Activity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new HomeOwnerBookings.CustomAdapter();
+        adapter = new HomeOwnerViewBookingsActivity.CustomAdapter();
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
@@ -103,7 +102,7 @@ public class HomeOwnerBookings extends Activity {
 
     public void onClickDone(View view) {
 
-        Intent intent = new Intent(this, HomeOwnerView.class);
+        Intent intent = new Intent(this, HomeOwnerMainActivity.class);
         intent.putExtra(Util.USER_ID, userId);
         startActivity(intent);
     }

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.os.Bundle;
 
 
-public class UsersListView extends AppCompatActivity {
+public class AdminViewUsersActivity extends AppCompatActivity {
 
     private UserDatabase userDatabase = UserDatabase.getInstance();
 

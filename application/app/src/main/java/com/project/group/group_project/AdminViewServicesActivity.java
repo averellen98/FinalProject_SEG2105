@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class ViewServicesActivity extends AppCompatActivity {
+public class AdminViewServicesActivity extends AppCompatActivity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
@@ -33,7 +33,7 @@ public class ViewServicesActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ViewServicesActivity.CustomAdapter();
+        adapter = new AdminViewServicesActivity.CustomAdapter();
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
@@ -75,7 +75,7 @@ public class ViewServicesActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     serviceDatabase.deleteService(service);
-                    Intent intent = new Intent(getApplicationContext(), ViewServicesActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), AdminViewServicesActivity.class);
                     startActivity(intent);
                 }
             });
@@ -89,7 +89,7 @@ public class ViewServicesActivity extends AppCompatActivity {
 
     private void doEdit(Service service) {
 
-        Intent intent = new Intent(this, CreateOrEditServiceActivity.class);
+        Intent intent = new Intent(this, AdminCreateOrEditServiceActivity.class);
         intent.putExtra(Util.SERVICE_NAME, service.getName());
         intent.putExtra(Util.SERVICE_DESCRIPTION, service.getDescription());
         intent.putExtra(Util.SERVICE_RATE, service.getRatePerHour());
@@ -126,7 +126,7 @@ public class ViewServicesActivity extends AppCompatActivity {
 
     public void onClickCreateService(View view) {
 
-        Intent intent = new Intent(this, CreateOrEditServiceActivity.class);
+        Intent intent = new Intent(this, AdminCreateOrEditServiceActivity.class);
         startActivity(intent);
     }
 }

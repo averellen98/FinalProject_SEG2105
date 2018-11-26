@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class ServiceProviderView extends AppCompatActivity {
+public class ServiceProviderMainActivity extends AppCompatActivity {
 
     private String serviceProviderId;
 
@@ -20,7 +20,7 @@ public class ServiceProviderView extends AppCompatActivity {
 
     public void viewAvailabilitiesOnClick(View view) {
 
-        Intent intent = new Intent(this, AvailabilityActivity.class);
+        Intent intent = new Intent(this, ServiceProviderAvailabilityActivity.class);
         intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);
@@ -28,7 +28,7 @@ public class ServiceProviderView extends AppCompatActivity {
 
     public void viewAvailableServicesOnClick(View view) {
 
-        Intent intent = new Intent(this, SPAvailableServiceActivity.class);
+        Intent intent = new Intent(this, ServiceProviderAvailableServiceActivity.class);
         intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);
@@ -36,7 +36,7 @@ public class ServiceProviderView extends AppCompatActivity {
 
     public void viewOfferedServicesOnClick(View view) {
 
-        Intent intent = new Intent(this, SPViewServicesActivity.class);
+        Intent intent = new Intent(this, ServiceProviderViewServicesActivity.class);
         intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);

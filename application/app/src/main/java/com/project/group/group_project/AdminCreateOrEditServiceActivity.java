@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CreateOrEditServiceActivity extends Activity {
+public class AdminCreateOrEditServiceActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
@@ -21,6 +21,7 @@ public class CreateOrEditServiceActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_or_edit_service);
 
@@ -67,7 +68,7 @@ public class CreateOrEditServiceActivity extends Activity {
                 if (isEdit) {
                     serviceDatabase.updateService(name, name, description, getRatePerHour(ratePerHourString));
 
-                    Intent intent = new Intent(this, ViewServicesActivity.class);
+                    Intent intent = new Intent(this, AdminViewServicesActivity.class);
 
                     startActivity(intent);
                 } else {
@@ -82,7 +83,7 @@ public class CreateOrEditServiceActivity extends Activity {
                     serviceDatabase.addService(name, description, getRatePerHour(ratePerHourString));
                 }
 
-                Intent intent = new Intent(this, ViewServicesActivity.class);
+                Intent intent = new Intent(this, AdminViewServicesActivity.class);
 
                 startActivity(intent);
             }

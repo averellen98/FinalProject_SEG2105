@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SPAvailableServiceActivity extends Activity {
+public class ServiceProviderAvailableServiceActivity extends Activity {
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
@@ -42,7 +42,7 @@ public class SPAvailableServiceActivity extends Activity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new SPAvailableServiceActivity.CustomAdapter();
+        adapter = new ServiceProviderAvailableServiceActivity.CustomAdapter();
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
@@ -128,7 +128,7 @@ public class SPAvailableServiceActivity extends Activity {
 
     public void onClickDone(View view) {
 
-        Intent intent = new Intent(this, ServiceProviderView.class);
+        Intent intent = new Intent(this, ServiceProviderMainActivity.class);
         intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);

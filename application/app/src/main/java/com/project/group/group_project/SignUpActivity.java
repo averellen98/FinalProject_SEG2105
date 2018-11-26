@@ -62,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (UserRole.getRoleByName(roleString).equals(UserRole.SERVICE_PROVIDER)) {
 
-                    Intent intent = new Intent(this, CreateProfileSPActivity.class);
+                    Intent intent = new Intent(this, CreateServiceProviderActivity.class);
                     intent.putExtra(Util.LAST_NAME, u_lastName);
                     intent.putExtra(Util.FIRST_NAME, u_firstName);
                     intent.putExtra(Util.PASSWORD, u_password);

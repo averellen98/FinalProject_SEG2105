@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -58,11 +57,11 @@ public class WelcomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AdminView.class);
             startActivity(intent);
         } else if (role.equals("Home Owner")){
-            Intent intent = new Intent(this, HomeOwnerView.class);
+            Intent intent = new Intent(this, HomeOwnerMainActivity.class);
             intent.putExtra(Util.USER_ID, userId);
             startActivity(intent);
         } else if (role.equals("Service Provider")){
-            Intent intent = new Intent(this, ServiceProviderView.class);
+            Intent intent = new Intent(this, ServiceProviderMainActivity.class);
             intent.putExtra(Util.USER_ID, userId);
             startActivity(intent);
         }

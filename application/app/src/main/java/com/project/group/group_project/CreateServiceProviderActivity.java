@@ -3,14 +3,13 @@ package com.project.group.group_project;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CreateProfileSPActivity extends Activity {
+public class CreateServiceProviderActivity extends Activity {
 
     private String username;
     private String password;
@@ -76,7 +75,7 @@ public class CreateProfileSPActivity extends Activity {
 
             User user = userDatabase.addServiceProvider(username, password, firstName, lastName, street, city, province, postalCode, phoneNumber, companyName, description, isLicensed);
 
-            Intent intent = new Intent(this, ServiceProviderView.class);
+            Intent intent = new Intent(this, ServiceProviderMainActivity.class);
             intent.putExtra(Util.USER_ID, user.getId());
 
             startActivity(intent);
