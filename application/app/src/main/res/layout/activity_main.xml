@@ -18,12 +18,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textviewmain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Hello! Welcome to Service Searcher."
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/logInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="logInOnClick"
             android:text="@string/logIn"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="148dp"
             tools:layout_editor_absoluteY="259dp" />
 
@@ -33,6 +44,7 @@
             android:layout_height="wrap_content"
             android:onClick="signUpOnClick"
             android:text="@string/signUp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="148dp"
             tools:layout_editor_absoluteY="314dp" />
     </LinearLayout>
