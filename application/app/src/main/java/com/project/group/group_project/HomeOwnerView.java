@@ -8,6 +8,7 @@ import android.view.View;
 public class HomeOwnerView extends AppCompatActivity {
 
     private String userId;
+    private BookingDatabase bkdb = BookingDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
