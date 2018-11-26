@@ -277,19 +277,19 @@ public class Util {
 
         Calendar currentDate = Calendar.getInstance();
 
-        if (currentDate.get(Calendar.YEAR) > year) {
+        if (currentDate.get(Calendar.YEAR) < year) {
 
             return true;
 
         } else if (currentDate.get(Calendar.YEAR) == year) {
 
-            if (currentDate.get(Calendar.MONTH) > month - 1) {
+            if (currentDate.get(Calendar.MONTH) < month) {
 
                 return true;
 
-            } else if (currentDate.get(Calendar.MONTH) == month - 1) {
+            } else if (currentDate.get(Calendar.MONTH) == month) {
 
-                if (currentDate.get(Calendar.DAY_OF_MONTH) > day) {
+                if (currentDate.get(Calendar.DAY_OF_MONTH) < day) {
                     return true;
                 }
             }
