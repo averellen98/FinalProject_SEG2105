@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class CreateBooking extends Activity {
@@ -16,6 +18,14 @@ public class CreateBooking extends Activity {
 
     private String serviceId;
     private String userId;
+
+    private TextView bookingStartHourText;
+    private TextView bookingStartMinuteText;
+    private TextView bookingEndHourText;
+    private TextView bookingEndMinuteText;
+    private TextView bookingDayText;
+    private TextView bookingMonthText;
+    private TextView bookingYearText;
 
     private List<Availability> serviceAvailabilities;
 
@@ -45,8 +55,44 @@ public class CreateBooking extends Activity {
     }
 
     public void createBookingOnClick(View view) {
+        bookingStartHourText = findViewById(R.id.bookingStartHourText);
+        bookingStartMinuteText = findViewById(R.id.bookingStartMinuteText);
+        bookingEndHourText = findViewById(R.id.bookingEndHourText);
+        bookingEndMinuteText = findViewById(R.id.bookingEndMinuteText);
+        bookingDayText = findViewById(R.id.bookingDayText);
+        bookingMonthText = findViewById(R.id.bookingMonthText);
+        bookingYearText = findViewById(R.id.bookingYearText);
+        boolean isValidBooking = validateComponents();
 
-        // TODO implement this
+        if (isValidBooking) {
+
+            String serviceProviderId = serviceDatabase.getSPIDByServiceID(serviceId);
+
+            if (serviceProviderId == null || serviceProviderId.isEmpty()){
+
+                Toast.makeText(this, "There is no service providers for this service. Sorry, try again.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, HomeOwnerSearchServices.class);
+                intent.putExtra(Util.USER_ID, userId);
+                startActivity(intent);
+
+            } else {
+
+                int startHour = Integer.parseInt(bookingStartHourText.getText().toString());
+                int startMinute = Integer.parseInt(bookingStartMinuteText.getText().toString());
+                int endHour = Integer.parseInt(bookingEndHourText.getText().toString());
+                int endMinute = Integer.parseInt(bookingEndMinuteText.getText().toString());
+                int day = Integer.parseInt(bookingDayText.getText().toString());
+                int month = Integer.parseInt(bookingMonthText.getText().toString());
+                int year = Integer.parseInt(bookingYearText.getText().toString());
+
+                bookingDatabase.addBooking(userId, serviceId, serviceProviderId, startHour, startMinute, endHour, endMinute, day, month, year);
+                Intent intent = new Intent(this, HomeOwnerBookings.class);
+                intent.putExtra(Util.USER_ID, userId);
+                startActivity(intent);
+
+            }
+        }
+
     }
 
     private boolean validateComponents() {
@@ -153,25 +199,25 @@ public class CreateBooking extends Activity {
                         availableSlotFound = true;
                     }
 
-                    if (availability.getEndHour() == endHH && availability.getEndMinute() > endMM) {
+                    if (availability.getEndHour() == endHH && availability.getEndMinute() >= endMM) {
                         availableSlotFound = true;
                     }
                 }
 
-                if (availability.getStartHour() == startHH && availability.getStartMinute() < startMM) {
+                if (availability.getStartHour() == startHH && availability.getStartMinute() <= startMM) {
 
                     if (availability.getEndHour() > endHH) {
                         availableSlotFound = true;
                     }
 
-                    if (availability.getEndHour() == endHH && availability.getEndMinute() > endMM) {
+                    if (availability.getEndHour() == endHH && availability.getEndMinute() >= endMM) {
                         availableSlotFound = true;
                     }
                 }
             }
         }
 
-        if (!availableSlotFound) {
+        if (availableSlotFound == false) {
             Toast.makeText(this, "There is not a service provider with that that time available, please enter a different time slot.", Toast.LENGTH_LONG).show();
             return false;
         }
