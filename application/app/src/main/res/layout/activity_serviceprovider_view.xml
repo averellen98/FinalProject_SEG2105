@@ -10,12 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical">
 
@@ -24,14 +24,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="You have 3 options:"
+            android:text="Hello Service Provider! Here are your options:"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/viewAvailableServicesButton"
-            android:layout_width="140dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="viewAvailableServicesOnClick"
             android:text="View Available Services"
@@ -39,7 +39,7 @@
 
         <Button
             android:id="@+id/viewServicesButton"
-            android:layout_width="140dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="viewOfferedServicesOnClick"
             android:text="View Your Offered Services"
@@ -47,18 +47,11 @@
 
         <Button
             android:id="@+id/viewAvailabilitiesButton"
-            android:layout_width="140dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="viewAvailabilitiesOnClick"
             android:text="View Your Availabilities"
             android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="vertical">
 
         <Button
             android:id="@+id/logOutButton"
@@ -66,8 +59,10 @@
             android:layout_height="wrap_content"
             android:onClick="logOutOfServicePOnClick"
             android:text="Log out"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="363dp" />
+
     </LinearLayout>
 
 </LinearLayout>
