@@ -63,13 +63,4 @@ public class Service {
     public String getId() {
         return id;
     }
-
-    public boolean isValidService(Service service){
-        if (service.getId() != "" && service.getRatePerHour() != 0 && service.getDescription() != "" && service.getName() != ""){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 }

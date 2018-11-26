@@ -55,6 +55,7 @@ public class CreateBooking extends Activity {
     }
 
     public void createBookingOnClick(View view) {
+
         bookingStartHourText = findViewById(R.id.bookingStartHourText);
         bookingStartMinuteText = findViewById(R.id.bookingStartMinuteText);
         bookingEndHourText = findViewById(R.id.bookingEndHourText);
@@ -68,31 +69,19 @@ public class CreateBooking extends Activity {
 
             String serviceProviderId = serviceDatabase.getSPIDByServiceID(serviceId);
 
-            if (serviceProviderId == null || serviceProviderId.isEmpty()){
+            int startHour = Integer.parseInt(bookingStartHourText.getText().toString());
+            int startMinute = Integer.parseInt(bookingStartMinuteText.getText().toString());
+            int endHour = Integer.parseInt(bookingEndHourText.getText().toString());
+            int endMinute = Integer.parseInt(bookingEndMinuteText.getText().toString());
+            int day = Integer.parseInt(bookingDayText.getText().toString());
+            int month = Integer.parseInt(bookingMonthText.getText().toString());
+            int year = Integer.parseInt(bookingYearText.getText().toString());
 
-                Toast.makeText(this, "There is no service providers for this service. Sorry, try again.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, HomeOwnerSearchServices.class);
-                intent.putExtra(Util.USER_ID, userId);
-                startActivity(intent);
-
-            } else {
-
-                int startHour = Integer.parseInt(bookingStartHourText.getText().toString());
-                int startMinute = Integer.parseInt(bookingStartMinuteText.getText().toString());
-                int endHour = Integer.parseInt(bookingEndHourText.getText().toString());
-                int endMinute = Integer.parseInt(bookingEndMinuteText.getText().toString());
-                int day = Integer.parseInt(bookingDayText.getText().toString());
-                int month = Integer.parseInt(bookingMonthText.getText().toString());
-                int year = Integer.parseInt(bookingYearText.getText().toString());
-
-                bookingDatabase.addBooking(userId, serviceId, serviceProviderId, startHour, startMinute, endHour, endMinute, day, month, year);
-                Intent intent = new Intent(this, HomeOwnerBookings.class);
-                intent.putExtra(Util.USER_ID, userId);
-                startActivity(intent);
-
-            }
+            bookingDatabase.addBooking(userId, serviceId, serviceProviderId, startHour, startMinute, endHour, endMinute, day, month, year);
+            Intent intent = new Intent(this, HomeOwnerBookings.class);
+            intent.putExtra(Util.USER_ID, userId);
+            startActivity(intent);
         }
-
     }
 
     private boolean validateComponents() {
