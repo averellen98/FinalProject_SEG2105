@@ -213,8 +213,13 @@ public class Util {
             return false;
         } else if (startHour == endHour && startMinute < endMinute) {
             return true;
+        } else if (startHour == endHour && startMinute > endMinute) {
+            return false;
+        } else if (endHour > startHour){
+            return true;
+        } else {
+            return true;
         }
-        return true;
     }
 
     public static boolean validateMonth(int month) {
