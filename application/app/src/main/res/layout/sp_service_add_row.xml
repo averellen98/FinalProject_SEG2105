@@ -23,7 +23,7 @@
 
         <Button
             android:id="@+id/addOrDeleteButton"
-            android:layout_width="200px"
+            android:layout_width="250px"
             android:layout_height="wrap_content"
             android:text="Add" />
     </LinearLayout>
