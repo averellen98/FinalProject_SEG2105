@@ -24,7 +24,7 @@ public class AdminViewUsersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_users_list);
+        setContentView(R.layout.activity_admin_users_list);
 
         recyclerView = findViewById(R.id.usersRecyclerView);
 
@@ -40,7 +40,7 @@ public class AdminViewUsersActivity extends AppCompatActivity {
 
     public void returnTOAdminViewOnClick(View view) {
 
-        Intent intent = new Intent(this, AdminView.class);
+        Intent intent = new Intent(this, AdminMainActivity.class);
 
         startActivity(intent);
     }

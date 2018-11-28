@@ -12,7 +12,7 @@ public class ServiceProviderMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_serviceprovider_view);
+        setContentView(R.layout.activity_sp_main);
 
         Intent intent = getIntent();
         serviceProviderId = intent.getStringExtra(Util.USER_ID);
@@ -36,7 +36,7 @@ public class ServiceProviderMainActivity extends AppCompatActivity {
 
     public void viewOfferedServicesOnClick(View view) {
 
-        Intent intent = new Intent(this, ServiceProviderViewServicesActivity.class);
+        Intent intent = new Intent(this, ServiceProviderViewOfferedServicesActivity.class);
         intent.putExtra(Util.USER_ID, serviceProviderId);
 
         startActivity(intent);

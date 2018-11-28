@@ -5,12 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#628fb6"
-    tools:context=".ViewServicesActivity">
+    tools:context=".SPAvailableServiceActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView54"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Currently Available Services"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/servicesRecyclerView"
@@ -20,28 +27,13 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/logOutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/createServiceButton"
-                android:layout_width="192dp"
-                android:layout_height="match_parent"
-                android:onClick="onClickCreateService"
-                android:text="@string/createService"
-                tools:layout_editor_absoluteY="567dp" />
-
-            <Button
-                android:id="@+id/backButton"
-                android:layout_width="129dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:onClick="returnToAdminViewOnClick"
-                android:text="Back" />
-
-        </LinearLayout>
+            android:onClick="onClickDone"
+            android:text="Done"
+            tools:layout_editor_absoluteY="567dp" />
 
     </LinearLayout>
 

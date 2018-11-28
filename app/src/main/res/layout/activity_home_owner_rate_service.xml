@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".HomeOwnerServiceListForRatingActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView51"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thank you for rating this service"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <TextView
             android:id="@+id/serviceNameView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comment" />
 
         <EditText
             android:id="@+id/ratingComment"
@@ -25,6 +40,12 @@
             android:hint="e.g. This service was amazing"
             android:inputType="textPersonName" />
 
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rating" />
+
         <EditText
             android:id="@+id/ratingRate"
             android:layout_width="match_parent"
@@ -33,14 +54,31 @@
             android:hint="e.g. 1, 2, 3, 4, 5"
             android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/confirmButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="confirmOnClick"
-            android:text="Confirm"
-            android:textStyle="bold" />
-
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="bottom|end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="confirmOnClick"
+            android:text="complete "
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="cancelOnClick"
+            android:text="@android:string/cancel" />
+    </LinearLayout>
+
+</LinearLayout>

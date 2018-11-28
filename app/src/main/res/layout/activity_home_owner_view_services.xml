@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#628fb6"
-    tools:context=".HomeOwnerViewBookingsActivity">
+    android:orientation="vertical"
+    tools:context=".HomeOwnerServiceListForRating">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView47"
+            android:id="@+id/textView52"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Current Bookings"
+            android:text="Services available to rate:"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/bookingsRecyclerView"
+            android:id="@+id/servicesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
         </android.support.v7.widget.RecyclerView>
 
-        <Button
-            android:id="@+id/logOutButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClickDone"
-            android:text="Done"
-            tools:layout_editor_absoluteY="567dp" />
-
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="backOnClick"
+            android:text="Back" />
+    </LinearLayout>
+
+</LinearLayout>

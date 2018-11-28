@@ -90,6 +90,13 @@ public class AdminCreateOrEditServiceActivity extends Activity {
         }
     }
 
+    public void cancelOnClick(View view) {
+
+        Intent intent = new Intent(this, AdminMainActivity.class);
+
+        startActivity(intent);
+    }
+
     private int getRatePerHour(String string) {
 
         Double doubleVal = Double.parseDouble(string);

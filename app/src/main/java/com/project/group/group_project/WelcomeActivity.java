@@ -54,7 +54,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Toast.makeText(this, role,Toast.LENGTH_SHORT).show();
 
         if (role.equals("Admin")){
-            Intent intent = new Intent(this, AdminView.class);
+            Intent intent = new Intent(this, AdminMainActivity.class);
             startActivity(intent);
         } else if (role.equals("Home Owner")){
             Intent intent = new Intent(this, HomeOwnerMainActivity.class);

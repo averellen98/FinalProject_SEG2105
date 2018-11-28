@@ -29,7 +29,7 @@ public class ServiceProviderAvailableServiceActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spavailable_service);
+        setContentView(R.layout.activity_sp_available_service);
 
         Intent intent = getIntent();
         serviceProviderId = intent.getStringExtra(Util.USER_ID);

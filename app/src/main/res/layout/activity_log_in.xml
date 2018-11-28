@@ -46,6 +46,13 @@
             android:layout_height="wrap_content"
             android:onClick="logInOnClick"
             android:text="@string/logIn" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cancelOnClick"
+            android:text="cancel" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

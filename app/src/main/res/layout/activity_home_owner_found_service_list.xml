@@ -12,6 +12,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Service Search Results"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/servicesRecyclerView"
             android:layout_width="match_parent"

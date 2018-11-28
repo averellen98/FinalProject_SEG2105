@@ -16,6 +16,8 @@ public class HomeOwnerServiceListForRatingActivity extends Activity{
 
     private static final ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
+    private String userId;
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -24,8 +26,10 @@ public class HomeOwnerServiceListForRatingActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.h_o_view_services);
-        Toast.makeText(this, "size: " + serviceDatabase.getAllServices().size(), Toast.LENGTH_SHORT).show();
+        setContentView(R.layout.activity_home_owner_view_services);
+
+        Intent intent = getIntent();
+        userId = intent.getStringExtra(Util.USER_ID);
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
@@ -38,6 +42,14 @@ public class HomeOwnerServiceListForRatingActivity extends Activity{
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
+    }
+
+    public void backOnClick(View view) {
+
+        Intent intent = new Intent(this, HomeOwnerMainActivity.class);
+        intent.putExtra(Util.USER_ID, userId);
+
+        startActivity(intent);
     }
 
     private class CustomAdapter extends RecyclerView.Adapter<HomeOwnerRateServiceViewHolder> {
@@ -74,8 +86,9 @@ public class HomeOwnerServiceListForRatingActivity extends Activity{
 
     private void doRate(Service service) {
 
-        Intent intent = new Intent(this, CreateServiceRatingActivity.class);
+        Intent intent = new Intent(this, HomeOwnerCreateServiceRatingActivity.class);
         intent.putExtra(Util.SERVICE_ID, service.getId());
+        intent.putExtra(Util.USER_ID, userId);
 
         startActivity(intent);
     }

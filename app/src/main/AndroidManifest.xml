@@ -19,7 +19,7 @@
         <activity android:name=".LogInActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".AdminView" />
+        <activity android:name=".AdminMainActivity" />
         <activity android:name=".HomeOwnerMainActivity" />
         <activity android:name=".ServiceProviderMainActivity" />
         <activity android:name=".AdminViewUsersActivity" />
@@ -37,7 +37,7 @@
             android:name=".ServiceProviderAvailableServiceActivity"
             android:label="@string/title_activity_spavailable_service" />
         <activity
-            android:name=".ServiceProviderViewServicesActivity"
+            android:name=".ServiceProviderViewOfferedServicesActivity"
             android:label="@string/title_activity_spview_services" />
         <activity
             android:name=".HomeOwnerSearchForServicesActivity"
@@ -53,7 +53,7 @@
             android:label="@string/title_activity_create_booking"></activity>
         <activity
             android:name=".HomeOwnerServiceListForRatingActivity"/>
-        <activity android:name=".CreateServiceRatingActivity"/>
+        <activity android:name=".HomeOwnerCreateServiceRatingActivity"/>
     </application>
 
 </manifest>

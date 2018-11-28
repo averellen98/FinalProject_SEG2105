@@ -13,7 +13,6 @@ public class CreateServiceProviderActivity extends Activity {
 
     private String username;
     private String password;
-    private UserRole role;
     private String firstName;
     private String lastName;
 
@@ -29,14 +28,11 @@ public class CreateServiceProviderActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_serviceprovider_profile);
-
-
+        setContentView(R.layout.activity_sp_create_profile);
 
         Intent intent = getIntent();
         username = intent.getStringExtra(Util.USERNAME);
         password = intent.getStringExtra(Util.PASSWORD);
-        role = UserRole.getRoleByName(intent.getStringExtra(Util.ROLE));
         firstName = intent.getStringExtra(Util.FIRST_NAME);
         lastName = intent.getStringExtra(Util.LAST_NAME);
 
@@ -80,6 +76,12 @@ public class CreateServiceProviderActivity extends Activity {
 
             startActivity(intent);
         }
+    }
+
+    public void cancelOnClick(View view) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private String getRoleFromRadioButtonId(int id) {

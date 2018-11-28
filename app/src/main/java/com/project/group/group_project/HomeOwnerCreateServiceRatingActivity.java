@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CreateServiceRatingActivity extends Activity {
+public class HomeOwnerCreateServiceRatingActivity extends Activity {
 
     private ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
     private RatingDatabase ratingDatabase = RatingDatabase.getInstance();
+
+    private String userId;
 
     private String serviceID;
     private Service serviceToBeRated;
@@ -27,6 +29,7 @@ public class CreateServiceRatingActivity extends Activity {
 
         Intent intent = getIntent();
         serviceID = intent.getStringExtra(Util.SERVICE_ID);
+        userId = intent.getStringExtra(Util.USER_ID);
 
         serviceToBeRated = serviceDatabase.getServiceById(serviceID);
 
@@ -53,6 +56,14 @@ public class CreateServiceRatingActivity extends Activity {
             Intent intent = new Intent(this, HomeOwnerServiceListForRatingActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void cancelOnClick(View view) {
+
+        Intent intent = new Intent(this, HomeOwnerServiceListForRatingActivity.class);
+        intent.putExtra(Util.USER_ID, userId);
+
+        startActivity(intent);
     }
 
     private boolean isRatingValid(String serviceComment, String serviceRate){

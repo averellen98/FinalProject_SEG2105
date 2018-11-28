@@ -23,7 +23,6 @@ public class LogInActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordText);
     }
 
-
     public void logInOnClick(View view) {
 
         User user;
@@ -50,5 +49,11 @@ public class LogInActivity extends AppCompatActivity {
             username.setText("");
             password.setText("");
         }
+    }
+
+    public void cancelOnClick(View view) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

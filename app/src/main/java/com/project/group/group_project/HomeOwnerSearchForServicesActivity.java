@@ -16,10 +16,9 @@ public class HomeOwnerSearchForServicesActivity extends Activity {
 
     private String userId;
 
-    private String searchByType;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_owner_search_services);
 
@@ -50,15 +49,14 @@ public class HomeOwnerSearchForServicesActivity extends Activity {
 
             startActivity(intent);
         }
+    }
 
-        // if none of the fields are filled, show all services that are currently offered
+    public void cancelOnClick(View view) {
 
-        // if a field is empty, ignore it, otherwise search using the AND operator.
-        // first field is serviceName, second fields needs some magic, and third field needs some as well.
+        Intent intent = new Intent(this, HomeOwnerMainActivity.class);
+        intent.putExtra(Util.USER_ID, userId);
 
-        // for second fields: Find ServiceProvider with hours within the boundary hours, then use the services they provide.
-
-        // for third field: gather all the ratings for the service, then calculate the average. If the average (as an int) is the same then return this service.
+        startActivity(intent);
     }
 
     private boolean validateComponents() {
