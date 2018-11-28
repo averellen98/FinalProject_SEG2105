@@ -52,13 +52,13 @@ public class ApplicationTesting {
         String name = null;
         String description = "Clean your whole house for a small price.";
         int ratePerHour = 2;
-        String id = "1K2NS390820102";
+        String id = "serviceTestID";
         Service service = new Service(id,name,description,ratePerHour, 0);
         ServiceTestDatabase serviceTestDatabase = new ServiceTestDatabase();
 
         boolean result = serviceTestDatabase.isValidService(service);
 
-        assertNotEquals(false, result);
+        assertEquals(false, result);
     }
 
     @Test
