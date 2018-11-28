@@ -397,6 +397,15 @@ public class ServiceTestDatabase {
         return serviceIdToReturn;
     }
 
+    public boolean isValidService(Service service){
+        if (service.getName() != null && service.getId() != null){
+            if (!serviceList.contains(service)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Service> getAllServices() {
 
         return serviceList;
