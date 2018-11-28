@@ -99,6 +99,17 @@ public class UserTestDatabase {
         return null;
     }
 
+    public boolean canBeAdmin(Admin admin){
+        if (admin.getUsername() != null && admin.getId() != null){
+            for (User user: users){
+                if (user.getRole() == UserRole.ADMIN){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private static User createUser(String id, String username, String password, UserRole role, String firstName, String lastName) {
 
         User user = null;
