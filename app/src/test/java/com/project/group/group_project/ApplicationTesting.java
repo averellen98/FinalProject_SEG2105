@@ -58,7 +58,7 @@ public class ApplicationTesting {
 
         boolean result = serviceTestDatabase.isValidService(service);
 
-        assertNotEquals(false, result);
+        assertEquals(false, result);
     }
 
     @Test
