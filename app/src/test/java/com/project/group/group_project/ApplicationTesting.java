@@ -28,7 +28,7 @@ public class ApplicationTesting {
         String description = "Clean your whole house for a small price.";
         int ratePerHour = 2;
         String id = "1K2NS390820102";
-        Service service = new Service(id,name,description,ratePerHour);
+        Service service = new Service(id,name,description,ratePerHour, 0);
 
         assertNotNull(service);
     }
@@ -39,9 +39,10 @@ public class ApplicationTesting {
         String description = "Clean your whole house for a small price.";
         int ratePerHour = 2;
         String id = "1K2NS390820102";
-        Service service = new Service(id,name,description,ratePerHour);
+        Service service = new Service(id,name,description,ratePerHour, 0);
+        ServiceTestDatabase serviceTestDatabase = new ServiceTestDatabase();
 
-        boolean result = service.isValidService(service);
+        boolean result = serviceTestDatabase.isValidService(service);
 
         assertTrue(result);
     }
@@ -52,9 +53,10 @@ public class ApplicationTesting {
         String description = "Clean your whole house for a small price.";
         int ratePerHour = 2;
         String id = "1K2NS390820102";
-        Service service = new Service(id,name,description,ratePerHour);
+        Service service = new Service(id,name,description,ratePerHour, 0);
+        ServiceTestDatabase serviceTestDatabase = new ServiceTestDatabase();
 
-        boolean result = service.isValidService(service);
+        boolean result = serviceTestDatabase.isValidService(service);
 
         assertNotEquals(false, result);
     }
@@ -66,7 +68,9 @@ public class ApplicationTesting {
         String password = "admin";
         UserRole role = UserRole.getRoleByName("ADMIN");
         Admin admin = new Admin(id, username, password, role);
-        boolean result = admin.canBeAdmin(username, password, role);
+        UserTestDatabase userTestDatabase = new UserTestDatabase();
+
+        boolean result = userTestDatabase.canBeAdmin(admin);
 
         assertEquals(false, result);
     }
