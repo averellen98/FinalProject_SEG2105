@@ -32,7 +32,7 @@
             android:id="@+id/backButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="returnToSearchServicesOnClick"
+            android:onClick="backOnClick"
             android:text="Back" />
 
     </LinearLayout>
