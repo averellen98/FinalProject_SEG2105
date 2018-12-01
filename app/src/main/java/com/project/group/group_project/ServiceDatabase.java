@@ -228,9 +228,9 @@ public class ServiceDatabase {
      * @param rating if -1 don't use in query.
      * @return
      */
-    public List<Service> queryDatabaseForHomeOwner(String serviceName, int startHour, int endHour, int rating) {
+    public Set<Service> queryDatabaseForHomeOwner(String serviceName, int startHour, int endHour, int rating) {
 
-        List<Service> currentlyOfferedServices = getAllCurrentlyOfferedServices();
+        Set<Service> currentlyOfferedServices = getAllCurrentlyOfferedServices();
 
         if (serviceName == null) {
 
@@ -320,7 +320,7 @@ public class ServiceDatabase {
         return getServicesWithEndHour(currentlyOfferedServices, endHour);
     }
 
-    private List<Service> getServicesContainingName(Collection<Service> services, String name) {
+    private Set<Service> getServicesContainingName(Collection<Service> services, String name) {
 
         List<Service> list = new ArrayList<>();
 
@@ -333,10 +333,13 @@ public class ServiceDatabase {
             }
         }
 
-        return list;
+        Set<Service> set = new HashSet<>();
+        set.addAll(list);
+
+        return set;
     }
 
-    private List<Service> getServicesWithRating(Collection<Service> services, int rating) {
+    private Set<Service> getServicesWithRating(Collection<Service> services, int rating) {
 
         List<Service> listToReturn = new ArrayList<Service>();
 
@@ -347,10 +350,14 @@ public class ServiceDatabase {
             }
         }
 
-        return listToReturn;
+        Set<Service> set = new HashSet<>();
+        set.addAll(listToReturn);
+
+        return set;
+
     }
 
-    private List<Service> getServicesWithEndHour(Collection<Service> services, int endHour) {
+    private Set<Service> getServicesWithEndHour(Collection<Service> services, int endHour) {
 
         Set<Service> listToReturn = new HashSet<>();
 
@@ -377,10 +384,14 @@ public class ServiceDatabase {
         List<Service> list = new ArrayList<>();
         list.addAll(listToReturn);
 
-        return list;
+        Set<Service> set = new HashSet<>();
+        set.addAll(listToReturn);
+
+        return set;
+
     }
 
-    private List<Service> getServicesWithStartHour(Collection<Service> services, int startHour) {
+    private Set<Service> getServicesWithStartHour(Collection<Service> services, int startHour) {
 
         Set<Service> listToReturn = new HashSet<>();
 
@@ -404,13 +415,11 @@ public class ServiceDatabase {
             }
         }
 
-        List<Service> list = new ArrayList<>();
-        list.addAll(listToReturn);
 
-        return list;
+        return listToReturn;
     }
 
-    private List<Service> getAllCurrentlyOfferedServices() {
+    private Set<Service> getAllCurrentlyOfferedServices() {
 
         List<Service> offered = new ArrayList<Service>();
 
@@ -424,7 +433,10 @@ public class ServiceDatabase {
             }
         }
 
-        return offered;
+        Set<Service> set = new HashSet<>();
+        set.addAll(offered);
+
+        return set;
     }
 
     public boolean deleteService(Service service) {
@@ -471,6 +483,21 @@ public class ServiceDatabase {
         }
 
         return serviceIdToReturn;
+    }
+
+    public List<String> getAllSPIDByServiceId(String serviceId){
+        List<String> allServiceProvidersToReturn = new ArrayList<>();
+
+        for (ServiceAndProviderTuple serviceAndProviderTuple: serviceAndProviderTuples) {
+
+            if (serviceAndProviderTuple.getServiceId().equals(serviceId)) {
+                ServiceAndProviderTuple tupleToReturn = serviceAndProviderTuple;
+                String spIdToAdd = tupleToReturn.getSPId();
+                allServiceProvidersToReturn.add(spIdToAdd);
+            }
+        }
+
+        return allServiceProvidersToReturn;
     }
 
     public List<Service> getAllServices() {
