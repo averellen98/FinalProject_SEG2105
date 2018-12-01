@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -37,7 +38,8 @@ public class HomeOwnerFoundServicesActivity extends Activity {
         int searchEndHour = intent.getIntExtra(Util.SEARCH_END_HOUR, -1);
         int searchRating = intent.getIntExtra(Util.SEARCH_RATING, -1);
 
-        foundServices = serviceDatabase.queryDatabaseForHomeOwner(searchName, searchStartHour, searchEndHour, searchRating);
+        foundServices = new ArrayList<>();
+        foundServices.addAll(serviceDatabase.queryDatabaseForHomeOwner(searchName, searchStartHour, searchEndHour, searchRating));
 
         recyclerView = findViewById(R.id.servicesRecyclerView);
 
