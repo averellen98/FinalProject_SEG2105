@@ -8,6 +8,7 @@ import android.view.View;
 public class ServiceProviderMainActivity extends AppCompatActivity {
 
     private String serviceProviderId;
+    private ServiceDatabase serviceDatabase = ServiceDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
