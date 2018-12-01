@@ -44,17 +44,16 @@ public class HomeOwnerViewBookingsActivity extends Activity {
         recyclerView.setAdapter(adapter);
     }
 
-    private String buildServiceView(int index) {
+    private String buildBookingView(Booking booking, String firstName, String lastName) {
 
         StringBuilder sb = new StringBuilder();
 
         String n = "\r\n";
 
-        Booking booking = homeOwnerBookings.get(index);
-
         sb.append("Start: " + booking.getStartHour() + ":" + booking.getStartMinute() + n);
         sb.append("End: " + booking.getEndHour() + ":" + booking.getEndMinute() + n);
         sb.append("Date: " + booking.getMonth() + ". " + booking.getDay() + ", " + booking.getYear() + n);
+        sb.append("Service Provider: " + firstName + " " + lastName);
 
         return sb.toString();
     }
@@ -75,7 +74,9 @@ public class HomeOwnerViewBookingsActivity extends Activity {
 
             final Booking booking = homeOwnerBookings.get(position);
 
-            viewHolder.getTextView().setText(buildServiceView(position));
+            User user = UserDatabase.getInstance().getUserById(booking.getServiceProviderId());
+
+            viewHolder.getTextView().setText(buildBookingView(booking, user.getFirstName(), user.getLastName()));
 
         }
 
