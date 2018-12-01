@@ -110,7 +110,7 @@ public class HomeOwnerCreateBookingActivity extends Activity {
             }
         }
     }
-    //TODO I am not sure what is going wrong here, sometimes it works and sometimes it doesn't
+    //TODO fix this
     private boolean openBookingTime(String serviceProviderId){
 
         boolean isAvailable = false;
