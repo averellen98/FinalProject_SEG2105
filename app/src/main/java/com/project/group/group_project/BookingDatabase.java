@@ -95,4 +95,9 @@ public class BookingDatabase {
 
         return null;
     }
+
+    public List<Booking> getBookingList(){
+        return bookingList;
+    }
+
 }
