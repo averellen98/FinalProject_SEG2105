@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeOwnerCreateBookingActivity extends Activity {
@@ -26,6 +27,8 @@ public class HomeOwnerCreateBookingActivity extends Activity {
     private TextView bookingYearText;
 
     private List<Availability> serviceAvailabilities;
+    private List<Booking> bookings;
+    private List<String> availableSp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class HomeOwnerCreateBookingActivity extends Activity {
         bookingYearText = findViewById(R.id.bookingYearText);
 
         serviceAvailabilities = serviceDatabase.getAvailabilitiesForService(serviceId);
+        bookings = bookingDatabase.getBookingList();
 
         String availabilityString = Util.buildAvailabilityString(serviceAvailabilities);
 
@@ -64,23 +68,121 @@ public class HomeOwnerCreateBookingActivity extends Activity {
 
         boolean isValidBooking = validateComponents();
 
+        List<String> serviceProviders = serviceDatabase.getAllSPIDByServiceId(serviceId);
+        String serviceProviderId = null;
+
         if (isValidBooking) {
+            int x = 0;
+            for (String sp: serviceProviders){
 
-            String serviceProviderId = serviceDatabase.getSPIDByServiceID(serviceId);
+                boolean isOpenBooking = openBookingTime(sp);
 
-            int startHour = Integer.parseInt(bookingStartHourText.getText().toString());
-            int startMinute = Integer.parseInt(bookingStartMinuteText.getText().toString());
-            int endHour = Integer.parseInt(bookingEndHourText.getText().toString());
-            int endMinute = Integer.parseInt(bookingEndMinuteText.getText().toString());
-            int day = Integer.parseInt(bookingDayText.getText().toString());
-            int month = Integer.parseInt(bookingMonthText.getText().toString());
-            int year = Integer.parseInt(bookingYearText.getText().toString());
+                if (isOpenBooking){
+                    serviceProviderId = sp;
+                    break;
+                } else {
+                    x++;
+                }
+            }
+            if (x == serviceProviders.size()-1){
+                Toast.makeText(this, "Sorry this time is not available, please try again.", Toast.LENGTH_SHORT).show();
+                bookingStartHourText.setText("");
+                bookingStartMinuteText.setText("");
+                bookingEndHourText.setText("");
+                bookingEndMinuteText.setText("");
+                bookingDayText.setText("");
+                bookingMonthText.setText("");
+                bookingYearText.setText("");
+            } else {
+                //Toast.makeText(this, "." +x, Toast.LENGTH_SHORT).show();
+                int startHour = Integer.parseInt(bookingStartHourText.getText().toString());
+                int startMinute = Integer.parseInt(bookingStartMinuteText.getText().toString());
+                int endHour = Integer.parseInt(bookingEndHourText.getText().toString());
+                int endMinute = Integer.parseInt(bookingEndMinuteText.getText().toString());
+                int day = Integer.parseInt(bookingDayText.getText().toString());
+                int month = Integer.parseInt(bookingMonthText.getText().toString());
+                int year = Integer.parseInt(bookingYearText.getText().toString());
 
-            bookingDatabase.addBooking(userId, serviceId, serviceProviderId, startHour, startMinute, endHour, endMinute, day, month, year);
-            Intent intent = new Intent(this, HomeOwnerViewBookingsActivity.class);
-            intent.putExtra(Util.USER_ID, userId);
-            startActivity(intent);
+                bookingDatabase.addBooking(userId, serviceId, serviceProviderId, startHour, startMinute, endHour, endMinute, day, month, year);
+                Intent intent = new Intent(this, HomeOwnerViewBookingsActivity.class);
+                intent.putExtra(Util.USER_ID, userId);
+                startActivity(intent);
+            }
         }
+    }
+    //TODO I am not sure what is going wrong here, sometimes it works and sometimes it doesn't
+    private boolean openBookingTime(String serviceProviderId){
+
+        boolean isAvailable = false;
+
+        int startHour = Integer.parseInt(bookingStartHourText.getText().toString());
+        int startMinute = Integer.parseInt(bookingStartMinuteText.getText().toString());
+        int endHour = Integer.parseInt(bookingEndHourText.getText().toString());
+        int endMinute = Integer.parseInt(bookingEndMinuteText.getText().toString());
+        int day = Integer.parseInt(bookingDayText.getText().toString());
+        int month = Integer.parseInt(bookingMonthText.getText().toString());
+        int year = Integer.parseInt(bookingYearText.getText().toString());
+
+        for (Booking booking : bookings) {
+            if (booking.getServiceProviderId().equals(serviceProviderId)){
+                if (booking.getDay() == day && booking.getMonth() == month && booking.getYear() == year) {
+                    //booking is for an exact time already existing
+                    if (booking.getStartHour() == startHour && booking.getStartMinute() == startMinute && booking.getEndHour() == endHour && booking.getEndMinute() == endMinute) {
+                        isAvailable = false;
+                    }
+
+                    //start hour of new booking is the same as existing booking
+                    if (booking.getStartHour() == startHour) {
+                        if (booking.getStartMinute() < startMinute) {
+                            if (booking.getEndHour() == startHour) {
+                                if (booking.getEndMinute() <= startMinute) {
+                                    isAvailable = true;
+                                }
+                            }
+                        }
+                        if (startMinute < booking.getStartMinute()) {
+                            if (endHour == booking.getStartHour()) {
+                                if (endMinute <= booking.getStartMinute()) {
+                                    isAvailable = true;
+                                }
+                            }
+                        }
+                    }
+                    //start hour of existing booking is less than new booking
+                    if (booking.getStartHour() < startHour) {
+                        if (booking.getEndHour() < startHour) {
+                            isAvailable = true;
+                        }
+                        if (booking.getEndHour() == startHour) {
+                            if (booking.getEndMinute() <= startMinute) {
+                                isAvailable = true;
+                            }
+                        }
+                    }
+                    //start hour of new booking is less than existing booking
+                    if (startHour < booking.getStartHour()) {
+                        if (endHour < booking.getStartHour()) {
+                            isAvailable = true;
+                        }
+                        if (endHour == booking.getStartHour()) {
+                            if (endMinute <= booking.getStartMinute()) {
+                                isAvailable = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        if (isAvailable == false) {
+            Toast.makeText(this, "There is not a service provider with that availability, please enter a different time slot.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
+
+
     }
 
     private boolean validateComponents() {
